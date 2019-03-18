@@ -1,21 +1,25 @@
 {
-  "name": "pwa-complete-guide",
+  "name": "BrinqueCoinApp",
   "version": "1.0.0",
-  "description": "A complete guide to PWAs. Building a simple Instagram clone.",
+  "description": "As moedas da brincadeira",
   "main": "index.js",
   "scripts": {
     "start": "http-server -c-1"
   },
   "keywords": [
-    "pwa",
-    "progressive",
+    "brinquecoin",
+    "gamification",
+    "gamificação",
+    "filhos",
+    "quadro de tarefas",
+    "quadro de mesada",
+    "quadro de férias",
     "web",
     "app",
-    "complete",
-    "tutorial"
+    "pwa"
   ],
-  "author": "Maximilian Schwarzmüller",
-  "license": "ISC",
+  "author": "João Paulo Novais",
+  "license": "GPL V3",
   "devDependencies": {
     "http-server": "^0.10.0"
   }
