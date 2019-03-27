@@ -1,4 +1,4 @@
-#create-post {
+.formulario {
   z-index: 1001;
   position: fixed;
   width: 100%;
@@ -11,21 +11,37 @@
   display: none;
 }
 
-.main-image {
+.imagem-principal {
   max-width: 100%;
   margin: auto;
   display: block;
 }
 
-.floating-button {
+.botao-flutuante {
   z-index: 1000;
   position: fixed;
   bottom: 0;
-  right: 0;
+  right: 0px;
   padding: 30px;
 }
 
 .input-section {
   display: block;
   margin: 10px auto;
+}
+
+.quadro.mdl-card {
+  margin: 10px auto;
+}
+.mdl-card__actions {
+  display: flex;
+  box-sizing:border-box;
+  align-items: center;
+}
+.mdl-card__actions > .mdl-button--icon {
+  margin-right: 3px;
+  margin-left: 3px;
+}
+.content-grid {
+  max-width: 960px;
 }

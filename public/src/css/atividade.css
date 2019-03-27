@@ -1,0 +1,10 @@
+.imagem-principal {
+    max-width: 100%;
+    margin: auto;
+    display: block;
+  }
+.dia.mdl-card {
+    margin: 1px auto;
+    min-height: 50px;
+  }
+  
