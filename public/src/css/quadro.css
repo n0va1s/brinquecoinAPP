@@ -33,15 +33,23 @@
 .quadro.mdl-card {
   margin: 10px auto;
 }
+
+.dia.mdl-card {
+  margin: 1px auto;
+  min-height: 50px;
+}
+
 .mdl-card__actions {
   display: flex;
   box-sizing:border-box;
   align-items: center;
 }
+
 .mdl-card__actions > .mdl-button--icon {
   margin-right: 3px;
   margin-left: 3px;
 }
+
 .content-grid {
   max-width: 960px;
 }

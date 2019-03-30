@@ -4,7 +4,10 @@
   "description": "As moedas da brincadeira",
   "main": "index.js",
   "scripts": {
-    "start": "http-server -c-1"
+    "start": "http-server -c-1",
+    "config-sw": "workbox wizard",
+    "generate-sw": "workbox generateSW",
+    "inject-sw": "workbox injectManifest"
   },
   "keywords": [
     "brinquecoin",
@@ -21,6 +24,7 @@
   "author": "João Paulo Novais",
   "license": "GPL V3",
   "devDependencies": {
-    "http-server": "^0.10.0"
+    "http-server": "^0.10.0",
+    "workbox-cli": "^4.1.1"
   }
 }
