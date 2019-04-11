@@ -59,12 +59,8 @@ function criarCartaoQuadro() {
   divGrid.appendChild(divIdade);
   var divData = document.createElement('div');
   divData.className = 'mdl-cell mdl-cell--5-col mdl-cell--4-col-tablet mdl-cell--2-col-phone';
-  divData.textContent = '10/10/2019';
+  divData.textContent = 'Semana 31';
   divGrid.appendChild(divData);
-  var divRecompensa = document.createElement('div')
-  divRecompensa.className = 'mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone';
-  divRecompensa.textContent = 'Andar de bicicleta no Eixão do Lazer no domingo';
-  divGrid.appendChild(divRecompensa);
   cartao.appendChild(divGrid);
   var divAcao = document.createElement('div')
   divAcao.className = 'mdl-card__actions mdl-card--border';

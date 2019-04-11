@@ -1,9 +1,25 @@
 
-importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.1.1/workbox-sw.js");
+importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.2.0/workbox-sw.js");
 
-const workboxSW = new self.WorkboxSW();
+workbox.routing.registerRoute(
+    /.*(?:googleapis|gstatic)\.com.*$/, 
+    new workbox.strategies.StaleWhileRevalidate({
+      cacheName: 'google-fonts',
+      cacheExpiration: {
+        maxEntries: 3,
+        maxAgeSeconds: 60 * 60 * 24 * 30
+      }
+  })
+);
+  
+workbox.routing.registerRoute(
+    'https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.indigo-pink.min.css', 
+    new workbox.strategies.StaleWhileRevalidate({
+      cacheName: 'material-css'
+    })
+);
 
-workboxSW.precacheAndRoute([
+workbox.precaching.precacheAndRoute([
   {
     "url": "contato/index.html",
     "revision": "8cfab145d9db7ad2ee4517aa77d599dd"
@@ -146,7 +162,7 @@ workboxSW.precacheAndRoute([
   },
   {
     "url": "sw-base.js",
-    "revision": "03b0b550d794915f9f94f94da85fa7cb"
+    "revision": "fdf35cc89eb4dbc2313917a235996bba"
   },
   {
     "url": "src/images/main-image-lg.jpg",
@@ -165,4 +181,3 @@ workboxSW.precacheAndRoute([
     "revision": "f91b1894dc1ee5e5cfeffe349e063729"
   }
 ]);
-
