@@ -4,7 +4,7 @@
 
 @section('conteudo')
   <div class="container">
-    <h3 class="center">Acesse seus quadros</h3>
+    <h3 class="center">Acesse</h3>
     <div class="row">
       <div class="col s12 m6">
         <form action="{{route('site.login.entrar')}}" method="post">
@@ -17,7 +17,7 @@
 
           <div class="input-field">
             <label>Senha</label>
-            <input type="password" name="senha">          
+            <input type="password" name="senha">
           </div>
 
           <button class="btn deep-orange">Entrar</button>
