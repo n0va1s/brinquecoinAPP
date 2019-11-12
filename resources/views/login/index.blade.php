@@ -3,26 +3,45 @@
 @section('titulo','Cursos')
 
 @section('conteudo')
-  <div class="container">
-    <h3 class="center">Acesse</h3>
-    <div class="row">
-      <div class="col s12 m6">
-        <form action="{{route('site.login.entrar')}}" method="post">
-          {{ csrf_field() }}
+  <div class="section"></div>
+  <main>
+    <center>
+      <h3>Acesse</h3>
+      <div class="container">
+        <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
 
-          <div class="input-field">
-            <label>E-mail</label>
-            <input type="text" name="email">
-          </div>
+          <form class="col s12" method="post" action="{{route('site.login.entrar')}}">
+            {{ csrf_field() }}
+            <div class='row'>
+              <div class='input-field col s12'>
+                <input class='validate' type='email' name='email' id='email' />
+                <label for='email'>Seu email</label>
+              </div>
+            </div>
 
-          <div class="input-field">
-            <label>Senha</label>
-            <input type="password" name="senha">
-          </div>
+            <div class='row'>
+              <div class='input-field col s12'>
+                <input class='validate' type='password' name='senha' id='senha' />
+                <label for='password'>Sua senha</label>
+              </div>
+              <label style='float: right;'>
+                    <a href='#!'><b>Esqueceu a senha?</b></a>
+              </label>
+              <label style='float: left'>
+                  <a href="#!"><b>Criar conta</b></a>
+              </label>
+            </div>
 
-          <button class="btn deep-orange">Entrar</button>
-        </form>
+            <br />
+            <center>
+              <div class='row'>
+                <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect deep-orange'>Entrar</button>
+              </div>
+            </center>
+          </form>
+        </div>
       </div>
-    </div>
-  </div>
+
+    </center>
+  </main>
 @endsection

@@ -1,44 +1,24 @@
 @extends('layout.site')
 
 @section('conteudo')
-  <div class="container">
+<div class="container">
     <h3 class="center">Meus quadros</h3>
     <div class="row">
-      <table>
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Título</th>
-            <th>Descrição</th>
-            <th>Imagem</th>
-            <th>Publicado</th>
-            <th>Ação</th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach($registros as $registro)
-            <tr>
-              <td>{{ $registro->id }}</td>
-              <td>{{ $registro->titulo }}</td>
-              <td>{{ $registro->descricao }}</td>
-              <td><img height="60" width="60" src="{{asset($registro->imagem)}}" alt="{{ $registro->titulo }}" /></td>
-              <td>{{ $registro->publicado }}</td>
-              <td>
-                <a class="btn deep-orange" href="{{ route('admin.quadros.editar',$registro->id) }}">Editar</a>
-                <a class="btn red" href="{{ route('admin.quadros.deletar',$registro->id) }}">Deletar</a>
-              </td>
-            </tr>
-          @endforeach
-        </tbody>
-      </table>
+        <div class="col s4 m7">
+            <div class="card">
+                <div class="card-image">
+                    <img src="images/sample-1.jpg">
+                    <span class="card-title">Card Title</span>
+                </div>
+                <div class="card-content">
+                    <p>I am a very simple card. I am good at containing small bits of information.
+                    I am convenient because I require little markup to use effectively.</p>
+                </div>
+                <div class="card-action">
+                    <a href="#">This is a link</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="row">
-      <a class="btn blue" href="{{ route('admin.quadros.adicionar') }}">Adicionar</a>
-    </div>
-
-  </div>
-
-
-
-
+</div>
 @endsection
