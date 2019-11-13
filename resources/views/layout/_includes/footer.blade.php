@@ -8,7 +8,7 @@
 <style>
     .footer{
         grid-area: footer;
-        background: #68C3D8;
+        background: cyan;
 
         position: fixed;
         width: 100%;
@@ -24,7 +24,7 @@
     }
 
     .footer a{
-        color:#111a;
+        color: white;
     }
 
     .footer a:hover{
@@ -42,6 +42,7 @@
 <script type="text/javascript">
   $(document).ready(function(){
     $('.sidenav').sidenav();
+    $(".dropdown-trigger").dropdown();
     M.updateTextFields();
   });
 </script>

@@ -3,7 +3,8 @@
     <head>
         <title>@yield('titulo', 'Brinque Coin - as moedas do sucesso')</title>
         <!--Import Google Icon Font-->
-        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 
         <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -17,26 +18,38 @@
     <body>
     <header class="header">
         <nav>
-            <div class="nav-wrapper">
-            <a href="#!" class="brand-logo"><img class="responsive-img" style="width: 80px;" src="{{asset('img/brinquecoin.png')}}" /></a>
-            <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-            <ul class="right hide-on-med-and-down">
-                @if(Auth::guest())
-                    <li><a href="{{route('site.login')}}">Login</a></li>
-                @else
-                    <li><a href="{{route('admin.quadros')}}">Quadros</a></li>
-                    <li><a href="#">{{Auth::user()->name}}</a></li>
-                    <li><a href="{{ route('site.login.sair') }}">Sair</a></li>
+            <div class="nav-wrapper red accent-2">
+                <a href="#!" class="brand-logo center"><img class="responsive-img" style="width: 80px;" src="{{asset('img/brinquecoin.png')}}" /></a>
+                <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="left hide-on-med-and-down">
+                    <li><a href="{{route('site.home')}}">Nosso impacto</a></li>
+                    @if(Auth::guest())
+                        <li><a href="{{route('site.login')}}">Login</a></li>
+                    @else
+                        <li><a href="{{route('admin.quadros.adicionar')}}">Criar quadros</a></li>
+                        <li><a href="{{route('admin.quadros')}}">Meus quadros</a></li>
+                    @endif
+                </ul>
+                @if(!Auth::guest())
+                    <ul id="configuracoes" class="dropdown-content">
+                        <li><a href="#!">Meu Perfil</a></li>
+                        <li><a href="{{ route('site.login.sair') }}">Sair</a></li>
+                    </ul>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a class="dropdown-trigger" href="{{route('admin.quadros')}}"
+                            data-target="configuracoes">Olá, {{Auth::user()->name}}
+                            <i class="material-icons right">arrow_drop_down</i></a></li>
+                    </ul>
                 @endif
-            </ul>
             </div>
         </nav>
         <ul class="sidenav" id="mobile">
+            <li><a href="{{route('site.home')}}">Nosso impacto</a></li>
             @if(Auth::guest())
                 <li><a href="{{route('site.login')}}">Login</a></li>
             @else
-                <li><a href="{{route('admin.quadros')}}">Quadros</a></li>
-                <li><a href="#">{{Auth::user()->name}}</a></li>
+                <li><a href="{{route('admin.quadros.adicionar')}}">Criar quadros</a></li>
+                <li><a href="{{route('admin.quadros')}}">Meus quadros</a></li>
                 <li><a href="{{ route('site.login.sair') }}">Sair</a></li>
             @endif
         </ul>

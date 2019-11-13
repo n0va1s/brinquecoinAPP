@@ -2,7 +2,7 @@
 
 @section('conteudo')
   <div class="container">
-    <h3 class="center">Atualize seu Quadro</h3>
+    <h3 class="center">Atualize seu quadro</h3>
     <div class="row">
       <form class="" action="{{route('admin.quadros.atualizar',$registro->id)}}" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
