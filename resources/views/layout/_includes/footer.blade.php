@@ -1,35 +1,23 @@
 
-<footer class="footer">
-    <a href="https://brinquecoin.com">
-        <strong>  Brinquecoin.com <i class="fa fa-mouse-pointer"></i>  </strong>
-    </a>
+</main>
+
+<footer class="footer-copyright cyan">
+        <div class="container">
+            <a class="grey-text text-lighten-4 left" href="\">© 2019 brinquecoin.com</a>
+            <a class="grey-text text-lighten-4 right" href="\">Termos de uso</a>
+        </div>
+    
 </footer>
 
 <style>
-    .footer{
-        grid-area: footer;
-        background: cyan;
-
-        position: fixed;
-        width: 100%;
-        height: 35px;
-        bottom: 0px;
-
-        z-index: 10;
-
+    body {
         display: flex;
-        justify-content: center;
-        align-items: center;
-
+        min-height: 100vh;
+        flex-direction: column;
     }
 
-    .footer a{
-        color: white;
-    }
-
-    .footer a:hover{
-        text-decoration: none;
-        color:#000;
+    main {
+        flex: 1 0 auto;
     }
 </style>
 
@@ -43,6 +31,7 @@
   $(document).ready(function(){
     $('.sidenav').sidenav();
     $(".dropdown-trigger").dropdown();
+    $('select').formSelect();
     M.updateTextFields();
   });
 </script>

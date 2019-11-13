@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Quadro;
+use App\TipoQuadro;
+use App\TipoAtividade;
 
 class QuadroController extends Controller
 {
@@ -17,7 +19,9 @@ class QuadroController extends Controller
     }
     public function adicionar()
     {
-      return view('admin.quadros.adicionar');
+      $tiposQuadros = TipoQuadro::all();
+      $tiposAtividades = TipoAtividade::all();
+      return view('admin.quadros.adicionar', compact('tiposQuadros', 'tiposAtividades'));
     }
     public function salvar(Request $req)
     {

@@ -32,12 +32,10 @@ class CreateDatabase extends Migration
         
         Schema::create('tipo_atividades', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('tipo_quadro_id');
             $table->unsignedBigInteger('tipo_proposito_id');
             $table->string('descricao');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('tipo_quadro_id')->references('id')->on('tipo_quadros');
             $table->foreign('tipo_proposito_id')->references('id')->on('tipo_propositos');
         });
 
@@ -111,11 +109,12 @@ class CreateDatabase extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('capsula');
+        Schema::dropIfExists('capsulas');
         Schema::dropIfExists('marcacoes');
         Schema::dropIfExists('atividades');
         Schema::dropIfExists('criancas');
         Schema::dropIfExists('quadros');
+        Schema::dropIfExists('users');
         Schema::dropIfExists('tipo_atividades');
         Schema::dropIfExists('tipo_quadros');        
         Schema::dropIfExists('tipo_propositos');     

@@ -8,7 +8,7 @@
         {{ csrf_field() }}
         <input type="hidden" name="_method" value="put">
         @include('admin.quadros._form')
-        <button class="btn deep-orange">Atualizar</button>
+        <a class="waves-effect waves-light btn-small red darken-2"><i class="material-icons left">save</i>Atualizar</a>
       </form>
     </div>
   </div>

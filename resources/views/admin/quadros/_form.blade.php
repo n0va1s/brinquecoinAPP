@@ -1,38 +1,46 @@
-<div class="input-field">
-  <label>Título</label>
-  <input type="text" name="titulo" value="{{isset($registro->titulo) ? $registro->titulo : ''}}">  
+<div class="input-field col s12 m2">
+  <select name="tipo_quadro_id">
+    <option value="" disabled selected>Tipo</option>
+    @foreach($tiposQuadros as $tipo)
+    <option value="{{ $tipo->id }}">{{ $tipo->descricao }}</option>
+    @endforeach
+  </select>    
+</div>
+<div class="input-field col s12 m1">
+  <select>
+    <option value="" disabled selected>Para</option>
+    <option value="M">O</option>
+    <option value="F">A</option>
+  </select>    
+</div>
+<div class="input-field col s12 m8">
+  <label>Nome</label>
+  <input type="text" name="crianca" value="{{isset($registro->crianca) ? $registro->crianca : ''}}">  
 </div>
 
-<div class="input-field">
-  <label>Descrição</label>
-  <input type="text" name="descricao" value="{{isset($registro->descricao) ? $registro->descricao : ''}}">
+<div class="input-field col s12 m1">
+  <label>Idade</label>
+  <input type="number" name="idade" value="{{isset($registro->idade) ? $registro->idade : ''}}">
 </div>
 
-<div class="input-field">
-  <label>Valor</label>
-  <input type="text" name="valor" value="{{isset($registro->valor) ? $registro->valor : ''}}">
-</div>
-
-<div class="file-field  input-field">
-
-  <div class="btn blue">
-    <span>Imagem</span>
-    <input type="file" name="imagem">
+<div class="row">
+  <div class="col s6 m2">
+    <h5>Atividades</h5>
   </div>
-  <div class="file-path-wrapper">
-    <input class="file-path validate" type="text">
+  <div class="col s6 m2">
+    <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
   </div>
 </div>
-@if(isset($registro->imagem))
-<div class="input-field">
-  <img width="150" src="{{asset($registro->imagem)}}" />
-</div>
-@endif
 
 <div class="input-field">
-  <p>
-    <input type="checkbox" id="test5" name="publicado" {{isset($registro->publicado) && $registro->publicado == 'sim' ? 'checked' : '' }} value="true" />
-    <label for="test5">Publicar?</label>
-  </p>
-  <br><br>
+  @foreach($tiposAtividades as $tipo)
+  <div class="col s12 m4">
+    <div class="row">
+      <label class="inline">
+        <input type="checkbox" id="{{ $tipo->id }}" name="tipo_atividade_id"/>
+        <span>{{ $tipo->descricao }}</span>
+      </label>
+    </div>
+  </div>
+  @endforeach
 </div>

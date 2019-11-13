@@ -54,6 +54,7 @@
             @endif
         </ul>
     </header>
+    <main>
     <style>
         * {
             font-family: "Handlee", cursive, sans-serif;

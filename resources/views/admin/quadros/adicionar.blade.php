@@ -7,7 +7,7 @@
       <form class="" action="{{route('admin.quadros.salvar')}}" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
         @include('admin.quadros._form')
-        <button class="btn deep-orange">Salvar</button>
+        <a class="waves-effect waves-light btn-small red darken-2"><i class="material-icons left">save</i>Salvar</a>
       </form>
     </div>
   </div>

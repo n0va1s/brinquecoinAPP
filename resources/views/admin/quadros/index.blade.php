@@ -17,8 +17,8 @@
                 </div>
                 <div>
                     <div class="card-action center">
-                         <a class="waves-effect waves-light btn-small green darken-2">Duplicar</a>
-                         <a class="waves-effect waves-light btn-small red darken-2">Encerrar</a>
+                         <a class="waves-effect waves-light btn-small red darken-2"><i class="material-icons left">content_copy</i>Duplicar</a>
+                         <a class="waves-effect waves-light btn-small green darken-2"><i class="material-icons left">close</i>Enncerrar</a>
                     </div>
                 </div>
             </div>
