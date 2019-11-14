@@ -1,12 +1,14 @@
 
 </main>
 
-<footer class="footer-copyright cyan">
-        <div class="container">
-            <a class="grey-text text-lighten-4 left" href="\">© 2019 brinquecoin.com</a>
-            <a class="grey-text text-lighten-4 right" href="\">Termos de uso</a>
-        </div>
-    
+<footer class="page-footer cyan">
+  <div class="container">
+    <div class="row"></div>
+  </div>
+    <div class="container">
+      <a class="grey-text text-lighten-4 left" href="\">© 2019 brinquecoin.com</a>
+      <a class="grey-text text-lighten-4 right" href="\">Termos de uso</a>
+    </div>
 </footer>
 
 <style>
@@ -32,7 +34,8 @@
     $('.sidenav').sidenav();
     $(".dropdown-trigger").dropdown();
     $('select').formSelect();
-    M.updateTextFields();
+    $('.modal').modal();
+    M.updateTextFields();    
   });
 </script>
 </body>

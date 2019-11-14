@@ -1,6 +1,5 @@
 /node_modules
 /public/img/quadros
-/public/img/tiposquadros
 /public/frontend
 /storage/*.key
 /vendor
