@@ -14,76 +14,73 @@ class QuadroController extends Controller
 {
     public function index()
     {
-      $registros = Quadro::all();
-      return view('admin.quadros.index',compact('registros'));
+        $registros = Quadro::all();
+        return view('admin.quadros.index', compact('registros'));
     }
     public function adicionar()
     {
-      $tiposQuadros = TipoQuadro::all();
-      $tiposAtividades = TipoAtividade::all();
-      return view('admin.quadros.adicionar', compact('tiposQuadros', 'tiposAtividades'));
+        $tiposQuadros = TipoQuadro::all();
+        $tiposAtividades = TipoAtividade::all();
+        return view('admin.quadros.adicionar', compact('tiposQuadros', 'tiposAtividades'));
     }
     public function salvar(Request $req)
     {
-      $dados = $req->all();
+        $dados = $req->all();
 
-      if(isset($dados['publicado'])){
-        $dados['publicado'] = 'sim';
-      }else{
-        $dados['publicado'] = 'nao';
-      }
+        if (isset($dados['publicado'])) {
+            $dados['publicado'] = 'sim';
+        } else {
+            $dados['publicado'] = 'nao';
+        }
 
-      if($req->hasFile('imagem')){
-        $imagem = $req->file('imagem');
-        $num = rand(1111,9999);
-        $dir = "img/quadros/";
-        $ex = $imagem->guessClientExtension();
-        $nomeImagem = "imagem_".$num.".".$ex;
-        $imagem->move($dir,$nomeImagem);
-        $dados['imagem'] = $dir."/".$nomeImagem;
-      }
+        if ($req->hasFile('imagem')) {
+            $imagem = $req->file('imagem');
+            $num = rand(1111, 9999);
+            $dir = "img/quadros/";
+            $ex = $imagem->guessClientExtension();
+            $nomeImagem = "imagem_" . $num . "." . $ex;
+            $imagem->move($dir, $nomeImagem);
+            $dados['imagem'] = $dir . "/" . $nomeImagem;
+        }
 
-      Quadro::create($dados);
+        Quadro::create($dados);
 
-      return redirect()->route('admin.quadros');
-
+        return redirect()->route('admin.quadros');
     }
 
     public function editar($id)
     {
-      $registro = Quadro::find($id);
-      return view('admin.quadros.editar',compact('registro'));
+        $registro = Quadro::find($id);
+        return view('admin.quadros.editar', compact('registro'));
     }
     public function atualizar(Request $req, $id)
     {
-      $dados = $req->all();
+        $dados = $req->all();
 
-      if(isset($dados['publicado'])){
-        $dados['publicado'] = 'sim';
-      }else{
-        $dados['publicado'] = 'nao';
-      }
+        if (isset($dados['publicado'])) {
+            $dados['publicado'] = 'sim';
+        } else {
+            $dados['publicado'] = 'nao';
+        }
 
-      if($req->hasFile('imagem')){
-        $imagem = $req->file('imagem');
-        $num = rand(1111,9999);
-        $dir = "img/quadros/";
-        $ex = $imagem->guessClientExtension();
-        $nomeImagem = "imagem_".$num.".".$ex;
-        $imagem->move($dir,$nomeImagem);
-        $dados['imagem'] = $dir."/".$nomeImagem;
-      }
+        if ($req->hasFile('imagem')) {
+            $imagem = $req->file('imagem');
+            $num = rand(1111, 9999);
+            $dir = "img/quadros/";
+            $ex = $imagem->guessClientExtension();
+            $nomeImagem = "imagem_" . $num . "." . $ex;
+            $imagem->move($dir, $nomeImagem);
+            $dados['imagem'] = $dir . "/" . $nomeImagem;
+        }
 
-      Quadro::find($id)->update($dados);
+        Quadro::find($id)->update($dados);
 
-      return redirect()->route('admin.quadros');
-
+        return redirect()->route('admin.quadros');
     }
 
     public function deletar($id)
     {
-      Quadro::find($id)->delete();
-      return redirect()->route('admin.quadros');
+        Quadro::find($id)->delete();
+        return redirect()->route('admin.quadros');
     }
-
 }

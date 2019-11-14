@@ -32,12 +32,12 @@
                 </ul>
                 @if(!Auth::guest())
                     <ul id="configuracoes" class="dropdown-content">
-                        <li><a href="#!">Meu Perfil</a></li>
+                        <li><a href="{{route('admin.perfil',Auth::user()->id)}}">Meu Perfil</a></li>
                         <li><a href="{{ route('site.login.sair') }}">Sair</a></li>
                     </ul>
                     <ul class="right hide-on-med-and-down">
                         <li><a class="dropdown-trigger" href="{{route('admin.quadros')}}"
-                            data-target="configuracoes">Olá, {{Auth::user()->name}}
+                            data-target="configuracoes">Olá, {{ Auth::user()->name }}
                             <i class="material-icons right">arrow_drop_down</i></a></li>
                     </ul>
                 @endif
@@ -50,6 +50,7 @@
             @else
                 <li><a href="{{route('admin.quadros.adicionar')}}">Criar quadros</a></li>
                 <li><a href="{{route('admin.quadros')}}">Meus quadros</a></li>
+                <li><a href="{{route('admin.perfil',Auth::user()->id)}}">Meu Perfil</a></li>
                 <li><a href="{{ route('site.login.sair') }}">Sair</a></li>
             @endif
         </ul>

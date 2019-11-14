@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class TipoQuadro extends Model
 {
     protected $fillable = [
-        'tipo','descricao','imagem'
+        'id', 'tipo', 'descricao', 'imagem'
     ];
 }
