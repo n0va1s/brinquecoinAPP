@@ -56,7 +56,7 @@
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
-                    <td>&nbsp;</td>
+                    <td>Resultado</td>
                     <td class="center"><i class="material-icons">favorite</i></td>
                     <td class="center"><i class="material-icons">favorite</i></td>
                     <td class="center"><i class="material-icons">favorite</i></td>
@@ -105,6 +105,14 @@
                             <img src="{{ asset('img/quadros/feito.png') }}">
                         </div>
                     </div>
+                    <div class="row center">
+                        <div class="col s9">
+                            <span>Resultado</span>
+                        </div>
+                        <div class="col s3">
+                            <i class="material-icons">favorite</i>
+                        </div>
+                    </div>
                 </div>
             </li>
             <li>
@@ -140,6 +148,14 @@
                         </div>
                         <div class="col s3">
                             <img src="{{ asset('img/quadros/feito.png') }}">
+                        </div>
+                    </div>
+                    <div class="row center">
+                        <div class="col s9">
+                            <span>Resultado</span>
+                        </div>
+                        <div class="col s3">
+                            <i class="material-icons">favorite_border</i>
                         </div>
                     </div>
                 </div>
