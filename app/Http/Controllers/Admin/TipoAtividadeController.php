@@ -19,9 +19,8 @@ class TipoAtividadeController extends Controller
     public function adicionar()
     {
 
-        $tiposQuadros = TipoQuadro::all();
         $tiposPropositos = TipoProposito::all();
-        return view('admin.configuracao.tiposatividades.adicionar', compact('tiposQuadros', 'tiposPropositos'));
+        return view('admin.configuracao.tiposatividades.adicionar', compact('tiposPropositos'));
     }
 
     public function salvar(Request $req)

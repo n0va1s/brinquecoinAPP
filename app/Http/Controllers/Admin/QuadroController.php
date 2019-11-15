@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Quadro;
 use App\TipoQuadro;
 use App\TipoAtividade;
+use App\TipoProposito;
 
 class QuadroController extends Controller
 {
@@ -21,7 +22,8 @@ class QuadroController extends Controller
     {
         $tiposQuadros = TipoQuadro::all();
         $tiposAtividades = TipoAtividade::all();
-        return view('admin.quadros.adicionar', compact('tiposQuadros', 'tiposAtividades'));
+        $tiposPropositos = TipoProposito::all();
+        return view('admin.quadros.adicionar', compact('tiposQuadros', 'tiposAtividades', 'tiposPropositos'));
     }
     public function salvar(Request $req)
     {

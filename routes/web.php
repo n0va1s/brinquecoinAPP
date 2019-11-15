@@ -37,6 +37,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/admin/configuracao/tiposquadros/atualizar/{id}', ['as' => 'admin.configuracao.tiposquadros.atualizar', 'uses' => 'Admin\TipoQuadroController@atualizar']);
     Route::get('/admin/configuracao/tiposquadros/deletar/{id}', ['as' => 'admin.configuracao.tiposquadros.deletar', 'uses' => 'Admin\TipoQuadroController@deletar']);
 
+    Route::get('/admin/configuracao/tipospropositos', ['as' => 'admin.configuracao.tipospropositos', 'uses' => 'Admin\TipoPropositoController@index']);
+    Route::get('/admin/configuracao/tipospropositos/adicionar', ['as' => 'admin.configuracao.tipospropositos.adicionar', 'uses' => 'Admin\TipoPropositoController@adicionar']);
+    Route::post('/admin/configuracao/tipospropositos/salvar', ['as' => 'admin.configuracao.tipospropositos.salvar', 'uses' => 'Admin\TipoPropositoController@salvar']);
+    Route::get('/admin/configuracao/tipospropositos/editar/{id}', ['as' => 'admin.configuracao.tipospropositos.editar', 'uses' => 'Admin\TipoPropositoController@editar']);
+    Route::put('/admin/configuracao/tipospropositos/atualizar/{id}', ['as' => 'admin.configuracao.tipospropositos.atualizar', 'uses' => 'Admin\TipoPropositoController@atualizar']);
+    Route::get('/admin/configuracao/tipospropositos/deletar/{id}', ['as' => 'admin.configuracao.tipospropositos.deletar', 'uses' => 'Admin\TipoPropositoController@deletar']);
+
     Route::get('/admin/configuracao/tiposatividades', ['as' => 'admin.configuracao.tiposatividades', 'uses' => 'Admin\TipoAtividadeController@index']);
     Route::get('/admin/configuracao/tiposatividades/adicionar', ['as' => 'admin.configuracao.tiposatividades.adicionar', 'uses' => 'Admin\TipoAtividadeController@adicionar']);
     Route::post('/admin/configuracao/tiposatividades/salvar', ['as' => 'admin.configuracao.tiposatividades.salvar', 'uses' => 'Admin\TipoAtividadeController@salvar']);

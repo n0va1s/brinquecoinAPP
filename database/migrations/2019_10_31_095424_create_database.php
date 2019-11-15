@@ -15,8 +15,8 @@ class CreateDatabase extends Migration
     {
         Schema::create('tipo_quadros', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('tipo',['F','H','M','T']);
-            $table->string('descricao','100');
+            $table->enum('tipo', ['F', 'H', 'M', 'T']);
+            $table->string('descricao', '100');
             $table->string('imagem');
             $table->timestamps();
             $table->softDeletes();
@@ -24,16 +24,17 @@ class CreateDatabase extends Migration
 
         Schema::create('tipo_propositos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('proposito',['E','H','C','A','D','F','R','I']);
+            $table->enum('proposito', ['E', 'H', 'C', 'A', 'D', 'F', 'R', 'I']);
             $table->string('descricao');
             $table->timestamps();
             $table->softDeletes();
         });
-        
+
         Schema::create('tipo_atividades', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('tipo_proposito_id');
             $table->string('descricao');
+            $table->string('imagem')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('tipo_proposito_id')->references('id')->on('tipo_propositos');
@@ -45,8 +46,8 @@ class CreateDatabase extends Migration
             $table->unsignedBigInteger('tipo_quadro_id');
             $table->string('recompensa')->nullable();
             $table->timestamp('cadastradoEm')->useCurrent();
-            $table->string('codigo');
-            $table->enum('inativo',['S','N'])->default('N');
+            $table->string('codigo')->nullable();
+            $table->enum('inativo', ['S', 'N'])->default('N');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users');
@@ -56,7 +57,7 @@ class CreateDatabase extends Migration
         Schema::create('criancas', function (Blueprint $table) {
             $table->unsignedBigInteger('quadro_id');
             $table->string('crianca');
-            $table->enum('genero',['F','M']);
+            $table->enum('genero', ['F', 'M']);
             $table->integer('idade');
             $table->foreign('quadro_id')->references('id')->on('quadros');
         });
@@ -64,26 +65,25 @@ class CreateDatabase extends Migration
         Schema::create('atividades', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('quadro_id');
-            $table->string('descricao');
-            $table->decimal('valor',5,2)->nullable();
-            $table->string('imagem')->nullable();
-            $table->unsignedBigInteger('tipo_proposito_id');            
+            $table->unsignedBigInteger('tipo_atividade_id');
+            $table->decimal('valor', 5, 2)->nullable();
+            $table->string('codigo')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('quadro_id')->references('id')->on('quadros');
-            $table->foreign('tipo_proposito_id')->references('id')->on('tipo_propositos');
+            $table->foreign('tipo_atividade_id')->references('id')->on('tipo_atividades');
         });
 
         Schema::create('marcacoes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('atividade_id');
-            $table->enum('segunda',['S','N'])->nullable();
-            $table->enum('terca',['S','N'])->nullable();
-            $table->enum('quarta',['S','N'])->nullable();
-            $table->enum('quinta',['S','N'])->nullable();
-            $table->enum('sexta',['S','N'])->nullable();
-            $table->enum('sabado',['S','N'])->nullable();
-            $table->enum('domingo',['S','N'])->nullable();
+            $table->enum('segunda', ['S', 'N'])->nullable();
+            $table->enum('terca', ['S', 'N'])->nullable();
+            $table->enum('quarta', ['S', 'N'])->nullable();
+            $table->enum('quinta', ['S', 'N'])->nullable();
+            $table->enum('sexta', ['S', 'N'])->nullable();
+            $table->enum('sabado', ['S', 'N'])->nullable();
+            $table->enum('domingo', ['S', 'N'])->nullable();
             $table->timestamps();
             $table->foreign('atividade_id')->references('id')->on('atividades');
         });
@@ -91,9 +91,9 @@ class CreateDatabase extends Migration
         Schema::create('capsulas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->string('nomeDe',200);
-            $table->string('nomePara',200);
-            $table->string('emailPara',100);
+            $table->string('nomeDe', 200);
+            $table->string('nomePara', 200);
+            $table->string('emailPara', 100);
             $table->timestamp('avisadoEm');
             $table->text('mensagem');
             $table->timestamps();
@@ -116,7 +116,7 @@ class CreateDatabase extends Migration
         Schema::dropIfExists('quadros');
         Schema::dropIfExists('users');
         Schema::dropIfExists('tipo_atividades');
-        Schema::dropIfExists('tipo_quadros');        
-        Schema::dropIfExists('tipo_propositos');     
+        Schema::dropIfExists('tipo_quadros');
+        Schema::dropIfExists('tipo_propositos');
     }
 }

@@ -4,19 +4,42 @@
   <div class="container">
     <h3 class="center">Cadastre seu quadro</h3>
     <div class="row">
-      <form class="" action="{{route('admin.quadros.salvar')}}" method="post">
+      <form action="{{route('admin.quadros.salvar')}}" method="post">
         {{ csrf_field() }}
         @include('admin.quadros._form')
         <a class="waves-effect waves-light btn-small orange darken-2">Salvar</a>
-        <a class="waves-effect waves-light btn-small cyan modal-trigger" href="#modalAtividade">Novas Atividades</a>
+        <a class="waves-effect waves-light btn-small cyan darken-2 modal-trigger" href="#modalAtividade">Novas Atividades</a>
 
         <div id="modalAtividade" class="modal">
           <div class="modal-content">
-            <h3>Cadastre as atividades</h3>
-            <p>Content of the modal goes here. Place marketing text or other information here.</p>
-          </div>
-          <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-red btn red lighten-1">Close</a>
+            <h3>Cadastre novas atividades</h3>
+            <form action="{{route('admin.configuracao.tiposatividades.salvar')}}" method="post">
+                <div class="input-field col s12 m4">
+                    <select name="tipo_proposito_id">
+                        <option value="" disabled selected>Propósito</option>
+                        @foreach ($tiposPropositos as $tipo)
+                            <option value="{{$tipo->id}}">{{$tipo->descricao}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="input-field col s12 m8">
+                    <label>Atividade</label>
+                    <input type="text" name="descricao" value="{{isset($registro->descricao) ? $registro->descricao : ''}}">
+                </div>
+                <div class="file-field  input-field">
+                    <div class="btn-small cyan darken-2">
+                        <span>Imagem</span>
+                        <input type="file" name="imagem">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
+                    </div>
+                </div>
+                <div class="input-field">
+                    <a href="#!" class="modal-action waves-effect btn-small orange darken-2">Salvar</a>
+                    <a href="#!" class="modal-action waves-effect btn-small red darken-2 modal-close">Close</a>
+                </div>
+            </form>
           </div>
         </div>
       </form>

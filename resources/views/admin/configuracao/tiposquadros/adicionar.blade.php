@@ -8,7 +8,7 @@
         <form class="" action="{{route('admin.configuracao.tiposquadros.salvar')}}" method="post" enctype="multipart/form-data">
           {{ csrf_field() }}
           @include('admin.configuracao.tiposquadros._form')
-          <button class="btn deep-orange">Salvar</button>
+          <button class="btn orange darken-2">Salvar</button>
         </form>
       </div>
     </div>

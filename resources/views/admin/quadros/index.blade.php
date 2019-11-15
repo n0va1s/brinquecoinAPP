@@ -8,17 +8,19 @@
         <div class="col s4 m4">
             <div class="card">
                 <div class="card-image">
-                    <img src="{{asset('img/tiposquadros/viagem.jpg')}}">
+                    <img src="{{ asset('img/tiposquadros/ferias.jpg') }}" alt="Imagem do tipo do quadro">
                 </div>
                 <div class="card-content">
                     <p>Quadro de Viagem</p>
                     <br />
                     <p>João Pedro</p>
+                    <br />
+                    <p>{{ $registro->recompensa }}</p>
                 </div>
                 <div>
                     <div class="card-action center">
                          <a class="waves-effect waves-light btn-small orange darken-2">Duplicar</a>
-                         <a class="waves-effect waves-light btn-small grey darken-2">Encerrar</a>
+                         <a class="waves-effect waves-light btn-small cyan darken-2">Encerrar</a>
                     </div>
                 </div>
             </div>

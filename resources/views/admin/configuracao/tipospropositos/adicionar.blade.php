@@ -2,12 +2,12 @@
 
 @section('conteudo')
   <div class="container">
-    <h3 class="center">Tipos de Atividades</h3>
+    <h3 class="center">Tipos de Propósitos</h3>
     <div class="row">
       <div class="container">
-        <form class="" action="{{route('admin.configuracao.tiposatividades.salvar')}}" method="post" enctype="multipart/form-data">
+        <form class="" action="{{route('admin.configuracao.tipospropositos.salvar')}}" method="post" enctype="multipart/form-data">
           {{ csrf_field() }}
-          @include('admin.configuracao.tiposatividades._form')
+          @include('admin.configuracao.tipospropositos._form')
           <button class="btn orange darken-2">Salvar</button>
         </form>
       </div>
