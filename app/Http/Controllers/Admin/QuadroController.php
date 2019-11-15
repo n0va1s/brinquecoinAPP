@@ -18,6 +18,7 @@ class QuadroController extends Controller
         $registros = Quadro::all();
         return view('admin.quadros.index', compact('registros'));
     }
+
     public function adicionar()
     {
         $tiposQuadros = TipoQuadro::all();
@@ -25,6 +26,7 @@ class QuadroController extends Controller
         $tiposPropositos = TipoProposito::all();
         return view('admin.quadros.adicionar', compact('tiposQuadros', 'tiposAtividades', 'tiposPropositos'));
     }
+
     public function salvar(Request $req)
     {
         $dados = $req->all();
@@ -55,6 +57,7 @@ class QuadroController extends Controller
         $registro = Quadro::find($id);
         return view('admin.quadros.editar', compact('registro'));
     }
+
     public function atualizar(Request $req, $id)
     {
         $dados = $req->all();
@@ -84,5 +87,11 @@ class QuadroController extends Controller
     {
         Quadro::find($id)->delete();
         return redirect()->route('admin.quadros');
+    }
+
+    public function exibir($id)
+    {
+        $registro = Quadro::find($id);
+        return view('admin.quadros.exibir', compact('registro'));
     }
 }

@@ -35,7 +35,15 @@
     $(".dropdown-trigger").dropdown();
     $('select').formSelect();
     $('.modal').modal();
-    M.updateTextFields();    
+    M.updateTextFields();
+    $('.collapsible').collapsible();
+    $('input.autocomplete').autocomplete({
+      data: {
+        "Casa - Arrumar a cama": null,
+        "Higiene - Escovar os dentes": null,
+        "Escola - Fazer a tarefa de casa": 'https://placehold.it/250x250'
+      },
+    });
   });
 </script>
 </body>

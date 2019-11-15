@@ -26,8 +26,8 @@
                     @if(Auth::guest())
                         <li><a href="{{route('site.login')}}">Login</a></li>
                     @else
-                        <li><a href="{{route('admin.quadros.adicionar')}}">Criar quadros</a></li>
                         <li><a href="{{route('admin.quadros')}}">Meus quadros</a></li>
+                        <li><a href="{{route('admin.capsula')}}">Cápsula do tempo</a></li>
                     @endif
                 </ul>
                 @if(!Auth::guest())
@@ -48,9 +48,9 @@
             @if(Auth::guest())
                 <li><a href="{{route('site.login')}}">Login</a></li>
             @else
-                <li><a href="{{route('admin.quadros.adicionar')}}">Criar quadros</a></li>
                 <li><a href="{{route('admin.quadros')}}">Meus quadros</a></li>
                 <li><a href="{{route('admin.perfil',Auth::user()->id)}}">Meu Perfil</a></li>
+                <li><a href="{{route('admin.capsula')}}">Cápsula do tempo</a></li>
                 <li><a href="{{ route('site.login.sair') }}">Sair</a></li>
             @endif
         </ul>

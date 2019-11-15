@@ -26,17 +26,57 @@
   <input type="text" name="recompensa" value="{{isset($registro->recompensa) ? $registro->recompensa : ''}}">
 </div>
 <div class="row">
-  <h5>Atividades</h5>
-</div>  
-<div class="input-field">
-  @foreach($tiposAtividades as $tipo)
-  <div class="col s12 m4">
-    <div class="row">
-      <label class="inline">
-        <input type="checkbox" id="{{ $tipo->id }}" name="tipo_atividade_id"/>
-        <span>{{ $tipo->descricao }}</span>
-      </label>
+  <h5>Escolha as atividades do quadro</h5>
+</div>
+<div class="input-field col s12 m8">
+    <i class="material-icons prefix">textsms</i>
+    <input type="text" id="autocomplete-input" class="autocomplete">
+    <label for="autocomplete-input">Digite uma atividade</label>
+</div>
+<div class="input-field col s12 m3">
+  <label>Valor</label>
+  <input type="text" name="recompensa" value="{{isset($registro->recompensa) ? $registro->recompensa : ''}}">
+</div>
+<div class="input-field col s12 m1">
+  <i class="material-icons prefix">add</i>
+</div>
+<div class="chip">
+    <div class="col s1 m1">
+        <i class="close material-icons">home</i>
     </div>
-  </div>
-  @endforeach
+    <div class="col s6 m6">
+        <span>Arrumar a cama</span>
+    </div>
+    <div class="col s1 m1">
+        <i class="close material-icons">adjust</i>
+    </div>
+    <div class="col s2 m2">
+        <span>0.4</span>
+    </div>
+    <div class="col s1  m1">
+        <i class="close material-icons">mode_edit</i>
+    </div>
+    <div class="col s1  m1">
+        <i class="close material-icons">close</i>
+    </div>
+</div>
+<div class="chip">
+    <div class="col s1 m1">
+        <i class="close material-icons">favorite</i>
+    </div>
+    <div class="col s6 m6">
+        <span>Escovar os dentes</span>
+    </div>
+    <div class="col s1 m1">
+        <i class="close material-icons">adjust</i>
+    </div>
+    <div class="col s2 m2">
+        <span>0.2</span>
+    </div>
+    <div class="col s1  m1">
+        <i class="close material-icons">mode_edit</i>
+    </div>
+    <div class="col s1  m1">
+        <i class="close material-icons">close</i>
+    </div>
 </div>

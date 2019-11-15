@@ -7,8 +7,10 @@
       <form action="{{route('admin.quadros.salvar')}}" method="post">
         {{ csrf_field() }}
         @include('admin.quadros._form')
-        <a class="waves-effect waves-light btn-small orange darken-2">Salvar</a>
-        <a class="waves-effect waves-light btn-small cyan darken-2 modal-trigger" href="#modalAtividade">Novas Atividades</a>
+        <div class="row">
+            <a class="waves-effect waves-light btn-small orange darken-2">Salvar</a>
+            <a class="waves-effect waves-light btn-small cyan darken-2 modal-trigger" href="#modalAtividade">Novas Atividades</a>
+        </div>
 
         <div id="modalAtividade" class="modal">
           <div class="modal-content">
