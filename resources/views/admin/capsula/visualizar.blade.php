@@ -8,7 +8,7 @@
         {{ csrf_field() }}
         @include('admin.quadros._form')
         <div class="row">
-            <a class="waves-effect waves-light btn-small orange darken-2">Fechar</a>
+            <button class="waves-light btn-small orange darken-2" type="submit" name="action">Fechar</button>
         </div>
       </form>
     </div>

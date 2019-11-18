@@ -12,7 +12,7 @@
 </div>
 <div class="input-field col s12 m6">
   <label>Abertura em</label>
-  <input type="date" name="avisadoEm" value="{{isset($registro->aberturaEm) ? $registro->aberturaEm : ''}}">
+  <input type="text" name="avisadoEm" class="datepicker" value="{{isset($registro->aberturaEm) ? $registro->aberturaEm : ''}}">
 </div>
 <div class="input-field col s12">
     <label for="mensagem">Mensagem</label>

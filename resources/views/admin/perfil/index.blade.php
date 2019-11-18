@@ -24,7 +24,7 @@
             </div>
 
             <div class="input-field col s12 m12">
-                <button class="btn-small waves-effect waves-light orange darken-2" type="submit" name="action">Salvar</button>
+                <button class="btn-small waves-light orange darken-2" type="submit" name="action">Salvar</button>
             </div>
 
             @if ($errors->any())

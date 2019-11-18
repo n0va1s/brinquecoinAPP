@@ -55,6 +55,17 @@
                     <td class="center"><img src="{{ asset('img/quadros/feito.png') }}"></td>
                 </tr>
                 <tr>
+                    <td><img width="100" src="{{ asset('img/quadros/arrumar-cama.jpg') }}"></td>
+                    <td>Arrumar a cama</td>
+                    <td class="center"><img src="{{ asset('img/quadros/nao-fez.png') }}"></td>
+                    <td class="center"><img src="{{ asset('img/quadros/nao-pode.png') }}"></td>
+                    <td class="center"><img src="{{ asset('img/quadros/feito.png') }}"></td>
+                    <td class="center"><img src="{{ asset('img/quadros/nao-fez.png') }}"></td>
+                    <td class="center"><img src="{{ asset('img/quadros/nao-pode.png') }}"></td>
+                    <td class="center"><img src="{{ asset('img/quadros/feito.png') }}"></td>
+                    <td class="center"><img src="{{ asset('img/quadros/feito.png') }}"></td>
+                </tr>
+                <tr>
                     <td>&nbsp;</td>
                     <td>Resultado</td>
                     <td class="center"><i class="material-icons">favorite</i></td>
@@ -188,7 +199,7 @@
           </ul>
     </div>
     <div class="row">
-        <a class="waves-effect waves-light btn-small orange darken-2">Salvar</a>
+        <button class="waves-light btn-small orange darken-2" type="submit" name="action">Salvar</button>
     </div>
   </div>
 @endsection

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <title>@yield('titulo', 'Brinque Coin - as moedas do sucesso')</title>
         <!--Import Google Icon Font-->
@@ -16,7 +16,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-    <header class="header">
+    <header class="header navbar-fixed">
         <nav>
             <div class="nav-wrapper red accent-2">
                 <a href="#!" class="brand-logo center"><img class="responsive-img" style="width: 80px;" src="{{asset('img/brinquecoin.png')}}" /></a>
@@ -26,7 +26,7 @@
                     @if(Auth::guest())
                         <li><a href="{{route('site.login')}}">Login</a></li>
                     @else
-                        <li><a href="{{route('admin.quadros')}}">Meus quadros</a></li>
+                        <li><a href="{{route('admin.quadros')}}">Quadrinhos</a></li>
                         <li><a href="{{route('admin.capsula')}}">Cápsula do tempo</a></li>
                     @endif
                 </ul>
@@ -48,7 +48,7 @@
             @if(Auth::guest())
                 <li><a href="{{route('site.login')}}">Login</a></li>
             @else
-                <li><a href="{{route('admin.quadros')}}">Meus quadros</a></li>
+                <li><a href="{{route('admin.quadros')}}">Quadrinhos</a></li>
                 <li><a href="{{route('admin.perfil',Auth::user()->id)}}">Meu Perfil</a></li>
                 <li><a href="{{route('admin.capsula')}}">Cápsula do tempo</a></li>
                 <li><a href="{{ route('site.login.sair') }}">Sair</a></li>
@@ -57,7 +57,32 @@
     </header>
     <main>
     <style>
-        * {
-            font-family: "Handlee", cursive, sans-serif;
-        }
+    /*Fonte principal do site*/
+    * {
+        font-family: "Handlee", cursive, sans-serif;
+    }
+    /*Ocupar toda a altura da tela*/
+    html {
+      height: 100%;
+    }
+    /*Ocupar toda a altura da tela com o body, usando o flex, como uma coluna*/
+    body {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    /*Conteudo prinpal com margem em relacao ao rodape*/
+    main {
+      flex: 1;
+      margin-bottom: 30px;
+    }
+    /*Rodape fixo*/
+    footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+    nav {
+        background-color: transparent;
+    }
     </style>

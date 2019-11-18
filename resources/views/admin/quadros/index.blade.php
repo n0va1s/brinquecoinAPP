@@ -2,12 +2,22 @@
 
 @section('conteudo')
 <div class="container">
-    <h3 class="center">Seus quadros</h3>
+    <div class="row"></div>
+    <div class="row">
+        <div class="col s10 m8">
+            <h3 class="right">Seus quadros</h3>
+        </div>
+        <div class="col s2 m4 valign-wrapper">
+            <a class="btn-floating btn-large waves-light red" href="{{route('admin.quadros.adicionar')}}">
+                <i class="material-icons">add</i>
+            </a>
+        </div>
+    </div>
     @if (count($registros) === 0)
     <div class="row center">
         <img width="50%" src="{{ asset('img/quadro.png') }}" alt="Um quadro de tarefas de exemplo">
         <h5>Nenhum quadro por aqui...</h5>
-        <a class="btn-floating btn-large waves-effect waves-light red" href="{{route('admin.quadros.adicionar')}}">
+        <a class="btn-floating btn-large waves-light red" href="{{route('admin.quadros.adicionar')}}">
             <i class="material-icons">add</i>
         </a>
     </div>
@@ -28,15 +38,14 @@
                     <br />
                     <p>{{ $registro->recompensa }}</p>
                 </div>
-                <div>
+                <div class="grey lighten-3">
                     <div class="card-action center">
-                        <a class="waves-effect waves-light btn-small orange darken-2">Duplicar</a>
-                        <a class="waves-effect waves-light btn-small cyan darken-2">Encerrar</a>
+                        <a class="waves-light btn-small orange darken-2">Duplicar</a>
+                        <a class="waves-light btn-small cyan darken-2">Encerrar</a>
                     </div>
                 </div>
             </div>
         </div>
-        
         @endforeach
     </div>
 </div>

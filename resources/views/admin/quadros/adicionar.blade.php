@@ -8,8 +8,8 @@
         {{ csrf_field() }}
         @include('admin.quadros._form')
         <div class="row">
-            <a class="waves-effect waves-light btn-small orange darken-2">Salvar</a>
-            <a class="waves-effect waves-light btn-small cyan darken-2 modal-trigger" href="#modalAtividade">Novas Atividades</a>
+            <a class="waves-light btn-small orange darken-2">Salvar</a>
+            <a class="waves-light btn-small cyan darken-2 modal-trigger" href="#modalAtividade">Novas Atividades</a>
         </div>
 
         <div id="modalAtividade" class="modal">
@@ -37,9 +37,9 @@
                         <input class="file-path validate" type="text">
                     </div>
                 </div>
-                <div class="input-field">
-                    <a href="#!" class="modal-action waves-effect btn-small orange darken-2">Salvar</a>
-                    <a href="#!" class="modal-action waves-effect btn-small red darken-2 modal-close">Close</a>
+                <div class="row">
+                    <button class="waves-light btn-small orange darken-2" type="submit" name="action">Salvar</button>
+                    <button class="waves-light btn-small red darken-2" type="submit" name="action">Fechar</button>
                 </div>
             </form>
           </div>

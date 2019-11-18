@@ -47,7 +47,7 @@ class CreateDatabase extends Migration
             $table->string('recompensa')->nullable();
             $table->timestamp('cadastradoEm')->useCurrent();
             $table->string('codigo')->nullable();
-            $table->enum('inativo', ['S', 'N'])->default('N');
+            $table->enum('ativo', ['S', 'N'])->default('S');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users');
@@ -91,11 +91,13 @@ class CreateDatabase extends Migration
         Schema::create('capsulas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
+            $table->string('codigo', 255);
             $table->string('nomeDe', 200);
             $table->string('nomePara', 200);
             $table->string('emailPara', 100);
             $table->timestamp('avisadoEm');
             $table->text('mensagem');
+            $table->enum('ativo', ['S', 'N'])->default('S');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users');

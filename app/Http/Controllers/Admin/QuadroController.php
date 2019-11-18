@@ -29,26 +29,17 @@ class QuadroController extends Controller
 
     public function salvar(Request $req)
     {
-        $dados = $req->all();
-
-        if (isset($dados['publicado'])) {
-            $dados['publicado'] = 'sim';
-        } else {
-            $dados['publicado'] = 'nao';
-        }
-
-        if ($req->hasFile('imagem')) {
-            $imagem = $req->file('imagem');
-            $num = rand(1111, 9999);
-            $dir = "img/quadros/";
-            $ex = $imagem->guessClientExtension();
-            $nomeImagem = "imagem_" . $num . "." . $ex;
-            $imagem->move($dir, $nomeImagem);
-            $dados['imagem'] = $dir . "/" . $nomeImagem;
-        }
+        $dados = $req->validate([
+            'nomeDe' => 'required|max:200',
+            'nomePara' => 'required|max:200',
+            'emailPara' => 'required|email',
+            'avisadoEm' => 'required|date',
+            'mensagem' => 'required',
+        ]);
+        $dados['user_id'] = Auth::user()->id;
+        $dados['codigo'] = Str::uuid()->toString();
 
         Quadro::create($dados);
-
         return redirect()->route('admin.quadros');
     }
 
@@ -60,32 +51,21 @@ class QuadroController extends Controller
 
     public function atualizar(Request $req, $id)
     {
-        $dados = $req->all();
-
-        if (isset($dados['publicado'])) {
-            $dados['publicado'] = 'sim';
-        } else {
-            $dados['publicado'] = 'nao';
-        }
-
-        if ($req->hasFile('imagem')) {
-            $imagem = $req->file('imagem');
-            $num = rand(1111, 9999);
-            $dir = "img/quadros/";
-            $ex = $imagem->guessClientExtension();
-            $nomeImagem = "imagem_" . $num . "." . $ex;
-            $imagem->move($dir, $nomeImagem);
-            $dados['imagem'] = $dir . "/" . $nomeImagem;
-        }
+        $dados = $req->validate([
+            'nomeDe' => 'required|max:200',
+            'nomePara' => 'required|max:200',
+            'emailPara' => 'required|email',
+            'avisadoEm' => 'required|date',
+            'mensagem' => 'required',
+        ]);
 
         Quadro::find($id)->update($dados);
-
         return redirect()->route('admin.quadros');
     }
 
-    public function deletar($id)
+    public function deletar($codigo)
     {
-        Quadro::find($id)->delete();
+        Quadro::where('codigo', '=', $codigo)->firstOrFail()->delete();
         return redirect()->route('admin.quadros');
     }
 

@@ -9,7 +9,7 @@
         <input type="hidden" name="_method" value="put">
         @include('admin.quadros._form')
         <div class="row">
-            <a class="waves-effect waves-light btn-small orange darken-2">Atualizar</a>
+            <button class="waves-light btn-small orange darken-2" type="submit" name="action">Atualizar</button>
         </div>
       </form>
     </div>

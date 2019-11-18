@@ -34,7 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/capsula', ['as' => 'admin.capsula', 'uses' => 'Admin\CapsulaController@index']);
     Route::get('/admin/capsula/adicionar', ['as' => 'admin.capsula.adicionar', 'uses' => 'Admin\CapsulaController@adicionar']);
     Route::post('/admin/capsula/salvar', ['as' => 'admin.capsula.salvar', 'uses' => 'Admin\CapsulaController@salvar']);
-    Route::get('/admin/capsula/deletar/{id}', ['as' => 'admin.capsula.deletar', 'uses' => 'Admin\CapsulaController@deletar']);
+    Route::get('/admin/capsula/deletar/{codigo}', ['as' => 'admin.capsula.deletar', 'uses' => 'Admin\CapsulaController@deletar']);
 
     Route::get('/admin/configuracao/tiposquadros', ['as' => 'admin.configuracao.tiposquadros', 'uses' => 'Admin\TipoQuadroController@index']);
     Route::get('/admin/configuracao/tiposquadros/adicionar', ['as' => 'admin.configuracao.tiposquadros.adicionar', 'uses' => 'Admin\TipoQuadroController@adicionar']);

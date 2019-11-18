@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -14,7 +15,7 @@ class CapsulaController extends Controller
 {
     public function index()
     {
-        $registros = Capsula::all();
+        $registros = Capsula::Paginate(3);
         return view('admin.capsula.index', compact('registros'));
     }
 
@@ -33,15 +34,18 @@ class CapsulaController extends Controller
             'mensagem' => 'required',
         ]);
         $dados['user_id'] = Auth::user()->id;
+        $dados['codigo'] = Str::uuid()->toString();
+
         Capsula::create($dados);
-        return redirect()->route('admin.capsula.adicionar')
-            ->with('success', 'Cápsula lacrada!');
+        return redirect()->route('admin.capsula');
     }
 
-    public function deletar($id)
+    public function deletar($codigo)
     {
-        Capsula::find($id)->delete();
-        return redirect()->route('admin.capsula')
-            ->with('success', 'Cápsula excluída!');
+        //Capsula::find($codigo)->delete();
+        Capsula::where('codigo', '=', $codigo)->delete();
+        /*return redirect()->route('admin.capsula.adicionar')
+            ->with('success', 'Cápsula excluída!');*/
+        return redirect()->route('admin.capsula');
     }
 }
