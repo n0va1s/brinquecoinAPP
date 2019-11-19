@@ -4,10 +4,10 @@
 <div class="container">
     <div class="row"></div>
     <div class="row">
-        <div class="col s10 m8">
-            <h3 class="right">Suas cápsulas do tempo</h3>
+        <div class="col s12 m11">
+            <h3 class="center">Suas cápsulas do tempo</h3>
         </div>
-        <div class="col s2 m4 valign-wrapper">
+        <div class="col s12 m1 center">
             <a class="btn-floating btn-large waves-light red" href="{{route('admin.capsula.adicionar')}}">
                 <i class="material-icons">add</i>
             </a>
@@ -17,9 +17,6 @@
     <div class="row center">
         <img src="{{ asset('img/capsula.jpg') }}" alt="Imagem ilustrativa da capsula do tempo">
         <h5>Nenhuma cápsula por aqui...</h5>
-        <a class="btn-floating btn-large waves-light red" href="{{route('admin.capsula.adicionar')}}">
-            <i class="material-icons">add</i>
-        </a>
     </div>
     @endif
     <div class="row">

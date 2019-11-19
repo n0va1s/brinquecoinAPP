@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Quadro extends Model
+class Crianca extends Model
 {
     protected $fillable = [
-        'id', 'tipo_quadro_id', 'recompensa'
+        'quadro_id', 'sexo', 'crianca', 'idade'
     ];
 
     public function Quadro()
     {
-        return $this->hasOne('App\Crianca');
+        return $this->belongsTo('App\Quadro');
     }
 }
