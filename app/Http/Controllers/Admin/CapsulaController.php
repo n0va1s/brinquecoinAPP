@@ -36,16 +36,26 @@ class CapsulaController extends Controller
         $dados['user_id'] = Auth::user()->id;
         $dados['codigo'] = Str::uuid()->toString();
 
+        $notification = array(
+            'message' => 'Cápsula lacrada!',
+            'alert-type' => 'success'
+        );
+
         Capsula::create($dados);
-        return redirect()->route('admin.capsula');
+        return redirect()->route('admin.capsula')->with($notification);
     }
 
     public function deletar($codigo)
     {
         //Capsula::find($codigo)->delete();
+        $notification = array(
+            'message' => 'Cápsula excluída!',
+            'alert-type' => 'success'
+        );
+
         Capsula::where('codigo', '=', $codigo)->delete();
         /*return redirect()->route('admin.capsula.adicionar')
             ->with('success', 'Cápsula excluída!');*/
-        return redirect()->route('admin.capsula');
+        return redirect()->route('admin.capsula')->with($notification);
     }
 }

@@ -10,7 +10,7 @@ class Crianca extends Model
         'quadro_id', 'sexo', 'crianca', 'idade'
     ];
 
-    public function Quadro()
+    public function quadro()
     {
         return $this->belongsTo('App\Quadro');
     }

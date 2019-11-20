@@ -8,7 +8,7 @@
         {{ csrf_field() }}
         @include('admin.capsula._form')
         <div class="row">
-            <button onclick="M.toast({html: 'Cápsula lacrada!'})" class="waves-light btn-small orange darken-2" type="submit" name="action">Salvar</button>
+            <button class="waves-light btn-small orange darken-2" type="submit" name="action">Salvar</button>
         </div>
       </form>
     </div>

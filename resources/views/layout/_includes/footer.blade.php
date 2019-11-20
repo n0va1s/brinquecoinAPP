@@ -1,4 +1,3 @@
-
 </main>
 
 <footer class="footer cyan">
@@ -17,6 +16,8 @@
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
+<!-- Toastr -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
     $('.sidenav').sidenav();
@@ -25,6 +26,7 @@
     $('.modal').modal();
     M.updateTextFields();
     $('.collapsible').collapsible();
+    
     $('.datepicker').datepicker({
         format: 'yyyy-mm-dd',
         container: 'body',
@@ -47,6 +49,7 @@
             selectYears: 15,
         },
     });
+
     $('input.autocomplete').autocomplete({
       data: {
         "Casa - Arrumar a cama": null,
@@ -54,6 +57,37 @@
         "Escola - Fazer a tarefa de casa": 'https://placehold.it/250x250'
       },
     });
+
+    toastr.options = {
+      "preventDuplicates": true
+    }
+
+    @if(Session::has('message'))
+      var type = "{{ Session::get('alert-type', 'info') }}";
+      switch(type){
+          case 'info':
+              toastr.info("{{ Session::get('message') }}");
+              break;
+
+          case 'warning':
+              toastr.warning("{{ Session::get('message') }}");
+              break;
+
+          case 'success':
+              toastr.success("{{ Session::get('message') }}");
+              break;
+
+          case 'error':
+              toastr.error("{{ Session::get('message') }}");
+              break;
+      }
+    @endif
+
+     @if(count($errors) > 0)
+        @foreach($errors->all() as $error)
+            toastr.error("{{ $error }}");
+        @endforeach
+    @endif
   });
 </script>
 </body>

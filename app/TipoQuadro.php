@@ -9,4 +9,9 @@ class TipoQuadro extends Model
     protected $fillable = [
         'id', 'tipo', 'descricao', 'imagem'
     ];
+
+    public function quadros()
+    {
+        return $this->hasMany('App\Quadro');
+    }
 }

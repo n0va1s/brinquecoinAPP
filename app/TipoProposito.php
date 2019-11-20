@@ -9,4 +9,9 @@ class TipoProposito extends Model
     protected $fillable = [
         'id', 'proposito', 'descricao'
     ];
+
+    public function atividades()
+    {
+        return $this->hasMany('App\Atividade');
+    }
 }

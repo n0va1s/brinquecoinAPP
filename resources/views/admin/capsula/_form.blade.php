@@ -18,17 +18,3 @@
     <label for="mensagem">Mensagem</label>
     <textarea id="mensagem" name="mensagem" class="materialize-textarea">{{isset($registro->mensagem) ? $registro->mensagem : ''}}</textarea>    
 </div>
-@if ($errors->any())
-    <div class="input-field col s12 red darken-2 white-text center">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-@if (session('success'))
-    <div class="input-field col s12 green darken-2 white-text center">
-            <p>{{ session('success') }}</p>
-    </div>
-@endif
