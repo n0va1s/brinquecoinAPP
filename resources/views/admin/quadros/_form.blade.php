@@ -7,7 +7,7 @@
   </select>
 </div>
 <div class="input-field col s12 m1">
-  <select>
+  <select name="genero">
     <option value="" disabled selected>Para</option>
     <option value="M">o</option>
     <option value="F">a</option>

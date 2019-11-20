@@ -8,8 +8,8 @@
         {{ csrf_field() }}
         @include('admin.quadros._form')
         <div class="row">
-            <a class="waves-light btn-small orange darken-2">Salvar</a>
-            <a class="waves-light btn-small cyan darken-2 modal-trigger" href="#modalAtividade">Novas Atividades</a>
+            <button class="waves-light btn-small orange darken-2" type="submit" name="action">Salvar</button>
+            <button class="waves-light btn-small cyan darken-2 modal-trigger" href="#modalAtividade">Novas Atividades</button>
         </div>
 
         <div id="modalAtividade" class="modal">
