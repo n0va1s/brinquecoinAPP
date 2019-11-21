@@ -21,13 +21,11 @@ class QuadroController extends Controller
 {
     public function index()
     {
-        //$registros = Quadro::all();
         $registros = DB::table('quadros')
             ->join('criancas', 'quadros.id', '=', 'criancas.quadro_id')
             ->join('tipo_quadros', 'tipo_quadros.id', '=', 'quadros.tipo_quadro_id')
-            ->select('quadros.*', 'criancas.nome', 'criancas.idade', 'criancas.genero', 'tipo_quadros.descricao')
+            ->select('quadros.*', 'criancas.nome', 'criancas.idade', 'criancas.genero', 'tipo_quadros.descricao', 'tipo_quadros.imagem')
             ->get();
-        //dd($registros);
         return view('admin.quadros.index', compact('registros'));
     }
 

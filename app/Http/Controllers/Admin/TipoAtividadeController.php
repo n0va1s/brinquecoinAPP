@@ -48,4 +48,10 @@ class TipoAtividadeController extends Controller
         TipoAtividade::find($id)->delete();
         return redirect()->route('admin.configuracao.tiposatividades');
     }
+
+    public function listar()
+    {
+        $registros = TipoAtividade::all();
+        return response()->json($registros);
+    }
 }

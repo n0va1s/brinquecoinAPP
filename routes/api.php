@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/', ['as' => 'api.inicio'], function (){
+    return response()->json(['message' => 'Brinque Coin APIs', 'status' => 'Connected']);
 });
+Route::get('/atividades', ['as' => 'api.atividades', 'uses' => 'Admin\TipoAtividadeController@listar']);

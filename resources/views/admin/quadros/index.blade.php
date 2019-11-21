@@ -25,7 +25,7 @@
             <div class="card">
                 <a href="{{route('admin.quadros.exibir',$registro->id)}}">
                     <div class="card-image">
-                        <img src="{{ asset('img/tiposquadros/ferias.jpg') }}" alt="Imagem do tipo do quadro">
+                        <img src="{{ asset($registro->imagem) }}" alt="Imagem do tipo do quadro">
                     </div>
                 </a>
                 <div class="card-content">
