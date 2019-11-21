@@ -52,12 +52,5 @@ class InsertDatabase extends Seeder
         DB::table('tipo_atividades')->insert(['tipo_proposito_id' => 5, 'descricao' => 'Cortar a grama']);
         DB::table('tipo_atividades')->insert(['tipo_proposito_id' => 5, 'descricao' => 'Varrer a casa']);
         DB::table('tipo_atividades')->insert(['tipo_proposito_id' => 5, 'descricao' => 'Cuidar do bicho de estimação']);
-
-        DB::table('quadros')->insert(['user_id' => 1, 'tipo_quadro_id' => 1, 'recompensa' => 'Ir ao clube']);
-        DB::table('criancas')->insert(['quadro_id' => 1, 'crianca' => 'Helena', 'genero' => 'F', 'idade' => 7]);
-
-        DB::table('atividades')->insert(['quadro_id' => 1, 'tipo_atividade_id' => 1, 'valor' => 1]);
-        DB::table('atividades')->insert(['quadro_id' => 1, 'tipo_atividade_id' => 2, 'valor' => 1]);
-        DB::table('atividades')->insert(['quadro_id' => 1, 'tipo_atividade_id' => 3, 'valor' => 1]);
     }
 }

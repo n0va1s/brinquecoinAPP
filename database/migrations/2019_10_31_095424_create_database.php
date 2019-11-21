@@ -45,7 +45,6 @@ class CreateDatabase extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('tipo_quadro_id');
             $table->string('recompensa')->nullable();
-            $table->timestamp('cadastradoEm')->useCurrent();
             $table->string('codigo')->nullable();
             $table->enum('ativo', ['S', 'N'])->default('S');
             $table->timestamps();
@@ -56,9 +55,11 @@ class CreateDatabase extends Migration
 
         Schema::create('criancas', function (Blueprint $table) {
             $table->unsignedBigInteger('quadro_id');
-            $table->string('crianca');
+            $table->string('nome');
             $table->enum('genero', ['F', 'M']);
             $table->integer('idade');
+            $table->timestamps();
+            $table->softDeletes();
             $table->foreign('quadro_id')->references('id')->on('quadros');
         });
 

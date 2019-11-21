@@ -29,9 +29,9 @@
                     </div>
                 </a>
                 <div class="card-content">
-                    <p>Quadro de Viagem</p>
+                    <p>Quadro de {{ $registro->descricao }}</p>
                     <br />
-                    <p>João Pedro</p>
+                    <p>{{ $registro->nome }}</p>
                     <br />
                     <p>{{ $registro->recompensa }}</p>
                 </div>

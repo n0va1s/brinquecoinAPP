@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Crianca extends Model
 {
     protected $fillable = [
-        'quadro_id', 'sexo', 'crianca', 'idade'
+        'id', 'quadro_id', 'nome', 'idade', 'genero'
     ];
 
     public function quadro()
     {
-        return $this->belongsTo('App\Quadro');
+        return $this->belongsTo(Quadro::class);
     }
 }

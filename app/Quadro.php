@@ -15,7 +15,7 @@ class Quadro extends Model
 
     public function crianca()
     {
-        return $this->hasOne('App\Crianca');
+        return $this->hasOne(Crianca::class);
     }
 
     public function tipoQuadro()

@@ -15,7 +15,7 @@
 </div>
 <div class="input-field col s12 m8">
   <label>Nome</label>
-  <input type="text" name="crianca" value="{{isset($registro->crianca) ? $registro->crianca : ''}}">
+  <input type="text" name="nome" value="{{isset($registro->nome) ? $registro->nome : ''}}">
 </div>
 <div class="input-field col s12 m1">
   <label>Idade</label>
