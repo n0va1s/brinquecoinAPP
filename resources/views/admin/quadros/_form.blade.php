@@ -38,7 +38,7 @@
   <input type="text" name="recompensa" value="{{isset($registro->recompensa) ? $registro->recompensa : ''}}">
 </div>
 <div class="input-field col s12 m1">
-  <i class="material-icons prefix">add</i>
+    <button class="waves-light btn-small cyan darken-2" type="submit" name="adicionar" id="adicionar"><i class="material-icons prefix">add</i></button>
 </div>
 <div class="chip">
     <div class="col s1 m1">

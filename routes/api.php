@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', ['as' => 'api.inicio'], function (){
+Route::get('/', function () {
     return response()->json(['message' => 'Brinque Coin APIs', 'status' => 'Connected']);
-});
-Route::get('/atividades', ['as' => 'api.atividades', 'uses' => 'Admin\TipoAtividadeController@listar']);
+})->name('api.inicio');
+
+Route::get('/tiposatividades', ['uses' => 'Admin\TipoAtividadeController@listar'])->name('api.tiposatividades');

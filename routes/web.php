@@ -12,48 +12,54 @@
 */
 
 
-Route::get('/', ['as' => 'site.home', 'uses' => 'Site\HomeController@index']);
+Route::get('/', ['uses' => 'Site\HomeController@index'])->name('site.home');
 
-Route::get('/login', ['as' => 'site.login', 'uses' => 'Site\LoginController@index']);
-Route::get('/login/sair', ['as' => 'site.login.sair', 'uses' => 'Site\LoginController@sair']);
-Route::post('/login/entrar', ['as' => 'site.login.entrar', 'uses' => 'Site\LoginController@entrar']);
+Route::prefix('login')->group(function () {
+    Route::get('/', ['uses' => 'Site\LoginController@index'])->name('site.login');
+    Route::get('/sair', ['uses' => 'Site\LoginController@sair'])->name('site.login.sair');
+    Route::post('/entrar', ['uses' => 'Site\LoginController@entrar'])->name('site.login.entrar');
+});
+
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/admin/perfil/{id}', ['as' => 'admin.perfil', 'uses' => 'Admin\PerfilController@index']);
-    Route::put('/admin/perfil/atualizar/{id}', ['as' => 'admin.perfil.atualizar', 'uses' => 'Admin\PerfilController@atualizar']);
+    Route::prefix('admin')->group(function () {
 
-    Route::get('/admin/quadros', ['as' => 'admin.quadros', 'uses' => 'Admin\QuadroController@index']);
-    Route::get('/admin/quadros/adicionar', ['as' => 'admin.quadros.adicionar', 'uses' => 'Admin\QuadroController@adicionar']);
-    Route::post('/admin/quadros/salvar', ['as' => 'admin.quadros.salvar', 'uses' => 'Admin\QuadroController@salvar']);
-    Route::get('/admin/quadros/editar/{id}', ['as' => 'admin.quadros.editar', 'uses' => 'Admin\QuadroController@editar']);
-    Route::put('/admin/quadros/atualizar/{id}', ['as' => 'admin.quadros.atualizar', 'uses' => 'Admin\QuadroController@atualizar']);
-    Route::get('/admin/quadros/deletar/{id}', ['as' => 'admin.quadros.deletar', 'uses' => 'Admin\QuadroController@deletar']);
-    Route::get('/admin/quadros/exibir/{id}', ['as' => 'admin.quadros.exibir', 'uses' => 'Admin\QuadroController@exibir']);
+        Route::get('/perfil/{id}', ['uses' => 'Admin\PerfilController@index'])->name('admin.perfil');
+        Route::put('/perfil/atualizar/{id}', ['uses' => 'Admin\PerfilController@atualizar'])->name('admin.perfil.atualizar');
 
-    Route::get('/admin/capsula', ['as' => 'admin.capsula', 'uses' => 'Admin\CapsulaController@index']);
-    Route::get('/admin/capsula/adicionar', ['as' => 'admin.capsula.adicionar', 'uses' => 'Admin\CapsulaController@adicionar']);
-    Route::post('/admin/capsula/salvar', ['as' => 'admin.capsula.salvar', 'uses' => 'Admin\CapsulaController@salvar']);
-    Route::get('/admin/capsula/deletar/{codigo}', ['as' => 'admin.capsula.deletar', 'uses' => 'Admin\CapsulaController@deletar']);
+        Route::get('/quadros', ['uses' => 'Admin\QuadroController@index'])->name('admin.quadros');
+        Route::get('/quadros/adicionar', ['uses' => 'Admin\QuadroController@adicionar'])->name('admin.quadros.adicionar');
+        Route::post('/quadros/salvar', ['uses' => 'Admin\QuadroController@salvar'])->name('admin.quadros.salvar');
+        Route::get('/quadros/editar/{id}', ['uses' => 'Admin\QuadroController@editar'])->name('admin.quadros.editar');
+        Route::put('/quadros/atualizar/{id}', ['uses' => 'Admin\QuadroController@atualizar'])->name('admin.quadros.atualizar');
+        Route::get('/quadros/deletar/{id}', ['uses' => 'Admin\QuadroController@deletar'])->name('admin.quadros.deletar');
+        Route::get('/quadros/exibir/{id}', ['uses' => 'Admin\QuadroController@exibir'])->name('admin.quadros.exibir');
 
-    Route::get('/admin/configuracao/tiposquadros', ['as' => 'admin.configuracao.tiposquadros', 'uses' => 'Admin\TipoQuadroController@index']);
-    Route::get('/admin/configuracao/tiposquadros/adicionar', ['as' => 'admin.configuracao.tiposquadros.adicionar', 'uses' => 'Admin\TipoQuadroController@adicionar']);
-    Route::post('/admin/configuracao/tiposquadros/salvar', ['as' => 'admin.configuracao.tiposquadros.salvar', 'uses' => 'Admin\TipoQuadroController@salvar']);
-    Route::get('/admin/configuracao/tiposquadros/editar/{id}', ['as' => 'admin.configuracao.tiposquadros.editar', 'uses' => 'Admin\TipoQuadroController@editar']);
-    Route::put('/admin/configuracao/tiposquadros/atualizar/{id}', ['as' => 'admin.configuracao.tiposquadros.atualizar', 'uses' => 'Admin\TipoQuadroController@atualizar']);
-    Route::get('/admin/configuracao/tiposquadros/deletar/{id}', ['as' => 'admin.configuracao.tiposquadros.deletar', 'uses' => 'Admin\TipoQuadroController@deletar']);
+        Route::get('/capsula', ['uses' => 'Admin\CapsulaController@index'])->name('admin.capsula');
+        Route::get('/capsula/adicionar', ['uses' => 'Admin\CapsulaController@adicionar'])->name('admin.capsula.adicionar');
+        Route::post('/capsula/salvar', ['uses' => 'Admin\CapsulaController@salvar'])->name('admin.capsula.salvar');
+        Route::get('/capsula/deletar/{codigo}', ['uses' => 'Admin\CapsulaController@deletar'])->name('admin.capsula.deletar');
 
-    Route::get('/admin/configuracao/tipospropositos', ['as' => 'admin.configuracao.tipospropositos', 'uses' => 'Admin\TipoPropositoController@index']);
-    Route::get('/admin/configuracao/tipospropositos/adicionar', ['as' => 'admin.configuracao.tipospropositos.adicionar', 'uses' => 'Admin\TipoPropositoController@adicionar']);
-    Route::post('/admin/configuracao/tipospropositos/salvar', ['as' => 'admin.configuracao.tipospropositos.salvar', 'uses' => 'Admin\TipoPropositoController@salvar']);
-    Route::get('/admin/configuracao/tipospropositos/editar/{id}', ['as' => 'admin.configuracao.tipospropositos.editar', 'uses' => 'Admin\TipoPropositoController@editar']);
-    Route::put('/admin/configuracao/tipospropositos/atualizar/{id}', ['as' => 'admin.configuracao.tipospropositos.atualizar', 'uses' => 'Admin\TipoPropositoController@atualizar']);
-    Route::get('/admin/configuracao/tipospropositos/deletar/{id}', ['as' => 'admin.configuracao.tipospropositos.deletar', 'uses' => 'Admin\TipoPropositoController@deletar']);
+        Route::get('/configuracao/tiposquadros', ['uses' => 'Admin\TipoQuadroController@index'])->name('admin.configuracao.tiposquadros');
+        Route::get('/configuracao/tiposquadros/adicionar', ['uses' => 'Admin\TipoQuadroController@adicionar'])->name('admin.configuracao.tiposquadros.adicionar');
+        Route::post('/configuracao/tiposquadros/salvar', ['uses' => 'Admin\TipoQuadroController@salvar'])->name('admin.configuracao.tiposquadros.salvar');
+        Route::get('/configuracao/tiposquadros/editar/{id}', ['uses' => 'Admin\TipoQuadroController@editar'])->name('admin.configuracao.tiposquadros.editar');
+        Route::put('/configuracao/tiposquadros/atualizar/{id}', ['uses' => 'Admin\TipoQuadroController@atualizar'])->name('admin.configuracao.tiposquadros.atualizar');
+        Route::get('/configuracao/tiposquadros/deletar/{id}', ['uses' => 'Admin\TipoQuadroController@deletar'])->name('admin.configuracao.tiposquadros.deletar');
 
-    Route::get('/admin/configuracao/tiposatividades', ['as' => 'admin.configuracao.tiposatividades', 'uses' => 'Admin\TipoAtividadeController@index']);
-    Route::get('/admin/configuracao/tiposatividades/adicionar', ['as' => 'admin.configuracao.tiposatividades.adicionar', 'uses' => 'Admin\TipoAtividadeController@adicionar']);
-    Route::post('/admin/configuracao/tiposatividades/salvar', ['as' => 'admin.configuracao.tiposatividades.salvar', 'uses' => 'Admin\TipoAtividadeController@salvar']);
-    Route::get('/admin/configuracao/tiposatividades/editar/{id}', ['as' => 'admin.configuracao.tiposatividades.editar', 'uses' => 'Admin\TipoAtividadeController@editar']);
-    Route::put('/admin/configuracao/tiposatividades/atualizar/{id}', ['as' => 'admin.configuracao.tiposatividades.atualizar', 'uses' => 'Admin\TipoAtividadeController@atualizar']);
-    Route::get('/admin/configuracao/tiposatividades/deletar/{id}', ['as' => 'admin.configuracao.tiposatividades.deletar', 'uses' => 'Admin\TipoAtividadeController@deletar']);
+        Route::get('/configuracao/tipospropositos', ['uses' => 'Admin\TipoPropositoController@index'])->name('admin.configuracao.tipospropositos');
+        Route::get('/configuracao/tipospropositos/adicionar', ['uses' => 'Admin\TipoPropositoController@adicionar'])->name('admin.configuracao.tipospropositos.adicionar');
+        Route::post('/configuracao/tipospropositos/salvar', ['uses' => 'Admin\TipoPropositoController@salvar'])->name('admin.configuracao.tipospropositos.salvar');
+        Route::get('/configuracao/tipospropositos/editar/{id}', ['uses' => 'Admin\TipoPropositoController@editar'])->name('admin.configuracao.tipospropositos.editar');
+        Route::put('/configuracao/tipospropositos/atualizar/{id}', ['uses' => 'Admin\TipoPropositoController@atualizar'])->name('admin.configuracao.tipospropositos.atualizar');
+        Route::get('/configuracao/tipospropositos/deletar/{id}', ['uses' => 'Admin\TipoPropositoController@deletar'])->name('admin.configuracao.tipospropositos.deletar');
+
+        Route::get('/configuracao/tiposatividades', ['uses' => 'Admin\TipoAtividadeController@index'])->name('admin.configuracao.tiposatividades');
+        Route::get('/configuracao/tiposatividades/adicionar', ['uses' => 'Admin\TipoAtividadeController@adicionar'])->name('admin.configuracao.tiposatividades.adicionar');
+        Route::post('/configuracao/tiposatividades/salvar', ['uses' => 'Admin\TipoAtividadeController@salvar'])->name('admin.configuracao.tiposatividades.salvar');
+        Route::get('/configuracao/tiposatividades/editar/{id}', ['uses' => 'Admin\TipoAtividadeController@editar'])->name('admin.configuracao.tiposatividades.editar');
+        Route::put('/configuracao/tiposatividades/atualizar/{id}', ['uses' => 'Admin\TipoAtividadeController@atualizar'])->name('admin.configuracao.tiposatividades.atualizar');
+        Route::get('/configuracao/tiposatividades/deletar/{id}', ['uses' => 'Admin\TipoAtividadeController@deletar'])->name('admin.configuracao.tiposatividades.deletar');
+    });
 });

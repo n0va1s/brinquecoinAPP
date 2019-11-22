@@ -26,7 +26,7 @@
     $('.modal').modal();
     M.updateTextFields();
     $('.collapsible').collapsible();
-    
+
     $('.datepicker').datepicker({
         format: 'yyyy-mm-dd',
         container: 'body',
@@ -57,6 +57,13 @@
         "Escola - Fazer a tarefa de casa": 'https://placehold.it/250x250'
       },
     });
+
+    $("#adicionar").click(function(){
+    $.get("api/tiposatividades", function(data, status){
+        alert("Data: " + data + "\nStatus: " + status);
+    });
+    });
+
 
     toastr.options = {
       "preventDuplicates": true
