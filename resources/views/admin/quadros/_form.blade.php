@@ -28,18 +28,20 @@
 <div class="row">
   <h5>Escolha as atividades do quadro</h5>
 </div>
-<div class="input-field col s12 m8">
-    <i class="material-icons prefix">textsms</i>
-    <input type="text" id="autocomplete-input" class="autocomplete">
-    <label for="autocomplete-input">Digite uma atividade</label>
+<form action="{{route('admin.quadros.atividades.salvar')}}" method="post">
+  <div class="input-field col s12 m7">
+      <i class="material-icons prefix">textsms</i>
+      <input type="text" id="autocomplete-input" class="autocomplete">
+      <label for="autocomplete-input">Digite uma atividade</label>
 </div>
-<div class="input-field col s12 m3">
-  <label>Valor</label>
-  <input type="text" name="recompensa" value="{{isset($registro->recompensa) ? $registro->recompensa : ''}}">
-</div>
-<div class="input-field col s12 m1">
-    <button class="waves-light btn-small cyan darken-2" type="submit" name="adicionar" id="adicionar"><i class="material-icons prefix">add</i></button>
-</div>
+  <div class="input-field col s12 m3">
+    <label>Valor</label>
+    <input type="text" name="recompensa" value="{{isset($registro->recompensa) ? $registro->recompensa : ''}}">
+  </div>
+  <div class="col s12 m2">
+      <button class="waves-light btn-small cyan darken-2" type="submit" name="btnSalvarAtividade" id="btnSalvarAtividade"><i class="material-icons prefix">add</i></button>
+  </div>
+</form>
 <div class="chip">
     <div class="col s1 m1">
         <i class="close material-icons">home</i>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\TipoAtividade;
 use App\TipoQuadro;
@@ -51,7 +52,11 @@ class TipoAtividadeController extends Controller
 
     public function listar()
     {
-        $registros = TipoAtividade::all();
+        //$registros = TipoAtividade::all();
+        $registros = DB::table('tipo_atividades')
+        ->select('tipo_atividades.descricao')
+        ->get();
+        
         return response()->json($registros);
     }
 }

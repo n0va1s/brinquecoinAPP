@@ -52,18 +52,50 @@
 
     $('input.autocomplete').autocomplete({
       data: {
-        "Casa - Arrumar a cama": null,
-        "Higiene - Escovar os dentes": null,
-        "Escola - Fazer a tarefa de casa": 'https://placehold.it/250x250'
+        fetch('http://localhost:8000/api/tiposatividades')
+        .then(
+          function(response) {
+            if (response.status !== 200) {
+              console.log('Looks like there was a problem. Status Code: ' +
+                response.status);
+              return;
+            }
+
+            response.json().then(function(data) {
+              return data;
+              console.log(data);
+            });
+          }
+        )
+        .catch(function(err) {
+          console.log('Fetch Error :-S', err);
+        });        
       },
     });
 
-    $("#adicionar").click(function(){
-    $.get("api/tiposatividades", function(data, status){
-        alert("Data: " + data + "\nStatus: " + status);
-    });
-    });
+    $( "#btnSalvarAtividade" ).click(function() {
+      alert('aqui');
 
+      fetch('http://localhost:8000/api/tiposatividades')
+      .then(
+        function(response) {
+          if (response.status !== 200) {
+            console.log('Looks like there was a problem. Status Code: ' +
+              response.status);
+            return;
+          }
+
+          // Examine the text in the response
+          response.json().then(function(data) {
+            alert(data).toString();
+            console.log(data);
+          });
+        }
+      )
+      .catch(function(err) {
+        console.log('Fetch Error :-S', err);
+      });
+    });
 
     toastr.options = {
       "preventDuplicates": true

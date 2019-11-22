@@ -36,6 +36,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/quadros/deletar/{id}', ['uses' => 'Admin\QuadroController@deletar'])->name('admin.quadros.deletar');
         Route::get('/quadros/exibir/{id}', ['uses' => 'Admin\QuadroController@exibir'])->name('admin.quadros.exibir');
 
+        Route::post('/quadros/atividades/salvar', ['uses' => 'Admin\QuadroController@atividade'])->name('admin.quadros.atividades.salvar');
+
         Route::get('/capsula', ['uses' => 'Admin\CapsulaController@index'])->name('admin.capsula');
         Route::get('/capsula/adicionar', ['uses' => 'Admin\CapsulaController@adicionar'])->name('admin.capsula.adicionar');
         Route::post('/capsula/salvar', ['uses' => 'Admin\CapsulaController@salvar'])->name('admin.capsula.salvar');
