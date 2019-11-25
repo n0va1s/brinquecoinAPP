@@ -4,14 +4,15 @@
   <div class="container">
     <h3 class="center">Cadastre seu quadro</h3>
     <div class="row">
-      <form action="{{route('admin.quadros.salvar')}}" method="post">
-        {{ csrf_field() }}
-        @include('admin.quadros._form')
-        <div class="row">
-            <button class="waves-light btn-small orange darken-2" type="submit" name="action">Salvar</button>
-            <button class="waves-light btn-small cyan darken-2 modal-trigger" href="#modalAtividade">Novas Atividades</button>
-        </div>
+        <form action="{{route('admin.quadros.salvar')}}" method="post">
+            {{ csrf_field() }}
+            @include('admin.quadros._form')
 
+            <div class="row">
+                <button class="waves-light btn-small orange darken-2" type="submit" name="action">Salvar</button>
+                <button class="waves-light btn-small cyan darken-2 modal-trigger" href="#modalAtividade">Novas Atividades</button>
+            </div>
+        </form>
         <div id="modalAtividade" class="modal">
           <div class="modal-content">
             <h3>Cadastre novas atividades</h3>
@@ -44,7 +45,6 @@
             </form>
           </div>
         </div>
-      </form>
     </div>
   </div>
 @endsection

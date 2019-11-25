@@ -32,8 +32,11 @@ class QuadroController extends Controller
     public function adicionar()
     {
         $tiposQuadros = TipoQuadro::all();
-        $tiposAtividades = TipoAtividade::all();
         $tiposPropositos = TipoProposito::all();
+        $tiposAtividades = DB::table('tipo_atividades')
+            ->join('tipo_propositos', 'tipo_propositos.id', '=', 'tipo_atividades.tipo_proposito_id')
+            ->select('tipo_propositos.descricao', 'tipo_atividades.descricao')
+            ->get();
         return view('admin.quadros.adicionar', compact('tiposQuadros', 'tiposAtividades', 'tiposPropositos'));
     }
 
@@ -56,25 +59,38 @@ class QuadroController extends Controller
         $quadro = Quadro::create($dados);
         $quadro->crianca()->save($crianca);
 
-        return redirect()->route('admin.quadros');
+        return redirect()->route('admin.quadros.editar', $quadro->codigo);
     }
 
-    public function editar($id)
+    public function editar($codigo)
     {
-        $registro = Quadro::find($id);
-        return view('admin.quadros.editar', compact('registro'));
+        $tiposQuadros = TipoQuadro::all();
+        $tiposPropositos = TipoProposito::all();
+        $tiposAtividades = DB::table('tipo_atividades')
+            ->join('tipo_propositos', 'tipo_propositos.id', '=', 'tipo_atividades.tipo_proposito_id')
+            ->select('tipo_atividades.id', 'tipo_propositos.descricao', 'tipo_atividades.descricao')
+            ->get();
+        //$registro = Quadro::find($id);
+        $registro = DB::table('quadros')
+            ->join('criancas', 'quadros.id', '=', 'criancas.quadro_id')
+            ->select('quadros.*', 'criancas.*')
+            ->where('codigo', '=', $codigo)
+            ->get();
+        //$registro = Quadro::where('codigo', '=', $codigo)->firstOrFail();
+        return view('admin.quadros.editar', compact('registro', 'tiposQuadros', 'tiposPropositos', 'tiposAtividades'));
     }
 
-    public function atualizar(Request $req, $id)
+    public function atualizar(Request $req, $codigo)
     {
         $dados = $req->validate([
             'tipo_quadro_id' => 'required',
-            'crianca' => 'required|max:200',
-            'genero' => Rule::in(['M', 'F']),
+            'nome' => 'required|max:200',
+            'genero' => 'required',
             'idade' => 'required|numeric'
         ]);
 
-        Quadro::find($id)->update($dados);
+        //Quadro::find($id)->update($dados);
+        Quadro::where('codigo', '=', $codigo)->firstOrFail()->update($dados);
         return redirect()->route('admin.quadros');
     }
 
@@ -84,9 +100,9 @@ class QuadroController extends Controller
         return redirect()->route('admin.quadros');
     }
 
-    public function exibir($id)
+    public function exibir($codigo)
     {
-        $registro = Quadro::find($id);
+        $registro = Quadro::where('codigo', '=', $codigo)->firstOrFail();
         return view('admin.quadros.exibir', compact('registro'));
     }
 }

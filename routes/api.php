@@ -19,7 +19,4 @@ Route::get('/', function () {
     return response()->json(['message' => 'Brinque Coin APIs', 'status' => 'Connected']);
 })->name('api.inicio');
 
-//Route::get('/tiposatividades', ['uses' => 'Admin\TipoAtividadeController@listar'])->name('api.tiposatividades');
-Route::get('/tiposatividades', function () {
-    return new TipoAtividadeCollection(TipoAtividade::all());
-})->name('api.tiposatividades');
+Route::get('/tiposatividades', ['uses' => 'Admin\TipoAtividadeController@listar'])->name('api.tiposatividades');

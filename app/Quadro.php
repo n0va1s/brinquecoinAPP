@@ -10,7 +10,7 @@ class Quadro extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'id', 'tipo_quadro_id', 'user_id', 'recompensa'
+        'id', 'tipo_quadro_id', 'user_id', 'recompensa', 'codigo'
     ];
 
     public function crianca()
