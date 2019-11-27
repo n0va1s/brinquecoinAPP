@@ -1,12 +1,12 @@
 </main>
 
 <footer class="footer cyan">
-  <div class="container">
-    <div class="row"></div>
-  </div>
     <div class="container">
-      <a class="grey-text text-lighten-4 left" href="\">© 2019 brinquecoin.com</a>
-      <a class="grey-text text-lighten-4 right" href="\">Termos de uso</a>
+        <div class="row"></div>
+    </div>
+    <div class="container">
+        <a class="grey-text text-lighten-4 left" href="\">© 2019 brinquecoin.com</a>
+        <a class="grey-text text-lighten-4 right" href="\">Termos de uso</a>
     </div>
 </footer>
 
@@ -19,13 +19,14 @@
 <!-- Toastr -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
 <script type="text/javascript">
-  $(document).ready(function(){
+    $(document).ready(function(){
     $('.sidenav').sidenav();
     $(".dropdown-trigger").dropdown();
     $('select').formSelect();
     $('.modal').modal();
     M.updateTextFields();
     $('.collapsible').collapsible();
+    $('.tabs').tabs();
 
     $('.datepicker').datepicker({
         format: 'yyyy-mm-dd',
@@ -83,4 +84,5 @@
   });
 </script>
 </body>
+
 </html>

@@ -36,7 +36,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/quadros/deletar/{id}', ['uses' => 'Admin\QuadroController@deletar'])->name('admin.quadros.deletar');
         Route::get('/quadros/exibir/{id}', ['uses' => 'Admin\QuadroController@exibir'])->name('admin.quadros.exibir');
 
-        Route::post('/quadros/atividades/salvar', ['uses' => 'Admin\QuadroController@atividade'])->name('admin.quadros.atividades.salvar');
+        Route::get('/quadros/atividades', ['uses' => 'Admin\AtividadeController@index'])->name('admin.quadros.atividades');
+        Route::get('/quadros/atividades/adicionar', ['uses' => 'Admin\AtividadeController@adicionar'])->name('admin.quadros.atividades.adicionar');
+        Route::post('/quadros/atividades/salvar', ['uses' => 'Admin\AtividadeController@salvar'])->name('admin.quadros.atividades.salvar');
+        Route::get('/quadros/atividades/deletar/{codigo}', ['uses' => 'Admin\AtividadeController@deletar'])->name('admin.quadros.atividades.deletar');
 
         Route::get('/capsula', ['uses' => 'Admin\CapsulaController@index'])->name('admin.capsula');
         Route::get('/capsula/adicionar', ['uses' => 'Admin\CapsulaController@adicionar'])->name('admin.capsula.adicionar');

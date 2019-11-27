@@ -35,7 +35,11 @@ class QuadroController extends Controller
         $tiposPropositos = TipoProposito::all();
         $tiposAtividades = DB::table('tipo_atividades')
             ->join('tipo_propositos', 'tipo_propositos.id', '=', 'tipo_atividades.tipo_proposito_id')
-            ->select('tipo_propositos.descricao', 'tipo_atividades.descricao')
+            ->select(
+                'tipo_atividades.id',
+                'tipo_propositos.descricao AS des_proposito',
+                'tipo_atividades.descricao AS des_atividade'
+            )
             ->get();
         return view('admin.quadros.adicionar', compact('tiposQuadros', 'tiposAtividades', 'tiposPropositos'));
     }
@@ -59,25 +63,48 @@ class QuadroController extends Controller
         $quadro = Quadro::create($dados);
         $quadro->crianca()->save($crianca);
 
-        return redirect()->route('admin.quadros.editar', $quadro->codigo);
+        $notification = array(
+            'message' => 'Quadros criado!',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('admin.quadros.adicionar')->with($notification);
     }
 
     public function editar($codigo)
     {
-        $tiposQuadros = TipoQuadro::all();
-        $tiposPropositos = TipoProposito::all();
-        $tiposAtividades = DB::table('tipo_atividades')
-            ->join('tipo_propositos', 'tipo_propositos.id', '=', 'tipo_atividades.tipo_proposito_id')
-            ->select('tipo_atividades.id', 'tipo_propositos.descricao', 'tipo_atividades.descricao')
-            ->get();
-        //$registro = Quadro::find($id);
-        $registro = DB::table('quadros')
-            ->join('criancas', 'quadros.id', '=', 'criancas.quadro_id')
-            ->select('quadros.*', 'criancas.*')
-            ->where('codigo', '=', $codigo)
-            ->get();
-        //$registro = Quadro::where('codigo', '=', $codigo)->firstOrFail();
-        return view('admin.quadros.editar', compact('registro', 'tiposQuadros', 'tiposPropositos', 'tiposAtividades'));
+        if ($codigo) {
+            $tiposQuadros = TipoQuadro::all();
+            $tiposPropositos = TipoProposito::all();
+            $tiposAtividades = DB::table('tipo_atividades')
+                ->join('tipo_propositos', 'tipo_propositos.id', '=', 'tipo_atividades.tipo_proposito_id')
+                ->select(
+                    'tipo_atividades.id',
+                    'tipo_propositos.descricao AS des_proposito',
+                    'tipo_atividades.descricao AS des_atividade'
+                )
+                ->get();
+            //$registro = Quadro::find($id);
+            $registro = DB::table('quadros')
+                ->join('criancas', 'quadros.id', '=', 'criancas.quadro_id')
+                ->select('quadros.*', 'criancas.*')
+                ->where('quadro.codigo', '=', $codigo)
+                ->get();
+
+            $notification = array(
+                'message' => 'Quadros atualizado!',
+                'alert-type' => 'success'
+            );
+
+            //$registro = Quadro::where('codigo', '=', $codigo)->firstOrFail();
+            return view('admin.quadros.editar', compact('registro', 'tiposQuadros', 'tiposPropositos', 'tiposAtividades'));
+        } else {
+            $notification = array(
+                'message' => 'Código do quadro não identificado!',
+                'alert-type' => 'error'
+            );
+            return view('admin.quadros')->with($notification);
+        }
     }
 
     public function atualizar(Request $req, $codigo)
@@ -88,21 +115,86 @@ class QuadroController extends Controller
             'genero' => 'required',
             'idade' => 'required|numeric'
         ]);
+        $dados['user_id'] = Auth::user()->id;
+        $dados['codigo'] = Str::uuid()->toString();
 
-        //Quadro::find($id)->update($dados);
+        $crianca = new Crianca();
+        $crianca->nome = $dados['nome'];
+        $crianca->genero = $dados['genero'];
+        $crianca->idade = $dados['idade'];
+
+        $quadro = Quadro::create($dados);
+        $quadro->crianca()->save($crianca);
+
+        $notification = array(
+            'message' => 'Quadros atualizado!',
+            'alert-type' => 'success'
+        );
         Quadro::where('codigo', '=', $codigo)->firstOrFail()->update($dados);
-        return redirect()->route('admin.quadros');
+
+        return redirect()->route('admin.quadros.adicionar')->with($notification);
     }
 
     public function deletar($codigo)
     {
-        Quadro::where('codigo', '=', $codigo)->firstOrFail()->delete();
-        return redirect()->route('admin.quadros');
+        if ($codigo) {
+            Quadro::where('codigo', '=', $codigo)->firstOrFail()->delete();
+        } else {
+            $notification = array(
+                'message' => 'Código do quadro não identificado!',
+                'alert-type' => 'error'
+            );
+        }
+
+        return redirect()->route('admin.quadros')->with($notification);
     }
 
     public function exibir($codigo)
     {
-        $registro = Quadro::where('codigo', '=', $codigo)->firstOrFail();
-        return view('admin.quadros.exibir', compact('registro'));
+        if ($codigo) {
+            $quadro = DB::table('quadros')
+                ->join('criancas', 'quadros.id', '=', 'criancas.quadro_id')
+                ->join('tipo_quadros', 'tipo_quadros.id', '=', 'quadros.tipo_quadro_id')
+                ->select('quadros.*', 'criancas.nome', 'criancas.idade', 'criancas.genero', 'tipo_quadros.descricao', 'tipo_quadros.imagem')
+                ->where('quadro.codigo', '=', $codigo)
+                ->get();
+            $atividades = DB::table('quadros')
+                ->join('atividades', 'atividades.quadro_id', '=', 'quadros.id')
+                ->join('tipo_atividades', 'atividades.tipo_quadro_id', '=', 'tipo_atividades.id')
+                ->select('atividades.*', 'tipo_atividades.descricao')
+                ->where('quadro.codigo', '=', $codigo)
+                ->get();
+        } else {
+            $notification = array(
+                'message' => 'Código do quadro não identificado!',
+                'alert-type' => 'error'
+            );
+        }
+
+        return view('admin.quadros.exibir', compact('quadro'));
+    }
+
+    public function duplicar($codigo)
+    {
+        //TODO: duplicar o quadro e as atividades (sem marcacao)
+    }
+
+    public function encerrar($codigo)
+    {
+        if ($codigo) {
+            $resultado = DB::table('quadros')
+                ->where('codigo', $codigo)
+                ->update(['ativo' => 'N']);
+
+            $notification = array(
+                'message' => 'Quadro encerrado!',
+                'alert-type' => 'success'
+            );
+        } else {
+            $notification = array(
+                'message' => 'Código do quadro não identificado!',
+                'alert-type' => 'error'
+            );
+        }
     }
 }
