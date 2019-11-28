@@ -31,15 +31,16 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/quadros', ['uses' => 'Admin\QuadroController@index'])->name('admin.quadros');
         Route::get('/quadros/adicionar', ['uses' => 'Admin\QuadroController@adicionar'])->name('admin.quadros.adicionar');
         Route::post('/quadros/salvar', ['uses' => 'Admin\QuadroController@salvar'])->name('admin.quadros.salvar');
-        Route::get('/quadros/editar/{id}', ['uses' => 'Admin\QuadroController@editar'])->name('admin.quadros.editar');
-        Route::put('/quadros/atualizar/{id}', ['uses' => 'Admin\QuadroController@atualizar'])->name('admin.quadros.atualizar');
-        Route::get('/quadros/deletar/{id}', ['uses' => 'Admin\QuadroController@deletar'])->name('admin.quadros.deletar');
-        Route::get('/quadros/exibir/{id}', ['uses' => 'Admin\QuadroController@exibir'])->name('admin.quadros.exibir');
+        Route::get('/quadros/editar/{codigo}', ['uses' => 'Admin\QuadroController@editar'])->name('admin.quadros.editar');
+        Route::put('/quadros/atualizar/{codigo}', ['uses' => 'Admin\QuadroController@atualizar'])->name('admin.quadros.atualizar');
+        Route::get('/quadros/deletar/{codigo}', ['uses' => 'Admin\QuadroController@deletar'])->name('admin.quadros.deletar');
+        Route::get('/quadros/exibir/{codigo}', ['uses' => 'Admin\QuadroController@exibir'])->name('admin.quadros.exibir');
 
         Route::get('/quadros/atividades', ['uses' => 'Admin\AtividadeController@index'])->name('admin.quadros.atividades');
         Route::get('/quadros/atividades/adicionar', ['uses' => 'Admin\AtividadeController@adicionar'])->name('admin.quadros.atividades.adicionar');
         Route::post('/quadros/atividades/salvar', ['uses' => 'Admin\AtividadeController@salvar'])->name('admin.quadros.atividades.salvar');
         Route::get('/quadros/atividades/deletar/{codigo}', ['uses' => 'Admin\AtividadeController@deletar'])->name('admin.quadros.atividades.deletar');
+        Route::get('/quadros/atividades/configurar', ['uses' => 'Admin\AtividadeController@deletar'])->name('admin.quadros.atividades.configurar');
 
         Route::get('/capsula', ['uses' => 'Admin\CapsulaController@index'])->name('admin.capsula');
         Route::get('/capsula/adicionar', ['uses' => 'Admin\CapsulaController@adicionar'])->name('admin.capsula.adicionar');

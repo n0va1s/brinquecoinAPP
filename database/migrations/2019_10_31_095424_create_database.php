@@ -33,11 +33,13 @@ class CreateDatabase extends Migration
         Schema::create('tipo_atividades', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('tipo_proposito_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('descricao');
             $table->string('imagem')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('tipo_proposito_id')->references('id')->on('tipo_propositos');
+            $table->foreign('user_id')->references('id')->on('users');
         });
 
         Schema::create('quadros', function (Blueprint $table) {

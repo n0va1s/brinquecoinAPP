@@ -12,7 +12,6 @@ use App\Http\Controllers\Controller;
 use App\Quadro;
 use App\Crianca;
 use App\TipoQuadro;
-use App\TipoAtividade;
 use App\TipoProposito;
 
 use Auth;
@@ -64,11 +63,11 @@ class QuadroController extends Controller
         $quadro->crianca()->save($crianca);
 
         $notification = array(
-            'message' => 'Quadros criado!',
+            'message' => 'Quadro criado!',
             'alert-type' => 'success'
         );
 
-        return redirect()->route('admin.quadros.adicionar')->with($notification);
+        return redirect()->route('admin.quadros.editar', $dados['codigo'])->with($notification);
     }
 
     public function editar($codigo)
@@ -84,26 +83,19 @@ class QuadroController extends Controller
                     'tipo_atividades.descricao AS des_atividade'
                 )
                 ->get();
-            //$registro = Quadro::find($id);
             $registro = DB::table('quadros')
                 ->join('criancas', 'quadros.id', '=', 'criancas.quadro_id')
                 ->select('quadros.*', 'criancas.*')
-                ->where('quadro.codigo', '=', $codigo)
-                ->get();
+                ->where('quadros.codigo', '=', $codigo)
+                ->first();
 
-            $notification = array(
-                'message' => 'Quadros atualizado!',
-                'alert-type' => 'success'
-            );
-
-            //$registro = Quadro::where('codigo', '=', $codigo)->firstOrFail();
             return view('admin.quadros.editar', compact('registro', 'tiposQuadros', 'tiposPropositos', 'tiposAtividades'));
         } else {
             $notification = array(
-                'message' => 'Código do quadro não identificado!',
+                'message' => 'Código do quadro não localizado!',
                 'alert-type' => 'error'
             );
-            return view('admin.quadros')->with($notification);
+            return view('admin.quadros.editar')->with($notification);
         }
     }
 
@@ -127,7 +119,7 @@ class QuadroController extends Controller
         $quadro->crianca()->save($crianca);
 
         $notification = array(
-            'message' => 'Quadros atualizado!',
+            'message' => 'Quadro atualizado!',
             'alert-type' => 'success'
         );
         Quadro::where('codigo', '=', $codigo)->firstOrFail()->update($dados);

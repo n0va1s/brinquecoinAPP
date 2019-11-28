@@ -97,9 +97,42 @@ class QuadroController extends Controller
         return redirect()->route('admin.quadros');
     }
 
-    public function exibir($codigo)
+    public function configurar(Request $req, $codigo)
     {
-        $registro = Quadro::where('codigo', '=', $codigo)->firstOrFail();
-        return view('admin.quadros.exibir', compact('registro'));
+        /*
+        Esse metodo cria uma nova atividade na tabela de configuracao.
+        Essa atividade é associada a um usuario, permitindo que apareca
+        no cadastro de quadro, na selecao de atividades
+        */
+        if ($codigo) {
+            $quadro = Quadro::where('codigo', '=', $codigo)->firstOrFail();
+            if ($quadro) {
+                $dados = $req->validate([
+                    'tipo_proposito_id' => 'required',
+                    'descricao' => 'required',
+                    'imagem' => 'required'
+                ]);
+                $dados['user_id'] = Auth::user()->id;
+
+                TipoAtividade::create($dados);
+
+                $notification = array(
+                    'message' => 'Nova atividade criada! Associe ela ao seu quadro',
+                    'alert-type' => 'success'
+                );
+
+                return redirect()->route('admin.quadros.adicionar')->with($notification);
+            } else {
+                $notification = array(
+                    'message' => 'Quadro não localidado',
+                    'alert-type' => 'error'
+                );
+            }
+        } else {
+            $notification = array(
+                'message' => 'Código do quadro não localizado!',
+                'alert-type' => 'error'
+            );
+        }
     }
 }

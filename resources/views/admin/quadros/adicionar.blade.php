@@ -49,7 +49,7 @@
                 <div class="row">
                     <h5>Cadastre novas atividades para o quadro</h5>
                 </div>
-                <form action="{{route('admin.configuracao.tiposatividades.salvar')}}" method="post">
+                <form action="{{route('admin.quadros.atividades.configurar')}}" method="post">
                     {{ csrf_field() }}
                     @include('admin.quadros._formNovasAtividades')
                     <div class="row">
@@ -60,7 +60,6 @@
 
             </div>
         </div>
-
     </div>
 </div>
 
