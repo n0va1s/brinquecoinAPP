@@ -33,7 +33,7 @@ class CreateDatabase extends Migration
         Schema::create('tipo_atividades', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('tipo_proposito_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('descricao');
             $table->string('imagem')->nullable();
             $table->timestamps();

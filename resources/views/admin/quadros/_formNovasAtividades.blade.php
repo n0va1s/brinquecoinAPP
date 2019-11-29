@@ -19,3 +19,22 @@
         <input class="file-path validate" type="text">
     </div>
 </div>
+<div class="row">
+    @foreach($listActivities as $activity)
+    <div class="chip">
+        <div class="col s1 m1">
+            <i class="close material-icons">home</i>
+        </div>
+        <div class="col s6 m6">
+        <span>{{$activity->descricao}}</span>
+        </div>
+        <div class="col s1  m1">
+            <a class="close material-icons" 
+                href="{{ route('admin.quadros.atividades.deletar.nova',$activity->id) }}">
+                <i class="close material-icons">close</i>
+            </a>
+        </div>
+    </div>
+    @endforeach
+</div>
+

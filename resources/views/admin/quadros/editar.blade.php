@@ -37,6 +37,7 @@
                 <form action="{{route('admin.quadros.atividades.salvar')}}" method="post">
                     {{ csrf_field() }}
                     @include('admin.quadros._formAtividade')
+                    <input type="hidden" name="codigo" value={{ $registro->codigo }}>
                     <div class="row">
                         <button class="waves-light btn-small orange darken-2" type="submit"
                             name="action">Salvar</button>
@@ -50,7 +51,7 @@
                 <div class="row">
                     <h5>Cadastre novas atividades para o quadro</h5>
                 </div>
-                <form action="{{route('admin.quadros.atividades.configurar')}}" method="post">
+                <form action="{{route('admin.quadros.atividades.adicionar.nova')}}" method="post">
                     {{ csrf_field() }}
                     @include('admin.quadros._formNovasAtividades')
                     <input type="hidden" name="codigo" value={{ $registro->codigo }}>

@@ -91,10 +91,15 @@ Route::group(
                     '/quadros/atividades/deletar/{codigo}',
                     ['uses' => 'Admin\AtividadeController@deletar']
                 )->name('admin.quadros.atividades.deletar');
+                
                 Route::post(
-                    '/quadros/atividades/configurar',
-                    ['uses' => 'Admin\AtividadeController@save']
-                )->name('admin.quadros.atividades.configurar');
+                    '/quadros/atividades/adicionar/nova',
+                    ['uses' => 'Admin\AtividadeController@saveNew']
+                )->name('admin.quadros.atividades.adicionar.nova');
+                Route::get(
+                    '/quadros/atividades/deletar/nova/{id}',
+                    ['uses' => 'Admin\AtividadeController@deleteNew']
+                )->name('admin.quadros.atividades.deletar.nova');
 
                 Route::get(
                     '/capsula',

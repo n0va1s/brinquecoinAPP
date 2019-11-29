@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TipoAtividade extends Model
 {
     protected $fillable = [
-        'id', 'tipo_proposito_id', 'descricao'
+        'id', 'tipo_proposito_id', 'descricao', 'user_id'
     ];
 
     public function atividades()

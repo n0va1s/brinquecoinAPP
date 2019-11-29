@@ -16,13 +16,14 @@ use Auth;
 
 class AtividadeController extends Controller
 {
-    public function save(Request $req)
+    public function saveNew(Request $req)
     {
         $data = $req->validate(
             ['tipo_proposito_id' => 'required',
             'descricao' => 'required']
         );
         $data['user_id'] = Auth::user()->id;
+        $codigo = $req->input('codigo');
 
         TipoAtividade::create($data);
 
@@ -30,9 +31,23 @@ class AtividadeController extends Controller
             'message' => 'Atividade criada!',
             'alert-type' => 'success'
         );
+
         return redirect()->route(
-            'admin.quadros.editar',
-            $req->input('codigo')
+            'admin.quadros.editar', $codigo
+        )->with($notification);
+    }
+
+    public function deleteNew($id, $codigo)
+    {
+        TipoAtividade::find($id)->delete();
+
+        $notification = array(
+            'message' => 'Atividade excluída!',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route(
+            'admin.quadros.editar', $codigo
         )->with($notification);
     }
 }

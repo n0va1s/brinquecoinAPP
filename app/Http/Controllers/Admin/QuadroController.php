@@ -66,11 +66,13 @@ class QuadroController extends Controller
     public function salvar(Request $req)
     {
         $dados = $req->validate(
-            ['tipo_quadro_id' => 'required',
-            'nome' => 'required|max:200',
-            'genero' => 'required',
-            'idade' => 'required|numeric',
-            'mensagem' => Rule::requiredIf($req->get('tipo_quadro_id') === "4")]
+            [
+                'tipo_quadro_id' => 'required',
+                'nome' => 'required|max:200',
+                'genero' => 'required',
+                'idade' => 'required|numeric',
+                'mensagem' => Rule::requiredIf($req->get('tipo_quadro_id') === "4")
+            ]
         );
         $dados['user_id'] = Auth::user()->id;
         $dados['codigo'] = Str::uuid()->toString();
@@ -97,8 +99,12 @@ class QuadroController extends Controller
     public function editar($codigo)
     {
         if ($codigo) {
+            //Combo de tipos de quadro
             $tiposQuadros = TipoQuadro::all();
+            //Combo de propositos
             $tiposPropositos = TipoProposito::all();
+            //Combo de tipos de atividades
+            //Apresenta as atividades padrao e as criadas pelo usuario
             $tiposAtividades = DB::table('tipo_atividades')
                 ->join(
                     'tipo_propositos',
@@ -111,7 +117,15 @@ class QuadroController extends Controller
                     'tipo_propositos.descricao AS des_proposito',
                     'tipo_atividades.descricao AS des_atividade'
                 )
+                ->whereNull('user_id')
+                ->orWhere('user_id', Auth::user()->id)
                 ->get();
+
+            //Lista de atividades criadas pelo usuario
+            $listActivities = DB::table('tipo_atividades')
+                ->Where('user_id', Auth::user()->id)
+                ->get();
+
             $registro = DB::table('quadros')
                 ->join('criancas', 'quadros.id', '=', 'criancas.quadro_id')
                 ->select('quadros.*', 'criancas.*')
@@ -124,7 +138,8 @@ class QuadroController extends Controller
                     'registro',
                     'tiposQuadros',
                     'tiposPropositos',
-                    'tiposAtividades'
+                    'tiposAtividades',
+                    'listActivities'
                 )
             );
         } else {
@@ -139,11 +154,13 @@ class QuadroController extends Controller
     public function atualizar(Request $req, $codigo)
     {
         $dados = $req->validate(
-            ['tipo_quadro_id' => 'required',
-            'nome' => 'required|max:200',
-            'genero' => 'required',
-            'idade' => 'required|numeric',
-            'mensagem' => Rule::requiredIf($req->get('tipo_quadro_id') === "4")]
+            [
+                'tipo_quadro_id' => 'required',
+                'nome' => 'required|max:200',
+                'genero' => 'required',
+                'idade' => 'required|numeric',
+                'mensagem' => Rule::requiredIf($req->get('tipo_quadro_id') === "4")
+            ]
         );
         $dados['user_id'] = Auth::user()->id;
         dd($dados);
