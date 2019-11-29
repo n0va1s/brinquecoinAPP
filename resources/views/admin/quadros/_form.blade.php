@@ -2,15 +2,19 @@
     <select name="tipo_quadro_id">
         <option value="" disabled selected>Tipo</option>
         @foreach($tiposQuadros as $tipo)
-        <option value="{{ $tipo->id }}">{{ $tipo->descricao }}</option>
+        <option value="{{ $tipo->id }}" {{
+            (isset($registro->tipo_quadro_id) && ($registro->tipo_quadro_id === $tipo->id))
+            ? 'selected' : ''}}>{{ $tipo->descricao }}</option>
         @endforeach
     </select>
 </div>
 <div class="input-field col s12 m1">
     <select name="genero">
         <option value="" disabled selected>Para</option>
-        <option value="M">o</option>
-        <option value="F">a</option>
+        <option value="M" {{isset($registro->genero) && ($registro->genero === 'M')
+        ? 'selected' : ''}}>o</option>
+        <option value="F" {{isset($registro->genero) && ($registro->genero === 'F')
+        ? 'selected' : ''}}>a</option>
     </select>
 </div>
 <div class="input-field col s12 m8">

@@ -19,6 +19,7 @@
             <div class="row">
                 <form action="{{route('admin.quadros.atualizar',$registro->codigo)}}" method="post">
                     {{ csrf_field() }}
+                    <input type="hidden" name="_method" value="put">
                     @include('admin.quadros._form')
                     <div class="row">
                         <button class="waves-light btn-small orange darken-2" type="submit"
@@ -52,6 +53,7 @@
                 <form action="{{route('admin.quadros.atividades.configurar')}}" method="post">
                     {{ csrf_field() }}
                     @include('admin.quadros._formNovasAtividades')
+                    <input type="hidden" name="codigo" value={{ $registro->codigo }}>
                     <div class="row">
                         <button class="waves-light btn-small orange darken-2" type="submit"
                             name="action">Salvar</button>

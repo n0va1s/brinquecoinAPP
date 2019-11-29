@@ -10,7 +10,7 @@
     <label>Atividade</label>
     <input type="text" name="descricao" value="{{isset($registro->descricao) ? $registro->descricao : ''}}">
 </div>
-<div class="file-field  input-field">
+<div class="input-field file-field col s12 m12 ">
     <div class="btn-small cyan darken-2">
         <span>Imagem</span>
         <input type="file" name="imagem">

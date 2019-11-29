@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -23,7 +24,14 @@ class QuadroController extends Controller
         $registros = DB::table('quadros')
             ->join('criancas', 'quadros.id', '=', 'criancas.quadro_id')
             ->join('tipo_quadros', 'tipo_quadros.id', '=', 'quadros.tipo_quadro_id')
-            ->select('quadros.*', 'criancas.nome', 'criancas.idade', 'criancas.genero', 'tipo_quadros.descricao', 'tipo_quadros.imagem')
+            ->select(
+                'quadros.*',
+                'criancas.nome',
+                'criancas.idade',
+                'criancas.genero',
+                'tipo_quadros.descricao',
+                'tipo_quadros.imagem'
+            )
             ->get();
         return view('admin.quadros.index', compact('registros'));
     }
@@ -33,24 +41,37 @@ class QuadroController extends Controller
         $tiposQuadros = TipoQuadro::all();
         $tiposPropositos = TipoProposito::all();
         $tiposAtividades = DB::table('tipo_atividades')
-            ->join('tipo_propositos', 'tipo_propositos.id', '=', 'tipo_atividades.tipo_proposito_id')
+            ->join(
+                'tipo_propositos',
+                'tipo_propositos.id',
+                '=',
+                'tipo_atividades.tipo_proposito_id'
+            )
             ->select(
                 'tipo_atividades.id',
                 'tipo_propositos.descricao AS des_proposito',
                 'tipo_atividades.descricao AS des_atividade'
             )
             ->get();
-        return view('admin.quadros.adicionar', compact('tiposQuadros', 'tiposAtividades', 'tiposPropositos'));
+        return view(
+            'admin.quadros.adicionar',
+            compact(
+                'tiposQuadros',
+                'tiposAtividades',
+                'tiposPropositos'
+            )
+        );
     }
 
     public function salvar(Request $req)
     {
-        $dados = $req->validate([
-            'tipo_quadro_id' => 'required',
+        $dados = $req->validate(
+            ['tipo_quadro_id' => 'required',
             'nome' => 'required|max:200',
             'genero' => 'required',
-            'idade' => 'required|numeric'
-        ]);
+            'idade' => 'required|numeric',
+            'mensagem' => Rule::requiredIf($req->get('tipo_quadro_id') === "4")]
+        );
         $dados['user_id'] = Auth::user()->id;
         $dados['codigo'] = Str::uuid()->toString();
 
@@ -67,7 +88,10 @@ class QuadroController extends Controller
             'alert-type' => 'success'
         );
 
-        return redirect()->route('admin.quadros.editar', $dados['codigo'])->with($notification);
+        return redirect()->route(
+            'admin.quadros.editar',
+            $dados['codigo']
+        )->with($notification);
     }
 
     public function editar($codigo)
@@ -76,7 +100,12 @@ class QuadroController extends Controller
             $tiposQuadros = TipoQuadro::all();
             $tiposPropositos = TipoProposito::all();
             $tiposAtividades = DB::table('tipo_atividades')
-                ->join('tipo_propositos', 'tipo_propositos.id', '=', 'tipo_atividades.tipo_proposito_id')
+                ->join(
+                    'tipo_propositos',
+                    'tipo_propositos.id',
+                    '=',
+                    'tipo_atividades.tipo_proposito_id'
+                )
                 ->select(
                     'tipo_atividades.id',
                     'tipo_propositos.descricao AS des_proposito',
@@ -89,7 +118,15 @@ class QuadroController extends Controller
                 ->where('quadros.codigo', '=', $codigo)
                 ->first();
 
-            return view('admin.quadros.editar', compact('registro', 'tiposQuadros', 'tiposPropositos', 'tiposAtividades'));
+            return view(
+                'admin.quadros.editar',
+                compact(
+                    'registro',
+                    'tiposQuadros',
+                    'tiposPropositos',
+                    'tiposAtividades'
+                )
+            );
         } else {
             $notification = array(
                 'message' => 'Código do quadro não localizado!',
@@ -101,15 +138,15 @@ class QuadroController extends Controller
 
     public function atualizar(Request $req, $codigo)
     {
-        $dados = $req->validate([
-            'tipo_quadro_id' => 'required',
+        $dados = $req->validate(
+            ['tipo_quadro_id' => 'required',
             'nome' => 'required|max:200',
             'genero' => 'required',
-            'idade' => 'required|numeric'
-        ]);
+            'idade' => 'required|numeric',
+            'mensagem' => Rule::requiredIf($req->get('tipo_quadro_id') === "4")]
+        );
         $dados['user_id'] = Auth::user()->id;
-        $dados['codigo'] = Str::uuid()->toString();
-
+        dd($dados);
         $crianca = new Crianca();
         $crianca->nome = $dados['nome'];
         $crianca->genero = $dados['genero'];
@@ -146,13 +183,31 @@ class QuadroController extends Controller
         if ($codigo) {
             $quadro = DB::table('quadros')
                 ->join('criancas', 'quadros.id', '=', 'criancas.quadro_id')
-                ->join('tipo_quadros', 'tipo_quadros.id', '=', 'quadros.tipo_quadro_id')
-                ->select('quadros.*', 'criancas.nome', 'criancas.idade', 'criancas.genero', 'tipo_quadros.descricao', 'tipo_quadros.imagem')
+                ->join(
+                    'tipo_quadros',
+                    '
+                    tipo_quadros.id',
+                    '=',
+                    'quadros.tipo_quadro_id'
+                )
+                ->select(
+                    'quadros.*',
+                    'criancas.nome',
+                    'criancas.idade',
+                    'criancas.genero',
+                    'tipo_quadros.descricao',
+                    'tipo_quadros.imagem'
+                )
                 ->where('quadro.codigo', '=', $codigo)
                 ->get();
             $atividades = DB::table('quadros')
                 ->join('atividades', 'atividades.quadro_id', '=', 'quadros.id')
-                ->join('tipo_atividades', 'atividades.tipo_quadro_id', '=', 'tipo_atividades.id')
+                ->join(
+                    'tipo_atividades',
+                    'atividades.tipo_quadro_id',
+                    '=',
+                    'tipo_atividades.id'
+                )
                 ->select('atividades.*', 'tipo_atividades.descricao')
                 ->where('quadro.codigo', '=', $codigo)
                 ->get();
