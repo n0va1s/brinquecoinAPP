@@ -27,6 +27,7 @@
     M.updateTextFields();
     $('.collapsible').collapsible();
     $('.tabs').tabs();
+    $('.fixed-action-btn').floatingActionButton();
 
     $('.datepicker').datepicker({
         format: 'yyyy-mm-dd',

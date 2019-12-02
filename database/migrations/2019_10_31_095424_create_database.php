@@ -13,94 +13,95 @@ class CreateDatabase extends Migration
      */
     public function up()
     {
-        Schema::create('tipo_quadros', function (Blueprint $table) {
+        Schema::create('board_types', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('tipo', ['F', 'H', 'M', 'T']);
-            $table->string('descricao', '100');
-            $table->string('imagem');
+            $table->enum('type', ['F', 'H', 'M', 'T']);
+            $table->string('name', '100');
+            $table->string('image');
             $table->timestamps();
             $table->softDeletes();
         });
 
-        Schema::create('tipo_propositos', function (Blueprint $table) {
+        Schema::create('propouse_types', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('proposito', ['E', 'H', 'C', 'A', 'D', 'F', 'R', 'I']);
-            $table->string('descricao');
+            $table->enum('propouse', ['E', 'H', 'C', 'A', 'D', 'F', 'R', 'I']);
+            $table->string('name');
+            $table->string('icon', '50');
             $table->timestamps();
             $table->softDeletes();
         });
 
-        Schema::create('tipo_atividades', function (Blueprint $table) {
+        Schema::create('activity_types', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('tipo_proposito_id');
+            $table->unsignedBigInteger('propouse_type_id');
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->string('descricao');
-            $table->string('imagem')->nullable();
+            $table->string('name');
+            $table->string('image')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('tipo_proposito_id')->references('id')->on('tipo_propositos');
+            $table->foreign('propouse_type_id')->references('id')->on('propouse_types');
             $table->foreign('user_id')->references('id')->on('users');
         });
 
-        Schema::create('quadros', function (Blueprint $table) {
+        Schema::create('boards', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('tipo_quadro_id');
-            $table->string('recompensa')->nullable();
-            $table->string('codigo')->nullable();
-            $table->enum('ativo', ['S', 'N'])->default('S');
+            $table->unsignedBigInteger('board_type_id');
+            $table->string('reward')->nullable();
+            $table->string('code')->nullable();
+            $table->enum('active', ['Y','N'])->default('Y');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('tipo_quadro_id')->references('id')->on('tipo_quadros');
+            $table->foreign('board_type_id')->references('id')->on('board_types');
         });
 
-        Schema::create('criancas', function (Blueprint $table) {
-            $table->unsignedBigInteger('quadro_id');
-            $table->string('nome');
-            $table->enum('genero', ['F', 'M']);
-            $table->integer('idade');
+        Schema::create('children', function (Blueprint $table) {
+            $table->unsignedBigInteger('board_id');
+            $table->string('name');
+            $table->enum('gender', ['F', 'M']);
+            $table->integer('age');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('quadro_id')->references('id')->on('quadros');
+            $table->foreign('board_id')->references('id')->on('boards');
         });
 
-        Schema::create('atividades', function (Blueprint $table) {
+        Schema::create('activities', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('quadro_id');
-            $table->unsignedBigInteger('tipo_atividade_id');
-            $table->decimal('valor', 5, 2)->nullable();
-            $table->string('codigo')->nullable();
+            $table->unsignedBigInteger('board_id');
+            $table->unsignedBigInteger('activity_type_id');
+            $table->decimal('value', 5, 2)->nullable();
+            $table->string('code')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('quadro_id')->references('id')->on('quadros');
-            $table->foreign('tipo_atividade_id')->references('id')->on('tipo_atividades');
+            $table->foreign('board_id')->references('id')->on('boards');
+            $table->foreign('activity_type_id')->references('id')->on('activity_types');
         });
 
-        Schema::create('marcacoes', function (Blueprint $table) {
+        Schema::create('marks', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('atividade_id');
-            $table->enum('segunda', ['S', 'N'])->nullable();
-            $table->enum('terca', ['S', 'N'])->nullable();
-            $table->enum('quarta', ['S', 'N'])->nullable();
-            $table->enum('quinta', ['S', 'N'])->nullable();
-            $table->enum('sexta', ['S', 'N'])->nullable();
-            $table->enum('sabado', ['S', 'N'])->nullable();
-            $table->enum('domingo', ['S', 'N'])->nullable();
+            $table->unsignedBigInteger('activity_id');
+            $table->enum('monday', ['Y','N'])->nullable();
+            $table->enum('tuesday', ['Y','N'])->nullable();
+            $table->enum('wednesday', ['Y','N'])->nullable();
+            $table->enum('thursday', ['Y','N'])->nullable();
+            $table->enum('friday', ['Y','N'])->nullable();
+            $table->enum('saturday', ['Y','N'])->nullable();
+            $table->enum('sunday', ['Y','N'])->nullable();
             $table->timestamps();
-            $table->foreign('atividade_id')->references('id')->on('atividades');
+            $table->foreign('activity_id')->references('id')->on('activities');
         });
 
-        Schema::create('capsulas', function (Blueprint $table) {
+        Schema::create('capsules', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->string('codigo', 255);
-            $table->string('nomeDe', 200);
-            $table->string('nomePara', 200);
-            $table->string('emailPara', 100);
-            $table->timestamp('avisadoEm');
-            $table->text('mensagem');
-            $table->enum('ativo', ['S', 'N'])->default('S');
+            $table->string('code', 255);
+            $table->string('from', 200);
+            $table->string('to', 200);
+            $table->string('email', 100);
+            $table->timestamp('remember_at');
+            $table->text('menssage');
+            $table->enum('active', ['Y','N'])->default('Y');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users');
@@ -114,14 +115,14 @@ class CreateDatabase extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('capsulas');
-        Schema::dropIfExists('marcacoes');
-        Schema::dropIfExists('atividades');
-        Schema::dropIfExists('criancas');
-        Schema::dropIfExists('quadros');
+        Schema::dropIfExists('capsules');
+        Schema::dropIfExists('marks');
+        Schema::dropIfExists('activities');
+        Schema::dropIfExists('children');
+        Schema::dropIfExists('boards');
         Schema::dropIfExists('users');
-        Schema::dropIfExists('tipo_atividades');
-        Schema::dropIfExists('tipo_quadros');
-        Schema::dropIfExists('tipo_propositos');
+        Schema::dropIfExists('activity_types');
+        Schema::dropIfExists('board_types');
+        Schema::dropIfExists('propouse_types');
     }
 }
