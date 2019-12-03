@@ -2,7 +2,7 @@
 
 @section('conteudo')
 <div class="container">
-    <h3 class="center">Quadro de [XXX]</h3>
+    <h3 class="center">Quadro de Mesada</h3>
     <div class="row">
         <div class="col s12">
             <ul class="tabs">
@@ -15,9 +15,9 @@
                 <h5>Identifique a criança ou o jovem</h5>
             </div>
             <div class="row">
-                <form action="{{route('admin.quadros.salvar')}}" method="post">
+                <form action="{{route('board.allowance.save')}}" method="post">
                     {{ csrf_field() }}
-                    @include('admin.quadros._form')
+                    @include('board.allowance._form')
                     <div class="row">
                         <button class="waves-light btn-small orange darken-2" type="submit"
                             name="action">Salvar</button>

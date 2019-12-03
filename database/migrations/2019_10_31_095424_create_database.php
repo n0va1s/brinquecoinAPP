@@ -56,7 +56,7 @@ class CreateDatabase extends Migration
             $table->foreign('board_type_id')->references('id')->on('board_types');
         });
 
-        Schema::create('children', function (Blueprint $table) {
+        Schema::create('person', function (Blueprint $table) {
             $table->unsignedBigInteger('board_id');
             $table->string('name');
             $table->enum('gender', ['F', 'M']);

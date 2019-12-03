@@ -2,7 +2,7 @@
 
 @section('conteudo')
 <div class="container">
-    <h3 class="center">Quadro de [XXX]</h3>
+    <h3 class="center">Quadro de Mesada</h3>
     <div class="row">
         <div class="col s12">
             <ul class="tabs">
@@ -17,16 +17,16 @@
                 <h5>Identifique a criança ou o jovem</h5>
             </div>
             <div class="row">
-                <form action="{{route('admin.quadros.atualizar',$registro->codigo)}}" method="post">
+                <form action="{{route('board.allowance.update',$board->code)}}" method="post">
                     {{ csrf_field() }}
                     <input type="hidden" name="_method" value="put">
-                    @include('admin.quadros._form')
+                    @include('board.allowance._form')
                     <div class="row">
                         <button class="waves-light btn-small orange darken-2" type="submit"
                             name="action">Salvar</button>
                     </div>
                 </form>
-            </div>
+            </div>$
         </div>
 
         <div id="passo2" class="col s12">
@@ -36,8 +36,8 @@
             <div class="row">
                 <form action="{{route('activity.save')}}" method="post">
                     {{ csrf_field() }}
-                    @include('admin.quadros._formAtividade')
-                    <input type="hidden" name="codigo" value={{ $registro->codigo }}>
+                    @include('board.allowance._formActivity')
+                    <input type="hidden" name="codigo" value={{ $board->code }}>
                     <div class="row">
                         <button class="waves-light btn-small orange darken-2" type="submit"
                             name="action">Salvar</button>
@@ -53,8 +53,8 @@
                 </div>
                 <form action="{{route('activity.user.save')}}" method="post">
                     {{ csrf_field() }}
-                    @include('admin.quadros._formNovasAtividades')
-                    <input type="hidden" name="codigo" value={{ $registro->codigo }}>
+                    @include('board.allowance._formNewActivities')
+                    <input type="hidden" name="codigo" value={{ $board->codigo }}>
                     <div class="row">
                         <button class="waves-light btn-small orange darken-2" type="submit"
                             name="action">Salvar</button>

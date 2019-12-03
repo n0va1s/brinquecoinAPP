@@ -1,14 +1,14 @@
 <div class="input-field col s12 m4">
-    <select name="tipo_proposito_id">
+    <select name="propouse_type_id">
         <option value="" disabled selected>Propósito</option>
-        @foreach ($tiposPropositos as $tipo)
-        <option value="{{$tipo->id}}">{{$tipo->descricao}}</option>
+        @foreach ($propouse_types as $type)
+        <option value="{{$type->id}}">{{$type->name}}</option>
         @endforeach
     </select>
 </div>
 <div class="input-field col s12 m8">
     <label>Atividade</label>
-    <input type="text" name="descricao" value="{{isset($registro->descricao) ? $registro->descricao : ''}}">
+    <input type="text" name="name" value="{{isset($activity->name) ? $activity->name : ''}}">
 </div>
 <div class="input-field file-field col s12 m12 ">
     <div class="btn-small cyan darken-2">
@@ -20,13 +20,13 @@
     </div>
 </div>
 <div class="row">
-    @foreach($activitiesUser as $activity)
+    @foreach($activities_user as $activity)
     <div class="chip">
         <div class="col s2 m2">
-            <i class="material-icons">{{isset($activity->icone) ? $activity->icone : 'notifications_none'}}</i>
+            <i class="material-icons">{{isset($activity->icon) ? $activity->icon : 'notifications_none'}}</i>
         </div>
         <div class="col s8 m8">
-            <span>{{$activity->descricao}}</span>
+            <span>{{$activity->name}}</span>
         </div>
         <div class="col s2  m2">
             <a class="close material-icons" href="{{ route('activity.user.delete',$activity->id) }}">
