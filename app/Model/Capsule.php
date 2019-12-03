@@ -9,11 +9,13 @@ class Capsule extends Model
 {
     use SoftDeletes;
 
+    protected $table = 'capsules';
+
     protected $fillable = [
-        'from', 'to', 'email', 'remember_at', 'message'
+        'from', 'to', 'email', 'remember_at', 'message', 'user_id', 'code'
     ];
 
     protected $guarded = [
-        'id', 'user_id', 'code', 'created_at', 'update_at'
+        'id', 'created_at', 'update_at'
     ];
 }

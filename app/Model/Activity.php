@@ -8,14 +8,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Activity extends Model
 {
     use SoftDeletes;
+    
     protected $table = 'activities';
 
     protected $fillable = [
-        'board_id', 'activity_type_id', 'value'
+        'board_id', 'activity_type_id', 'value', 'code'
     ];
 
     protected $guarded = [
-        'id', 'created_at', 'update_at', 'code'
+        'id', 'created_at', 'update_at'
     ];
 
     public function board()

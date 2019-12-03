@@ -6,18 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Person extends Model
 {
-    protected $table = 'children';
+    protected $table = 'people';
 
     protected $fillable = [
-        'name', 'age', 'gender'
+        'board_id', 'name', 'age', 'gender'
     ];
 
     protected $guarded = [
-        'id', 'board_id', 'created_at', 'update_at'
+        'id', 'created_at', 'update_at'
     ];
 
     public function board()
     {
-        return $this->belongsTo(Board::class);
+        return $this->belongsTo('App\Model\Board');
     }
 }

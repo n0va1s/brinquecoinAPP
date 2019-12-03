@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Board_Type extends Model
 {
+    protected $table = 'board_types';
+    
     protected $fillable = [
-        'type', 'name', 'image'
+        'type', 'name', 'image', 'user_id'
     ];
 
     protected $guarded = [

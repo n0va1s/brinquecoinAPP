@@ -17,13 +17,13 @@ class BoardController extends Controller
     public function index()
     {
         $registros = DB::table('boards')
-            ->join('children', 'boards.id', '=', 'children.board_id')
+            ->join('people', 'boards.id', '=', 'people.board_id')
             ->join('board_types', 'board_types.id', '=', 'boards.board_type_id')
             ->select(
                 'boards.*',
-                'children.name',
-                'children.age',
-                'children.gender',
+                'people.name',
+                'people.age',
+                'people.gender',
                 'board_types.name',
                 'board_types.image'
             )
@@ -31,8 +31,27 @@ class BoardController extends Controller
         return view('board.index', compact('registros'));
     }
 
-    public function show()
+    public function copy($code)
     {
-        return view('board.show');
+        //TODO: duplicar o quadro e as atividades (sem marcacao)
+    }
+
+    public function close($code)
+    {
+        if ($code) {
+            $resultado = DB::table('boards')
+                ->where('boards.code', $code)
+                ->update(['active' => 'N']);
+
+            $notification = array(
+                'message' => 'Quadro encerrado!',
+                'alert-type' => 'success'
+            );
+        } else {
+            $notification = array(
+                'message' => 'Código do quadro não identificado!',
+                'alert-type' => 'error'
+            );
+        }
     }
 }

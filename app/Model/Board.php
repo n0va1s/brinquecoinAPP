@@ -9,17 +9,19 @@ class Board extends Model
 {
     use SoftDeletes;
 
+    protected $table = 'boards';
+    
     protected $fillable = [
-        'board_type_id', 'reward'
+        'board_type_id', 'goal', 'user_id', 'code', 'active'
     ];
 
     protected $guarded = [
-        'id', 'code', 'user_id', 'active', 'created_at', 'update_at'
+        'id', 'created_at', 'update_at'
     ];
 
-    public function child()
+    public function person()
     {
-        return $this->hasOne(Child::class);
+        return $this->hasOne('App\Model\Person');
     }
 
     public function board_type()

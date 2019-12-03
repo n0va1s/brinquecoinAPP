@@ -6,12 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Activity_Type extends Model
 {
+    protected $table = 'activity_types';
+    
     protected $fillable = [
-        'propouse_type_id', 'name'
+        'propouse_type_id', 'name', 'user_id'
     ];
 
     protected $guarded = [
-        'id', 'user_id', 'created_at', 'update_at'
+        'id', 'created_at', 'update_at'
     ];
 
     public function activities()

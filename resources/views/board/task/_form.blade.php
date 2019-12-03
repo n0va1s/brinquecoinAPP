@@ -27,5 +27,5 @@
 </div>
 <div class="input-field col s12 m12">
     <label>Recompensa</label>
-    <input type="text" name="reward" value="{{isset($board->reward) ? $board->reward : ''}}">
+    <input type="text" name="goal" value="{{isset($board->reward) ? $board->reward : ''}}">
 </div>

@@ -6,12 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Mark extends Model
 {
+    protected $table = 'marks';
+
     protected $fillable = [
-        'moday', 'tuesday','wednesday','thursday','friday','saturday','sunday'
+        'moday', 'tuesday','wednesday','thursday',
+        'friday','saturday','sunday', 'activity_id'
     ];
 
     protected $guarded = [
-        'id', 'activity_id', 'created_at', 'update_at'
+        'id', 'created_at', 'update_at'
     ];
 
     public function activity()

@@ -47,7 +47,7 @@ class CreateDatabase extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('board_type_id');
-            $table->string('reward')->nullable();
+            $table->string('goal')->nullable();
             $table->string('code')->nullable();
             $table->enum('active', ['Y','N'])->default('Y');
             $table->timestamps();
@@ -56,7 +56,7 @@ class CreateDatabase extends Migration
             $table->foreign('board_type_id')->references('id')->on('board_types');
         });
 
-        Schema::create('person', function (Blueprint $table) {
+        Schema::create('people', function (Blueprint $table) {
             $table->unsignedBigInteger('board_id');
             $table->string('name');
             $table->enum('gender', ['F', 'M']);

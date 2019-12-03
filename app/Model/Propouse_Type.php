@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Propouse_Type extends Model
 {
+    protected $table = 'propouse_types';
+
     protected $fillable = [
         'propouse', 'name'
     ];
