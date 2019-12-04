@@ -26,7 +26,7 @@
                             name="action">Salvar</button>
                     </div>
                 </form>
-            </div>$
+            </div>
         </div>
 
         <div id="passo2" class="col s12">
@@ -34,10 +34,10 @@
                 <h5>Escolha as atividades do quadro</h5>
             </div>
             <div class="row">
-                <form action="{{route('activity.save')}}" method="post">
+                <form action="{{route('board.activity.save')}}" method="post">
                     {{ csrf_field() }}
                     @include('board.allowance._formActivity')
-                    <input type="hidden" name="codigo" value={{ $board->code }}>
+                    <input type="hidden" name="code" value={{ $board->code }}>
                     <div class="row">
                         <button class="waves-light btn-small orange darken-2" type="submit"
                             name="action">Salvar</button>
@@ -51,10 +51,10 @@
                 <div class="row">
                     <h5>Cadastre novas atividades para o quadro</h5>
                 </div>
-                <form action="{{route('activity.user.save')}}" method="post">
+                <form action="{{route('board.activity.type.save')}}" method="post">
                     {{ csrf_field() }}
-                    @include('board.allowance._formNewActivities')
-                    <input type="hidden" name="codigo" value={{ $board->codigo }}>
+                    @include('board.allowance._formNewActivity')
+                    <input type="hidden" name="code" value={{ $board->code }}>
                     <div class="row">
                         <button class="waves-light btn-small orange darken-2" type="submit"
                             name="action">Salvar</button>

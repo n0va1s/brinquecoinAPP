@@ -29,7 +29,7 @@
             <span>{{$activity->name}}</span>
         </div>
         <div class="col s2  m2">
-            <a class="close material-icons" href="{{ route('activity.user.delete',$activity->id) }}">
+            <a class="close material-icons" href="{{ route('board.activity.type.delete',$activity->id) }}">
                 <i class="close material-icons">close</i>
             </a>
         </div>

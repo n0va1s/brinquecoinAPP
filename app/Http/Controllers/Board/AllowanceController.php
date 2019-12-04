@@ -25,39 +25,20 @@ class AllowanceController extends Controller
      */
     public function create()
     {
-        
         $board_types = Board_Type::all();
-        $propouse_types = Propouse_Type::all();
-        $activity_types = DB::table('activity_types')
-            ->join(
-                'propouse_types',
-                'propouse_types.id',
-                '=',
-                'activity_types.propouse_type_id'
-            )
-            ->select(
-                'activity_types.id',
-                'propouse_types.name AS propouse',
-                'activity_types.name AS activity'
-            )
-            ->get();
+
         return view(
             'board.allowance.create',
-            compact(
-                'board_types',
-                'propouse_types',
-                'activity_types'
-            )
+            compact('board_types')
         );
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    
     public function store(Request $req)
     {
         $data = $req->validate(
@@ -65,22 +46,20 @@ class AllowanceController extends Controller
                 'board_type_id' => 'required',
                 'name' => 'required|max:200',
                 'gender' => 'required',
-                'age' => 'required|numeric',
-                'reward' => Rule::requiredIf($req->get('board_type_id') === "4")
+                'age' => 'required|numeric'
             ]
         );
         $data['user_id'] = Auth::user()->id;
         $data['code'] = Str::uuid()->toString();
 
         $person = new Person();
-        $person->nome = $data['name'];
-        $person->genero = $data['gender'];
-        $person->idade = $data['age'];
+        $person->name = $data['name'];
+        $person->gender = $data['gender'];
+        $person->age = $data['age'];
 
         $board = Board::create($data);
-        
         $board->person()->save($person);
-        
+
         $notification = array(
             'message' => 'Quadro criado!',
             'alert-type' => 'success'
@@ -138,7 +117,7 @@ class AllowanceController extends Controller
         }
         return view('board.show', compact('board, activities'));
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -154,7 +133,7 @@ class AllowanceController extends Controller
             $propouse_types = Propouse_Type::all();
             //Combo de tipos de atividades
             //Apresenta as atividades padrao e as criadas pelo usuario
-            $activity_types = DB::table('tipo_atividades')
+            $activity_types = DB::table('activity_types')
                 ->join(
                     'propouse_types',
                     'propouse_types.id',
@@ -172,10 +151,10 @@ class AllowanceController extends Controller
 
             $activities_board = DB::table('activities')
                 ->join(
-                    'actitity_types',
+                    'activity_types',
                     'activity_types.id',
                     '=',
-                    'activities.tipo_atividade_id'
+                    'activities.activity_type_id'
                 )
                 ->join(
                     'propouse_types',
@@ -187,12 +166,12 @@ class AllowanceController extends Controller
                     'boards',
                     'boards.id',
                     '=',
-                    'activities.quadro_id'
+                    'activities.board_id'
                 )
                 ->select(
                     'activities.*',
-                    'activity_types.descricao',
-                    'propouse_types.icone'
+                    'activity_types.name',
+                    'propouse_types.icon'
                 )
                 ->Where('boards.code', $code)
                 ->get();
@@ -215,13 +194,13 @@ class AllowanceController extends Controller
                 ->get();
 
             $board = DB::table('boards')
-                ->join('child', 'boards.id', '=', 'child.quadro_id')
-                ->select('boards.*', 'child.*')
+                ->join('people', 'boards.id', '=', 'people.board_id')
+                ->select('boards.*', 'people.*')
                 ->where('boards.code', '=', $code)
                 ->first();
 
             return view(
-                'board.task.edit',
+                'board.allowance.edit',
                 compact(
                     'board',
                     'board_types',
@@ -236,10 +215,10 @@ class AllowanceController extends Controller
                 'message' => 'Código do board não localizado!',
                 'alert-type' => 'error'
             );
-            return view('board.allowance.edit')->with($notification);
+            return view('board.allowance.edit', $code)->with($notification);
         }
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -264,20 +243,21 @@ class AllowanceController extends Controller
         $child->genero = $dados['gender'];
         $child->idade = $dados['age'];
 
-        $board = board::create($dados);
+        $board = Board::create($dados);
         $board->child()->save($hild);
 
         $notification = array(
             'message' => 'Quadro atualizado!',
             'alert-type' => 'success'
         );
-        board::where('code', '=', $code)->firstOrFail()->update($dados);
+        Board::where('code', '=', $code)->firstOrFail()->update($dados);
 
         return redirect()->route(
-            'board.allowance.create', $dados['codigo']
+            'board.allowance.edit',
+            $dados['codigo']
         )->with($notification);
     }
-    
+
     /**
      * Remove the specified resource from storage.
      *
@@ -287,7 +267,7 @@ class AllowanceController extends Controller
     public function destroy($code)
     {
         if ($code) {
-            board::where('code', '=', $code)->firstOrFail()->delete();
+            Board::where('code', '=', $code)->firstOrFail()->delete();
         } else {
             $notification = array(
                 'message' => 'Código do quadro não identificado!',
@@ -296,5 +276,5 @@ class AllowanceController extends Controller
         }
 
         return redirect()->route('board.index')->with($notification);
-    }    
+    }
 }

@@ -3,9 +3,16 @@
 namespace App\Http\Controllers\Board;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 
 use App\Http\Controllers\Controller;
+
+use App\Model\Activity_Type;
+use App\Model\Activity;
+use App\Model\Board;
+
+use Auth;
 
 class BoardController extends Controller
 {
@@ -17,13 +24,11 @@ class BoardController extends Controller
     public function index()
     {
         $registros = DB::table('boards')
-            ->join('people', 'boards.id', '=', 'people.board_id')
             ->join('board_types', 'board_types.id', '=', 'boards.board_type_id')
+            ->join('people', 'people.board_id', '=', 'boards.id')
             ->select(
                 'boards.*',
-                'people.name',
-                'people.age',
-                'people.gender',
+                'people.*',
                 'board_types.name',
                 'board_types.image'
             )
@@ -53,5 +58,84 @@ class BoardController extends Controller
                 'alert-type' => 'error'
             );
         }
+    }
+
+    /**
+     * Store a newly created activity in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeActivity(Request $req)
+    {
+        $data = $req->validate(
+            ['activity_type_id' => 'required',
+            'value' => 'required']
+        );
+        //Generate activity unique id
+        $data['code'] = Str::uuid()->toString();
+        //Find boards' id
+        $data['board_id'] = Board::where('code', '=', $req->input('code'))->firstOrFail()->id;
+        
+        Activity::create($data);
+        $notification = array(
+            'message' => 'Atividade criada!',
+            'alert-type' => 'success'
+        );
+        return back()->with($notification);
+    }
+
+    /**
+     * Remove the specified activity from storage.
+     *
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyActivity($id)
+    {
+        Activity::find($id)->delete();
+        $notification = array(
+            'message' => 'Atividade excluída!',
+            'alert-type' => 'success'
+        );
+        return back()->with($notification);
+    }
+
+    /**
+     * Store a newly created activity type in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeActivityType(Request $req)
+    {
+        $data = $req->validate(
+            ['propouse_type_id' => 'required',
+            'name' => 'required']
+        );
+        $data['user_id'] = Auth::user()->id;
+        $code = $req->input('code');
+        Activity_Type::create($data);
+        $notification = array(
+            'message' => 'Atividade criada!',
+            'alert-type' => 'success'
+        );
+        return back()->with($notification);
+    }
+
+    /**
+     * Remove the specified activity type from storage.
+     *
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyActivityType($id)
+    {
+        Activity_Type::find($id)->delete();
+        $notification = array(
+            'message' => 'Atividade excluída!',
+            'alert-type' => 'success'
+        );
+        return back()->with($notification);
     }
 }

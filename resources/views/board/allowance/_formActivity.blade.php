@@ -1,14 +1,14 @@
 <div class="input-field col s12 m8">
     <select name="activity_type_id">
         <option value="" disabled selected>Atividade</option>
-        @foreach($actitity_types as $type)
+        @foreach($activity_types as $type)
         <option value="{{ $type->id }}">{{ $type->propouse.' - '.$type->activity }}</option>
         @endforeach
     </select>
 </div>
 <div class="input-field col s6 m3">
     <label>Valor</label>
-    <input type="number" name="value" value="{{isset($quadro->value) ? $quadro->value : ''}}">
+    <input type="number" name="value" step="0.1" min="0.1" value="{{isset($quadro->value) ? $quadro->value : ''}}">
 </div>
 <div class="col s6 m1">
     <button class="waves-light btn-small cyan darken-2" type="submit"><i class="material-icons prefix">add</i></button>
@@ -23,7 +23,7 @@
             <span>{{$activity->name}}</span>
         </div>
         <div class="col s1">
-            <a class="close material-icons" href="{{ route('activity.delete',$activity->id) }}">
+            <a class="close material-icons" href="{{ route('board.activity.delete',$activity->id) }}">
                 <i class="close material-icons">close</i>
             </a>
         </div>

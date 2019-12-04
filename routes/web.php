@@ -65,7 +65,7 @@ Route::middleware(['auth'])->group(
                 Route::put(
                     '/mesada/atualizar/{codigo}',
                     ['uses' => 'Board\AllowanceController@update']
-                )->name('board.allowance.store');
+                )->name('board.allowance.update');
                 Route::get(
                     '/mesada/deletar/{codigo}',
                     ['uses' => 'Board\AllowanceController@destroy']
@@ -90,21 +90,21 @@ Route::middleware(['auth'])->group(
 
                 Route::post(
                     '/mesada/atividades/salvar',
-                    ['uses' => 'Admin\AtividadeController@store']
-                )->name('activity.save');
+                    ['uses' => 'Board\BoardController@storeActivity']
+                )->name('board.activity.save');
                 Route::get(
                     '/mesada/atividades/deletar/{codigo}',
-                    ['uses' => 'Admin\AtividadeController@destroy']
-                )->name('activity.delete');
+                    ['uses' => 'Board\BoardController@destroyActivity']
+                )->name('board.activity.delete');
 
                 Route::post(
-                    '/mesada/atividades/adicionar/nova',
-                    ['uses' => 'Admin\AtividadeController@createNew']
-                )->name('activity.user.save');
+                    '/mesada/atividades/salvar/nova',
+                    ['uses' => 'Board\BoardController@storeActivityType']
+                )->name('board.activity.type.save');
                 Route::get(
                     '/mesada/atividades/deletar/nova/{id}',
-                    ['uses' => 'Admin\AtividadeController@destroyNew']
-                )->name('activity.user.delete');
+                    ['uses' => 'Board\BoardController@destroyActivityType']
+                )->name('board.activity.type.delete');
             }
         );
         Route::prefix('capsula')->group(
