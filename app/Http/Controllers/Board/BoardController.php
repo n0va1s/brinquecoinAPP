@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Http\Controllers\Controller;
 
-use App\Model\Activity_Type;
+use App\Model\ActivityType;
 use App\Model\Activity;
 use App\Model\Board;
 
@@ -75,7 +75,9 @@ class BoardController extends Controller
         //Generate activity unique id
         $data['code'] = Str::uuid()->toString();
         //Find boards' id
-        $data['board_id'] = Board::where('code', '=', $req->input('code'))->firstOrFail()->id;
+        $data['board_id'] = Board::where(
+            'code', '=', $req->input('code')
+        )->firstOrFail()->id;
 
         Activity::create($data);
         $notification = array(
@@ -115,7 +117,7 @@ class BoardController extends Controller
         );
         $data['user_id'] = Auth::user()->id;
 
-        Activity_Type::create($data);
+        ActivityType::create($data);
         $notification = array(
             'message' => 'Atividade criada!',
             'alert-type' => 'success'
@@ -131,9 +133,8 @@ class BoardController extends Controller
      */
     public function destroyActivityType($id)
     {
-        $activity_type = Activity_Type::find($id);
+        $activity_type = ActivityType::find($id);
         $activity_type->delete();
-        $activity_type->activities()->delete();
 
         $notification = array(
             'message' => 'Atividade excluída!',

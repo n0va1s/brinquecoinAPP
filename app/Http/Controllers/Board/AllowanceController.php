@@ -11,7 +11,7 @@ use App\Http\Controllers\Controller;
 
 use App\Model\Board;
 use App\Model\Person;
-use App\Model\Board_Type;
+use App\Model\BoardType;
 use App\Model\Propouse_Type;
 
 use Auth;
@@ -25,7 +25,7 @@ class AllowanceController extends Controller
      */
     public function create()
     {
-        $board_types = Board_Type::all();
+        $board_types = BoardType::all();
 
         return view(
             'board.allowance.create',
@@ -128,7 +128,7 @@ class AllowanceController extends Controller
     {
         if ($code) {
             //Combo de tipos de board
-            $board_types = Board_Type::all();
+            $board_types = BoardType::all();
             //Combo de propositos
             $propouse_types = Propouse_Type::all();
             //Combo de tipos de atividades

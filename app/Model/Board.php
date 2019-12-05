@@ -26,7 +26,7 @@ class Board extends Model
 
     public function board_type()
     {
-        return $this->hasOne('App\Model\Board_Type');
+        return $this->hasOne('App\Model\BoardType');
     }
 
     public function parent()

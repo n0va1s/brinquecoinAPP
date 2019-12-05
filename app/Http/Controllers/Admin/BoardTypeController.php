@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Model\Board_Type;
+use App\Model\BoardType;
 
 class Board_TypeController extends Controller
 {
     public function index()
     {
-        $registros = Board_Type::all();
+        $registros = BoardType::all();
         return view('board.type.index', compact('registros'));
     }
 
@@ -33,14 +33,14 @@ class Board_TypeController extends Controller
             $dados['imagem'] = $dir . "/" . $nomeImagem;
         }
 
-        Board_Type::create($dados);
+        BoardType::create($dados);
 
         return redirect()->route('board.type.index');
     }
 
     public function edit($id)
     {
-        $registro = Board_Type::find($id);
+        $registro = BoardType::find($id);
         return view('board.type.edit', compact('registro'));
     }
 
@@ -58,14 +58,14 @@ class Board_TypeController extends Controller
             $dados['imagem'] = $dir . "/" . $nomeImagem;
         }
 
-        Board_Type::find($id)->update($dados);
+        BoardType::find($id)->update($dados);
 
         return redirect()->route('board.type.index');
     }
 
     public function destroy($id)
     {
-        Board_Type::find($id)->delete();
+        BoardType::find($id)->delete();
         return redirect()->route('board.type.index');
     }
 }
