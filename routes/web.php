@@ -51,6 +51,18 @@ Route::middleware(['auth'])->group(
                     ['uses' => 'Board\BoardController@index']
                 )->name('board.index');
                 Route::get(
+                    '/exibir/{codigo}',
+                    ['uses' => 'Board\BoardController@show']
+                )->name('board.show');
+                Route::get(
+                    '/duplicar/{codigo}',
+                    ['uses' => 'Board\BoardController@copy']
+                )->name('board.copy');
+                Route::get(
+                    '/fechar/{codigo}',
+                    ['uses' => 'Board\BoardController@close']
+                )->name('board.close');
+                Route::get(
                     '/mesada',
                     ['uses' => 'Board\AllowanceController@create']
                 )->name('board.allowance.create');
@@ -70,10 +82,6 @@ Route::middleware(['auth'])->group(
                     '/mesada/deletar/{codigo}',
                     ['uses' => 'Board\AllowanceController@destroy']
                 )->name('board.allowance.delete');
-                Route::get(
-                    '/mesada/exibir/{codigo}',
-                    ['uses' => 'Board\AllowanceController@show']
-                )->name('board.allowance.show');
                 Route::get(
                     '/habito',
                     ['uses' => 'Board\HabitController@create']

@@ -34,32 +34,32 @@
             <h3 class="center">Seus quadros</h3>
         </div>
     </div>
-    @if (count($registros) === 0)
+    @if (count($boards) === 0)
     <div class="row center">
         <img width="50%" src="{{ asset('img/quadro.png') }}" alt="Um quadro de tarefas de exemplo">
         <h5>Nenhum quadro por aqui...</h5>
     </div>
     @endif
     <div class="row">
-        @foreach ($registros as $registro)
+        @foreach ($boards as $board)
         <div class="col s12 m4">
             <div class="card">
-                <a href="{{route('board.show',$registro->id)}}">
+                <a href="{{route('board.show',$board->code)}}">
                     <div class="card-image">
-                        <img src="{{ asset($registro->imagem) }}" alt="Imagem do tipo do quadro">
+                        <img src="{{ asset($board->image) }}" alt="Imagem do tipo do quadro">
                     </div>
                 </a>
                 <div class="card-content">
-                    <p>Quadro de {{ $registro->descricao }}</p>
+                    <p>Quadro de {{ $board->name }}</p>
                     <br />
-                    <p>{{ $registro->nome }}</p>
+                    <p>{{ $board->name }}</p>
                     <br />
-                    <p>{{ $registro->recompensa }}</p>
+                    <p>{{ $board->goal }}</p>
                 </div>
                 <div class="grey lighten-3">
                     <div class="card-action center">
-                        <a class="waves-light btn-small orange darken-2">Duplicar</a>
-                        <a class="waves-light btn-small cyan darken-2">Encerrar</a>
+                        <a href="{{route('board.copy',$board->code)}}" class="waves-light btn-small orange darken-2">Duplicar</a>
+                        <a href="{{route('board.close',$board->code)}}" class="waves-light btn-small cyan darken-2">Encerrar</a>
                     </div>
                 </div>
             </div>

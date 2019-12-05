@@ -23,7 +23,7 @@ class BoardController extends Controller
      */
     public function index()
     {
-        $registros = DB::table('boards')
+        $boards = DB::table('boards')
             ->join('board_types', 'board_types.id', '=', 'boards.board_type_id')
             ->join('people', 'people.board_id', '=', 'boards.id')
             ->select(
@@ -33,7 +33,12 @@ class BoardController extends Controller
                 'board_types.image'
             )
             ->get();
-        return view('board.index', compact('registros'));
+        return view('board.index', compact('boards'));
+    }
+
+    public function show($code)
+    {
+        //TODO: duplicar o quadro e as atividades (sem marcacao)
     }
 
     public function copy($code)
