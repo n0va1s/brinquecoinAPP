@@ -76,7 +76,7 @@ class BoardController extends Controller
         $data['code'] = Str::uuid()->toString();
         //Find boards' id
         $data['board_id'] = Board::where('code', '=', $req->input('code'))->firstOrFail()->id;
-        
+
         Activity::create($data);
         $notification = array(
             'message' => 'Atividade criada!',
@@ -114,7 +114,7 @@ class BoardController extends Controller
             'name' => 'required']
         );
         $data['user_id'] = Auth::user()->id;
-        $code = $req->input('code');
+
         Activity_Type::create($data);
         $notification = array(
             'message' => 'Atividade criada!',
@@ -131,7 +131,10 @@ class BoardController extends Controller
      */
     public function destroyActivityType($id)
     {
-        Activity_Type::find($id)->delete();
+        $activity_type = Activity_Type::find($id);
+        $activity_type->delete();
+        $activity_type->activities()->delete();
+
         $notification = array(
             'message' => 'Atividade excluída!',
             'alert-type' => 'success'

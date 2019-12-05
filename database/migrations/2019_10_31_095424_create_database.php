@@ -75,7 +75,7 @@ class CreateDatabase extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('board_id')->references('id')->on('boards');
-            $table->foreign('activity_type_id')->references('id')->on('activity_types');
+            $table->foreign('activity_type_id')->references('id')->on('activity_types')->unique();
         });
 
         Schema::create('marks', function (Blueprint $table) {
