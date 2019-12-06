@@ -58,8 +58,13 @@
                 </div>
                 <div class="grey lighten-3">
                     <div class="card-action center">
-                        <a href="{{route('board.copy',$board->code)}}" class="waves-light btn-small orange darken-2">Duplicar</a>
-                        <a href="{{route('board.close',$board->code)}}" class="waves-light btn-small cyan darken-2">Encerrar</a>
+                        <a href="{{route('board.allowance.edit',$board->code)}}"
+                            class="waves-light btn-small red darken-2" title="Duplicar o quadro">
+                            <i class="material-icons">edit</i></a>
+                        <a href="{{route('board.copy',$board->code)}}" class="waves-light btn-small orange darken-2"
+                            title="Duplicar o quadro"><i class="material-icons">content_copy</i></a>
+                        <a href="{{route('board.close',$board->code)}}" class="waves-light btn-small cyan darken-2"
+                            title="Encerrar o quadro"><i class="material-icons">close</i></a>
                     </div>
                 </div>
             </div>

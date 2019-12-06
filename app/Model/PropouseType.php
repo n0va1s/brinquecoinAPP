@@ -4,7 +4,7 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Propouse_Type extends Model
+class PropouseType extends Model
 {
     protected $table = 'propouse_types';
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\ActivityType;
-use App\Model\Propouse_Type;
+use App\Model\PropouseType;
 
 class ActivityTypeController extends Controller
 {
@@ -17,7 +17,7 @@ class ActivityTypeController extends Controller
 
     public function create()
     {
-        $tiposPropositos = Propouse_Type::all();
+        $tiposPropositos = PropouseType::all();
         return view('board.type.create', compact('tiposPropositos'));
     }
 

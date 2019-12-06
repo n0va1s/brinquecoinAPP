@@ -26,7 +26,7 @@ class ActivityType extends Model
 
     public function propouse()
     {
-        return $this->hasOne('App\Model\Propouse_Type');
+        return $this->hasOne('App\Model\PropouseType');
     }
 
     public static function boot()

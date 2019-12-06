@@ -12,7 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Board;
 use App\Model\Person;
 use App\Model\BoardType;
-use App\Model\Propouse_Type;
+use App\Model\PropouseType;
 
 use Auth;
 
@@ -25,12 +25,7 @@ class AllowanceController extends Controller
      */
     public function create()
     {
-        $board_types = BoardType::all();
-
-        return view(
-            'board.allowance.create',
-            compact('board_types')
-        );
+        return view('board.allowance.create');
     }
 
     /**
@@ -127,10 +122,12 @@ class AllowanceController extends Controller
     public function edit($code)
     {
         if ($code) {
-            //Combo de tipos de board
-            $board_types = BoardType::all();
             //Combo de propositos
-            $propouse_types = Propouse_Type::all();
+            $propouse_types = DB::table('propouse_types')
+                ->select('propouse_types.*')
+                ->orderBy('propouse_types.name', 'asc')
+                ->get();
+
             //Combo de tipos de atividades
             //Apresenta as atividades padrao e as criadas pelo usuario
             $activity_types = DB::table('activity_types')
@@ -148,6 +145,8 @@ class AllowanceController extends Controller
                 ->whereNull('user_id')
                 ->orWhere('user_id', Auth::user()->id)
                 ->whereNull('activity_types.deleted_at')
+                ->orderby('propouse_types.name', 'asc')
+                ->orderby('activity_types.name', 'asc')
                 ->get();
 
             $activities_board = DB::table('activities')
@@ -206,7 +205,6 @@ class AllowanceController extends Controller
                 'board.allowance.edit',
                 compact(
                     'board',
-                    'board_types',
                     'propouse_types',
                     'activity_types',
                     'activities_board',
@@ -215,7 +213,7 @@ class AllowanceController extends Controller
             );
         } else {
             $notification = array(
-                'message' => 'Código do board não localizado!',
+                'message' => 'Código do quadro não localizado!',
                 'alert-type' => 'error'
             );
             return view('board.allowance.edit', $code)->with($notification);

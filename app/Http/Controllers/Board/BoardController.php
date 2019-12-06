@@ -32,6 +32,7 @@ class BoardController extends Controller
                 'board_types.name',
                 'board_types.image'
             )
+            ->where('active','Y')
             ->get();
         return view('board.index', compact('boards'));
     }
@@ -49,10 +50,8 @@ class BoardController extends Controller
     public function close($code)
     {
         if ($code) {
-            $resultado = DB::table('boards')
-                ->where('boards.code', $code)
+            $resultado = Board::where('boards.code', $code)
                 ->update(['active' => 'N']);
-
             $notification = array(
                 'message' => 'Quadro encerrado!',
                 'alert-type' => 'success'
@@ -63,6 +62,7 @@ class BoardController extends Controller
                 'alert-type' => 'error'
             );
         }
+        return back()->with($notification);
     }
 
     /**
@@ -81,7 +81,9 @@ class BoardController extends Controller
         $data['code'] = Str::uuid()->toString();
         //Find boards' id
         $data['board_id'] = Board::where(
-            'code', '=', $req->input('code')
+            'code',
+            '=',
+            $req->input('code')
         )->firstOrFail()->id;
 
         Activity::create($data);

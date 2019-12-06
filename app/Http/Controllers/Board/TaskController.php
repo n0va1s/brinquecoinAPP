@@ -12,7 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Model\board;
 use App\Model\child;
 use App\Model\BoardType;
-use App\Model\Propouse_Type;
+use App\Model\PropouseType;
 
 use Auth;
 
@@ -26,7 +26,7 @@ class TaskController extends Controller
     public function create()
     {
         $board_types = BoardType::all();
-        $propouse_types = Propouse_Type::all();
+        $propouse_types = PropouseType::all();
         $activity_types = DB::table('activity_types')
             ->join(
                 'propouse_types',
@@ -149,7 +149,7 @@ class TaskController extends Controller
             //Combo de tipos de board
             $board_types = BoardType::all();
             //Combo de propositos
-            $propouse_types = Propouse_Type::all();
+            $propouse_types = PropouseType::all();
             //Combo de tipos de atividades
             //Apresenta as atividades padrao e as criadas pelo usuario
             $activity_types = DB::table('tipo_atividades')

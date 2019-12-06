@@ -18,6 +18,8 @@
                 <form action="{{route('board.allowance.save')}}" method="post">
                     {{ csrf_field() }}
                     @include('board.allowance._form')
+                    <!-- Tipo de Quadro -->
+                    <input type="hidden" name="board_type_id" value="3">
                     <div class="row">
                         <button class="waves-light btn-small orange darken-2" type="submit"
                             name="action">Salvar</button>
