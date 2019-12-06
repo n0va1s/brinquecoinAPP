@@ -76,18 +76,16 @@ class AllowanceController extends Controller
     {
         if ($code) {
             $board = DB::table('boards')
-                ->join('child', 'board.id', '=', 'child.board_id')
+                ->join('people', 'boards.id', '=', 'people.board_id')
                 ->join(
                     'board_types',
                     'board_types.id',
                     '=',
-                    'boards.tipo_quadro_id'
+                    'boards.board_type_id'
                 )
                 ->select(
                     'boards.*',
-                    'child.name',
-                    'child.age',
-                    'child.gender',
+                    'people.*',
                     'board_types.name',
                     'board_types.image'
                 )
@@ -229,34 +227,34 @@ class AllowanceController extends Controller
      */
     public function update(Request $req, $code)
     {
-        $dados = $req->validate(
+        $data = $req->validate(
             [
                 'board_type_id' => 'required',
                 'name' => 'required|max:200',
                 'gender' => 'required',
-                'age' => 'required|numeric',
-                'reward' => Rule::requiredIf($req->get('board_type_id') === "4")
+                'age' => 'required|numeric'
             ]
         );
-        $dados['user_id'] = Auth::user()->id;
-        $child = new child();
-        $child->nome = $dados['name'];
-        $child->genero = $dados['gender'];
-        $child->idade = $dados['age'];
+        $data['user_id'] = Auth::user()->id;
+        $board = Board::where('code', '=', $code);
+        if ($board) {
+            $board->name = $data['name'];
+            $board->gender = $data['gender'];
+            $board->age = $data['age'];
 
-        $board = Board::create($dados);
-        $board->child()->save($hild);
+            $board->save();
 
-        $notification = array(
+            $notification = array(
             'message' => 'Quadro atualizado!',
-            'alert-type' => 'success'
-        );
-        Board::where('code', '=', $code)->firstOrFail()->update($dados);
+            'alert-type' => 'success');
+        } else {
+            $notification = array(
+                'message' => 'Quadro não encontrado!',
+                'alert-type' => 'error'
+            );
+        }
 
-        return redirect()->route(
-            'board.allowance.edit',
-            $dados['codigo']
-        )->with($notification);
+        return back()->with($notification);
     }
 
     /**

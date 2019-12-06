@@ -9,14 +9,14 @@ use Illuminate\Validation\Rule;
 
 use App\Http\Controllers\Controller;
 
-use App\Model\board;
-use App\Model\child;
+use App\Model\Board;
+use App\Model\Person;
 use App\Model\BoardType;
 use App\Model\PropouseType;
 
 use Auth;
 
-class TaskController extends Controller
+class AllowanceController extends Controller
 {
     /**
      * Show the form for creating a new resource.
@@ -25,59 +25,35 @@ class TaskController extends Controller
      */
     public function create()
     {
-        $board_types = BoardType::all();
-        $propouse_types = PropouseType::all();
-        $activity_types = DB::table('activity_types')
-            ->join(
-                'propouse_types',
-                'propouse_types.id',
-                '=',
-                'activity_types.propouse_type_id'
-            )
-            ->select(
-                'activity_types.id',
-                'propouse_types.name AS propouse',
-                'activity_types.name AS activity'
-            )
-            ->get();
-        return view(
-            'new.task.board',
-            compact(
-                'board_types',
-                'propouse_types',
-                'activity_types'
-            )
-        );
+        return view('board.allowance.create');
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    
     public function store(Request $req)
     {
-        $dados = $req->validate(
+        $data = $req->validate(
             [
                 'board_type_id' => 'required',
                 'name' => 'required|max:200',
                 'gender' => 'required',
-                'age' => 'required|numeric',
-                'reward' => Rule::requiredIf($req->get('board_type_id') === "4")
+                'age' => 'required|numeric'
             ]
         );
-        $dados['user_id'] = Auth::user()->id;
-        $dados['code'] = Str::uuid()->toString();
+        $data['user_id'] = Auth::user()->id;
+        $data['code'] = Str::uuid()->toString();
 
-        $child = new child();
-        $child->nome = $dados['name'];
-        $child->genero = $dados['gender'];
-        $child->idade = $dados['age'];
+        $person = new Person();
+        $person->name = $data['name'];
+        $person->gender = $data['gender'];
+        $person->age = $data['age'];
 
-        $board = board::create($dados);
-        $board->child()->save($child);
+        $board = Board::create($data);
+        $board->person()->save($person);
 
         $notification = array(
             'message' => 'Quadro criado!',
@@ -85,8 +61,8 @@ class TaskController extends Controller
         );
 
         return redirect()->route(
-            'board.task.edit',
-            $dados['code']
+            'board.allowance.edit',
+            $data['code']
         )->with($notification);
     }
 
@@ -100,7 +76,7 @@ class TaskController extends Controller
     {
         if ($code) {
             $board = DB::table('boards')
-                ->join('child', 'board.id', '=', 'child.board_id')
+                ->join('person', 'board.id', '=', 'person.board_id')
                 ->join(
                     'board_types',
                     'board_types.id',
@@ -109,9 +85,9 @@ class TaskController extends Controller
                 )
                 ->select(
                     'boards.*',
-                    'child.name',
-                    'child.age',
-                    'child.gender',
+                    'person.name',
+                    'person.age',
+                    'person.gender',
                     'board_types.name',
                     'board_types.image'
                 )
@@ -136,7 +112,7 @@ class TaskController extends Controller
         }
         return view('board.show', compact('board, activities'));
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -146,13 +122,15 @@ class TaskController extends Controller
     public function edit($code)
     {
         if ($code) {
-            //Combo de tipos de board
-            $board_types = BoardType::all();
             //Combo de propositos
-            $propouse_types = PropouseType::all();
+            $propouse_types = DB::table('propouse_types')
+                ->select('propouse_types.*')
+                ->orderBy('propouse_types.name', 'asc')
+                ->get();
+
             //Combo de tipos de atividades
             //Apresenta as atividades padrao e as criadas pelo usuario
-            $activity_types = DB::table('tipo_atividades')
+            $activity_types = DB::table('activity_types')
                 ->join(
                     'propouse_types',
                     'propouse_types.id',
@@ -166,14 +144,17 @@ class TaskController extends Controller
                 )
                 ->whereNull('user_id')
                 ->orWhere('user_id', Auth::user()->id)
+                ->whereNull('activity_types.deleted_at')
+                ->orderby('propouse_types.name', 'asc')
+                ->orderby('activity_types.name', 'asc')
                 ->get();
 
             $activities_board = DB::table('activities')
                 ->join(
-                    'actitity_types',
+                    'activity_types',
                     'activity_types.id',
                     '=',
-                    'activities.tipo_atividade_id'
+                    'activities.activity_type_id'
                 )
                 ->join(
                     'propouse_types',
@@ -185,14 +166,15 @@ class TaskController extends Controller
                     'boards',
                     'boards.id',
                     '=',
-                    'activities.quadro_id'
+                    'activities.board_id'
                 )
                 ->select(
                     'activities.*',
-                    'activity_types.descricao',
-                    'propouse_types.icone'
+                    'activity_types.name',
+                    'propouse_types.icon'
                 )
                 ->Where('boards.code', $code)
+                ->whereNull('activities.deleted_at')
                 ->get();
 
             //Lista de atividades criadas pelo usuario
@@ -210,19 +192,19 @@ class TaskController extends Controller
                     'propouse_types.icon'
                 )
                 ->Where('user_id', Auth::user()->id)
+                ->whereNull('activity_types.deleted_at')
                 ->get();
 
             $board = DB::table('boards')
-                ->join('child', 'boards.id', '=', 'child.quadro_id')
-                ->select('boards.*', 'child.*')
+                ->join('people', 'boards.id', '=', 'people.board_id')
+                ->select('boards.*', 'people.*')
                 ->where('boards.code', '=', $code)
                 ->first();
 
             return view(
-                'board.task.edit',
+                'board.allowance.edit',
                 compact(
                     'board',
-                    'board_types',
                     'propouse_types',
                     'activity_types',
                     'activities_board',
@@ -231,13 +213,13 @@ class TaskController extends Controller
             );
         } else {
             $notification = array(
-                'message' => 'Código do board não localizado!',
+                'message' => 'Código do quadro não localizado!',
                 'alert-type' => 'error'
             );
-            return view('board.task.edit')->with($notification);
+            return view('board.allowance.edit', $code)->with($notification);
         }
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -247,33 +229,36 @@ class TaskController extends Controller
      */
     public function update(Request $req, $code)
     {
-        $dados = $req->validate(
+        $data = $req->validate(
             [
                 'board_type_id' => 'required',
                 'name' => 'required|max:200',
                 'gender' => 'required',
                 'age' => 'required|numeric',
-                'reward' => Rule::requiredIf($req->get('board_type_id') === "4")
+                'goal' => Rule::requiredIf($req->get('board_type_id') === "4")
             ]
         );
-        $dados['user_id'] = Auth::user()->id;
-        $child = new child();
-        $child->nome = $dados['name'];
-        $child->genero = $dados['gender'];
-        $child->idade = $dados['age'];
+        $data['user_id'] = Auth::user()->id;
+        $person = new Person();
+        $person->name = $dados['name'];
+        $person->gender = $dados['gender'];
+        $person->age = $dados['age'];
 
-        $board = board::create($dados);
-        $board->child()->save($hild);
+        $board = Board::create($dados);
+        $board->person()->save($hild);
 
         $notification = array(
             'message' => 'Quadro atualizado!',
             'alert-type' => 'success'
         );
-        board::where('code', '=', $code)->firstOrFail()->update($dados);
+        Board::where('code', '=', $code)->firstOrFail()->update($dados);
 
-        return redirect()->route('board.task.create')->with($notification);
+        return redirect()->route(
+            'board.allowance.edit',
+            $dados['codigo']
+        )->with($notification);
     }
-    
+
     /**
      * Remove the specified resource from storage.
      *
@@ -283,7 +268,7 @@ class TaskController extends Controller
     public function destroy($code)
     {
         if ($code) {
-            board::where('code', '=', $code)->firstOrFail()->delete();
+            Board::where('code', '=', $code)->firstOrFail()->delete();
         } else {
             $notification = array(
                 'message' => 'Código do quadro não identificado!',
@@ -292,5 +277,5 @@ class TaskController extends Controller
         }
 
         return redirect()->route('board.index')->with($notification);
-    }    
+    }
 }

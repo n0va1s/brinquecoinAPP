@@ -32,14 +32,15 @@ class BoardController extends Controller
                 'board_types.name',
                 'board_types.image'
             )
-            ->where('active','Y')
+            ->where('active', 'Y')
             ->get();
         return view('board.index', compact('boards'));
     }
 
     public function show($code)
     {
-        //TODO: duplicar o quadro e as atividades (sem marcacao)
+        $board = Board::where('boards.code', $code);
+        return view('board.show', compact('board'));
     }
 
     public function copy($code)
@@ -50,7 +51,7 @@ class BoardController extends Controller
     public function close($code)
     {
         if ($code) {
-            $resultado = Board::where('boards.code', $code)
+            Board::where('boards.code', $code)
                 ->update(['active' => 'N']);
             $notification = array(
                 'message' => 'Quadro encerrado!',
