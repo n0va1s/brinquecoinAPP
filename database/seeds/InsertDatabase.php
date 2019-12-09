@@ -13,16 +13,16 @@ class InsertDatabase extends Seeder
     public function run()
     {
         //Dados do primeiro usuario
-        $dados = [
+        $user = [
             'name' => 'João Paulo',
             'email' => 'jp.trabalho@gmail.com',
             'password' => bcrypt('linux1')
         ];
         //Verifica se esse o usuario ja existe
-        if (User::where('email', '=', $dados['email'])->count()) {
-            DB::table('users')->update($dados);
+        if (User::where('email', '=', $user['email'])->count()) {
+            DB::table('users')->update($user);
         } else {
-            DB::table('users')->insert($dados);
+            DB::table('users')->insert($user);
         }
         //Registros das tabelas basicas
         DB::table('board_types')->insert(['type' => 'F', 'name' => 'Férias', 'image' => 'img/tiposquadros/ferias.jpg']);

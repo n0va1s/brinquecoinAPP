@@ -1,6 +1,6 @@
 @extends('layout.site')
 
-@section('titulo','Cursos')
+@section('titulo','Brinque Coin - Login')
 
 @section('conteudo')
 <div class="section"></div>

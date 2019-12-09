@@ -1,29 +1,29 @@
 @extends('layout.site')
 
 @section('conteudo')
-  <div class="container">
-    <h3 class="center">Quadro de João Pedro</h3>
+<div class="container">
+    <h3 class="center">Quadro de {{ $board->name }}</h3>
     <hr class="linha">
     <h5>Você conseguiu 12 dos 48 pontos (20%) para ir ao clube</h5>
     <div class="row">
-         <table class="responsive-table hide-on-med-and-down">
+        <table class="responsive-table hide-on-med-and-down">
             <thead>
                 <tr>
                     <th>&nbsp;</th>
                     <th>Atividade</th>
-                    <th class="center">Segunda</th>
-                    <th class="center">Terça</th>
-                    <th class="center">Quarta</th>
-                    <th class="center">Quinta</th>
-                    <th class="center">Sexta</th>
-                    <th class="center">Sábado</th>
-                    <th class="center">Domingo</th>
+                    @foreach ($week as $day)
+                    <th class="center">{{$day}}</th>
+                    @endforeach
                 </tr>
             </thead>
             <tbody>
+                @foreach ($activities as $activity)
                 <tr>
-                    <td><img width="100" src="{{ asset('img/quadros/arrumar-cama.jpg') }}"></td>
-                    <td>Arrumar a cama</td>
+                    <td title="{{$activity->propouse}}"><i class="material-icons">
+                            {{isset($activity->icon) ? $activity->icon : 'notifications_none'}}
+                        </i>
+                    </td>
+                    <td>{{$activity->name}}</td>
                     <td class="center"><img src="{{ asset('img/quadros/nao-fez.png') }}"></td>
                     <td class="center"><img src="{{ asset('img/quadros/nao-pode.png') }}"></td>
                     <td class="center"><img src="{{ asset('img/quadros/feito.png') }}"></td>
@@ -32,39 +32,7 @@
                     <td class="center"><img src="{{ asset('img/quadros/feito.png') }}"></td>
                     <td class="center"><img src="{{ asset('img/quadros/feito.png') }}"></td>
                 </tr>
-                <tr>
-                    <td><img width="100" src="{{ asset('img/quadros/arrumar-cama.jpg') }}"></td>
-                    <td>Arrumar a cama</td>
-                    <td class="center"><img src="{{ asset('img/quadros/nao-fez.png') }}"></td>
-                    <td class="center"><img src="{{ asset('img/quadros/nao-pode.png') }}"></td>
-                    <td class="center"><img src="{{ asset('img/quadros/feito.png') }}"></td>
-                    <td class="center"><img src="{{ asset('img/quadros/nao-fez.png') }}"></td>
-                    <td class="center"><img src="{{ asset('img/quadros/nao-pode.png') }}"></td>
-                    <td class="center"><img src="{{ asset('img/quadros/feito.png') }}"></td>
-                    <td class="center"><img src="{{ asset('img/quadros/feito.png') }}"></td>
-                </tr>
-                <tr>
-                    <td><img width="100" src="{{ asset('img/quadros/arrumar-cama.jpg') }}"></td>
-                    <td>Arrumar a cama</td>
-                    <td class="center"><img src="{{ asset('img/quadros/nao-fez.png') }}"></td>
-                    <td class="center"><img src="{{ asset('img/quadros/nao-pode.png') }}"></td>
-                    <td class="center"><img src="{{ asset('img/quadros/feito.png') }}"></td>
-                    <td class="center"><img src="{{ asset('img/quadros/nao-fez.png') }}"></td>
-                    <td class="center"><img src="{{ asset('img/quadros/nao-pode.png') }}"></td>
-                    <td class="center"><img src="{{ asset('img/quadros/feito.png') }}"></td>
-                    <td class="center"><img src="{{ asset('img/quadros/feito.png') }}"></td>
-                </tr>
-                <tr>
-                    <td><img width="100" src="{{ asset('img/quadros/arrumar-cama.jpg') }}"></td>
-                    <td>Arrumar a cama</td>
-                    <td class="center"><img src="{{ asset('img/quadros/nao-fez.png') }}"></td>
-                    <td class="center"><img src="{{ asset('img/quadros/nao-pode.png') }}"></td>
-                    <td class="center"><img src="{{ asset('img/quadros/feito.png') }}"></td>
-                    <td class="center"><img src="{{ asset('img/quadros/nao-fez.png') }}"></td>
-                    <td class="center"><img src="{{ asset('img/quadros/nao-pode.png') }}"></td>
-                    <td class="center"><img src="{{ asset('img/quadros/feito.png') }}"></td>
-                    <td class="center"><img src="{{ asset('img/quadros/feito.png') }}"></td>
-                </tr>
+                @endforeach
                 <tr>
                     <td>&nbsp;</td>
                     <td>Resultado</td>
@@ -196,16 +164,16 @@
                 <div class="collapsible-body">Nada...
                 </div>
             </li>
-          </ul>
+        </ul>
     </div>
     <div class="row">
         <button class="waves-light btn-small orange darken-2" type="submit" name="action">Salvar</button>
     </div>
-  </div>
+</div>
 @endsection
 <style>
-hr {
-	border-top: 1px solid #8c8b8b;
-	border-bottom: 1px solid #fff;
-}
+    hr {
+        border-top: 1px solid #8c8b8b;
+        border-bottom: 1px solid #fff;
+    }
 </style>

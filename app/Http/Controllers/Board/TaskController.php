@@ -16,7 +16,7 @@ use App\Model\PropouseType;
 
 use Auth;
 
-class AllowanceController extends Controller
+class TaskController extends Controller
 {
     /**
      * Show the form for creating a new resource.
@@ -25,7 +25,7 @@ class AllowanceController extends Controller
      */
     public function create()
     {
-        return view('board.allowance.create');
+        return view('board.task.create');
     }
 
     /**
@@ -41,7 +41,8 @@ class AllowanceController extends Controller
                 'board_type_id' => 'required',
                 'name' => 'required|max:200',
                 'gender' => 'required',
-                'age' => 'required|numeric'
+                'age' => 'required|numeric',
+                'goal' => Rule::requiredIf($req->get('board_type_id') === "4")]
             ]
         );
         $data['user_id'] = Auth::user()->id;
@@ -61,56 +62,9 @@ class AllowanceController extends Controller
         );
 
         return redirect()->route(
-            'board.allowance.edit',
+            'board.task.edit',
             $data['code']
         )->with($notification);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  string  $code
-     * @return \Illuminate\Http\Response
-     */
-    public function show($code)
-    {
-        if ($code) {
-            $board = DB::table('boards')
-                ->join('person', 'board.id', '=', 'person.board_id')
-                ->join(
-                    'board_types',
-                    'board_types.id',
-                    '=',
-                    'boards.tipo_quadro_id'
-                )
-                ->select(
-                    'boards.*',
-                    'person.name',
-                    'person.age',
-                    'person.gender',
-                    'board_types.name',
-                    'board_types.image'
-                )
-                ->where('boards.code', '=', $code)
-                ->get();
-            $activities = DB::table('boards')
-                ->join('activities', 'activities.quadro_id', '=', 'boards.id')
-                ->join(
-                    'activities_type',
-                    'activities.board_type_id',
-                    '=',
-                    'activities_type.id'
-                )
-                ->select('activities.*', 'activities_type.descricao')
-                ->where('boards.code', '=', $code)
-                ->get();
-        } else {
-            $notification = array(
-                'message' => 'Código do quadro não identificado!',
-                'alert-type' => 'error'
-            );
-        }
-        return view('board.show', compact('board, activities'));
     }
 
     /**
@@ -202,7 +156,7 @@ class AllowanceController extends Controller
                 ->first();
 
             return view(
-                'board.allowance.edit',
+                'board.task.edit',
                 compact(
                     'board',
                     'propouse_types',
@@ -216,7 +170,7 @@ class AllowanceController extends Controller
                 'message' => 'Código do quadro não localizado!',
                 'alert-type' => 'error'
             );
-            return view('board.allowance.edit', $code)->with($notification);
+            return view('board.task.edit', $code)->with($notification);
         }
     }
 
@@ -235,28 +189,29 @@ class AllowanceController extends Controller
                 'name' => 'required|max:200',
                 'gender' => 'required',
                 'age' => 'required|numeric',
-                'goal' => Rule::requiredIf($req->get('board_type_id') === "4")
+                'goal' => Rule::requiredIf($req->get('board_type_id') === "4")]
             ]
         );
         $data['user_id'] = Auth::user()->id;
-        $person = new Person();
-        $person->name = $dados['name'];
-        $person->gender = $dados['gender'];
-        $person->age = $dados['age'];
+        $board = Board::where('code', '=', $code);
+        if ($board) {
+            $board->name = $data['name'];
+            $board->gender = $data['gender'];
+            $board->age = $data['age'];
 
-        $board = Board::create($dados);
-        $board->person()->save($hild);
+            $board->save();
 
-        $notification = array(
+            $notification = array(
             'message' => 'Quadro atualizado!',
-            'alert-type' => 'success'
-        );
-        Board::where('code', '=', $code)->firstOrFail()->update($dados);
+            'alert-type' => 'success');
+        } else {
+            $notification = array(
+                'message' => 'Quadro não encontrado!',
+                'alert-type' => 'error'
+            );
+        }
 
-        return redirect()->route(
-            'board.allowance.edit',
-            $dados['codigo']
-        )->with($notification);
+        return back()->with($notification);
     }
 
     /**

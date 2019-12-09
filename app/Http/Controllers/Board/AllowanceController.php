@@ -67,51 +67,6 @@ class AllowanceController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  string  $code
-     * @return \Illuminate\Http\Response
-     */
-    public function show($code)
-    {
-        if ($code) {
-            $board = DB::table('boards')
-                ->join('people', 'boards.id', '=', 'people.board_id')
-                ->join(
-                    'board_types',
-                    'board_types.id',
-                    '=',
-                    'boards.board_type_id'
-                )
-                ->select(
-                    'boards.*',
-                    'people.*',
-                    'board_types.name',
-                    'board_types.image'
-                )
-                ->where('boards.code', '=', $code)
-                ->get();
-            $activities = DB::table('boards')
-                ->join('activities', 'activities.quadro_id', '=', 'boards.id')
-                ->join(
-                    'activities_type',
-                    'activities.board_type_id',
-                    '=',
-                    'activities_type.id'
-                )
-                ->select('activities.*', 'activities_type.descricao')
-                ->where('boards.code', '=', $code)
-                ->get();
-        } else {
-            $notification = array(
-                'message' => 'Código do quadro não identificado!',
-                'alert-type' => 'error'
-            );
-        }
-        return view('board.show', compact('board, activities'));
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  string  $code

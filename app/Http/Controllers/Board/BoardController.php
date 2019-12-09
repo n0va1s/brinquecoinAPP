@@ -37,10 +37,88 @@ class BoardController extends Controller
         return view('board.index', compact('boards'));
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  string  $code
+     * @return \Illuminate\Http\Response
+     */
     public function show($code)
     {
-        $board = Board::where('boards.code', $code);
-        return view('board.show', compact('board'));
+        $board = DB::table('boards')
+            ->join(
+                'people',
+                'people.board_id',
+                '=',
+                'boards.id'
+            )
+            ->join(
+                'board_types',
+                'board_types.id',
+                '=',
+                'boards.board_type_id'
+            )
+            ->select(
+                'boards.*',
+                'people.*',
+                'board_types.name as type',
+                'board_types.image'
+            )
+            ->where('boards.active', 'Y')
+            ->where('boards.code', $code)
+            ->first();
+
+        $activities = DB::table('boards')
+                ->join(
+                    'activities',
+                    'activities.board_id',
+                    '=',
+                    'boards.id'
+                )
+                ->join(
+                    'activity_types',
+                    'activity_types.id',
+                    '=',
+                    'activities.id'
+                )
+                ->join(
+                    'propouse_types',
+                    'propouse_types.id',
+                    '=',
+                    'activity_types.propouse_type_id'
+                )
+                ->select(
+                    'activities.value',
+                    'activity_types.name',
+                    'propouse_types.icon',
+                    'propouse_types.name as propouse'
+                )
+                ->where('boards.code', '=', $code)
+                ->get();
+
+        $week = ["Segunda", "Terca", "Quarta",
+        "Quinta", "Sexta", "Sábado", "Domingo"];
+
+        $result = DB::table('boards')
+            ->join(
+                'activities',
+                'activities.board_id',
+                '=',
+                'boards.id'
+            )
+            ->join(
+                'marks',
+                'marks.activity_id',
+                '=',
+                'activities.id'
+            )
+            ->select(
+                'marks.monday'
+            )
+            ->where('boards.code', '=', $code)
+            ->get();
+
+        return view('board.show', compact('board', 'activities', 'week'));
     }
 
     public function copy($code)

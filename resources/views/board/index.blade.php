@@ -1,5 +1,7 @@
 @extends('layout.site')
 
+@section('titulo','Brinque Coin - Quadros')
+
 @section('conteudo')
 <div class="container">
     <div class="fixed-action-btn">
