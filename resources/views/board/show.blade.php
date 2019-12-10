@@ -4,16 +4,20 @@
 <div class="container">
     <h3 class="center">Quadro de {{ $board->name }}</h3>
     <hr class="linha">
-    <h5>Você conseguiu 12 dos 48 pontos (20%) para ir ao clube</h5>
+    <h5>Você conseguiu {{ $result['money']}} de mesada</h5>
     <div class="row">
         <table class="responsive-table hide-on-med-and-down">
             <thead>
                 <tr>
                     <th>&nbsp;</th>
                     <th>Atividade</th>
-                    @foreach ($week as $day)
-                    <th class="center">{{$day}}</th>
-                    @endforeach
+                    <th class="center">Segunda</th>
+                    <th class="center">Terça</th>
+                    <th class="center">Quarta</th>
+                    <th class="center">Quinta</th>
+                    <th class="center">Sexta</th>
+                    <th class="center">Sábado</th>
+                    <th class="center">Domingo</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,13 +40,13 @@
                 <tr>
                     <td>&nbsp;</td>
                     <td>Resultado</td>
-                    <td class="center"><i class="material-icons">favorite</i></td>
-                    <td class="center"><i class="material-icons">favorite</i></td>
-                    <td class="center"><i class="material-icons">favorite</i></td>
-                    <td class="center"><i class="material-icons">favorite_border</i></td>
-                    <td class="center"><i class="material-icons">favorite</i></td>
-                    <td class="center"><i class="material-icons">favorite</i></td>
-                    <td class="center"><i class="material-icons">favorite_border</i></td>
+                    <td class="center">{{ $result['monday'] }}</td>
+                    <td class="center">{{ $result['tuesday'] }}</td>
+                    <td class="center">{{ $result['wednesday'] }}</td>
+                    <td class="center">{{ $result['thursday'] }}</td>
+                    <td class="center">{{ $result['friday'] }}</td>
+                    <td class="center">{{ $result['saturday'] }}</td>
+                    <td class="center">{{ $result['sunday'] }}</td>
                 </tr>
             </tbody>
         </table>

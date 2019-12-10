@@ -16,6 +16,9 @@ use Auth;
 
 class BoardController extends Controller
 {
+    protected $week = ["monday", "tuesday", "wednesday",
+        "thursday", "friday", "saturday", "sunday"];
+
     /**
      * Display a listing of the resource.
      *
@@ -96,29 +99,42 @@ class BoardController extends Controller
                 ->where('boards.code', '=', $code)
                 ->get();
 
-        $week = ["Segunda", "Terca", "Quarta",
-        "Quinta", "Sexta", "Sábado", "Domingo"];
+        $result = $this->resultAllowance($code);
 
-        $result = DB::table('boards')
-            ->join(
-                'activities',
-                'activities.board_id',
-                '=',
-                'boards.id'
-            )
-            ->join(
-                'marks',
-                'marks.activity_id',
-                '=',
-                'activities.id'
-            )
-            ->select(
-                'marks.monday'
-            )
-            ->where('boards.code', '=', $code)
-            ->get();
+        return view('board.show', compact('board', 'activities', 'result'));
+    }
 
-        return view('board.show', compact('board', 'activities', 'week'));
+    public function resultAllowance($code)
+    {
+        $money = null;
+        foreach ($this->week as $day) {
+            $result[$day] = DB::table('boards')
+                ->join(
+                    'activities',
+                    'activities.board_id',
+                    '=',
+                    'boards.id'
+                )
+                ->join(
+                    'marks',
+                    'marks.activity_id',
+                    '=',
+                    'activities.id'
+                )
+                ->select(
+                    "marks.$day"
+                )
+                ->where(
+                    [
+                        ['boards.code', '=', $code],
+                        [$day, '=', 'Y'],
+                    ]
+                )
+                ->sum('activities.value');
+            $money = $money + $result[$day];
+        }
+        $result['money'] = $money;
+        return $result;
     }
 
     public function copy($code)
