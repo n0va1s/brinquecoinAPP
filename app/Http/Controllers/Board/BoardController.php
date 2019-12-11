@@ -100,11 +100,18 @@ class BoardController extends Controller
                 ->get();
 
         $result = $this->resultAllowance($code);
+        $week = $this->week;
 
-        return view('board.show', compact('board', 'activities', 'result'));
+        return view('board.show', compact('board', 'activities', 'result', 'week'));
     }
 
-    public function resultAllowance($code)
+    /**
+     * Calculate value of allowance
+     *
+     * @param  string  $code
+     * @return array $result
+     */
+    protected function resultAllowance($code)
     {
         $money = null;
         foreach ($this->week as $day) {

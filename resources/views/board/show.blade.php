@@ -4,57 +4,39 @@
 <div class="container">
     <h3 class="center">Quadro de {{ $board->name }}</h3>
     <hr class="linha">
-    <h5>Você conseguiu {{ $result['money']}} de mesada</h5>
+    <h5>Você conseguiu {{ $result['money'] }} de mesada</h5>
     <div class="row">
         <table class="responsive-table hide-on-med-and-down">
             <thead>
                 <tr>
                     <th>&nbsp;</th>
                     <th>Atividade</th>
-                    <th class="center">Segunda</th>
-                    <th class="center">Terça</th>
-                    <th class="center">Quarta</th>
-                    <th class="center">Quinta</th>
-                    <th class="center">Sexta</th>
-                    <th class="center">Sábado</th>
-                    <th class="center">Domingo</th>
+                    @foreach ($week as $day)
+                    <th class="center">{{$day}}</th>
+                    @endforeach
                 </tr>
             </thead>
             <tbody>
                 @foreach ($activities as $activity)
-                <tr>
-                    <td title="{{$activity->propouse}}"><i class="material-icons">
-                            {{isset($activity->icon) ? $activity->icon : 'notifications_none'}}
-                        </i>
-                    </td>
-                    <td>{{$activity->name}}</td>
-                    <td class="center"><img src="{{ asset('img/quadros/nao-fez.png') }}"></td>
-                    <td class="center"><img src="{{ asset('img/quadros/nao-pode.png') }}"></td>
-                    <td class="center"><img src="{{ asset('img/quadros/feito.png') }}"></td>
-                    <td class="center"><img src="{{ asset('img/quadros/nao-fez.png') }}"></td>
-                    <td class="center"><img src="{{ asset('img/quadros/nao-pode.png') }}"></td>
-                    <td class="center"><img src="{{ asset('img/quadros/feito.png') }}"></td>
-                    <td class="center"><img src="{{ asset('img/quadros/feito.png') }}"></td>
-                </tr>
+                    @component(
+                    'component/boardTable', 
+                        [
+                            'propouse'=>$activity->propouse,
+                            'icon'=>$activity->icon,
+                            'name'=>$activity->name
+                        ]
+                    )
+                    @endcomponent
                 @endforeach
-                <tr>
-                    <td>&nbsp;</td>
-                    <td>Resultado</td>
-                    <td class="center">{{ $result['monday'] }}</td>
-                    <td class="center">{{ $result['tuesday'] }}</td>
-                    <td class="center">{{ $result['wednesday'] }}</td>
-                    <td class="center">{{ $result['thursday'] }}</td>
-                    <td class="center">{{ $result['friday'] }}</td>
-                    <td class="center">{{ $result['saturday'] }}</td>
-                    <td class="center">{{ $result['sunday'] }}</td>
-                </tr>
+                @component('component/total', $result)@endcomponent
             </tbody>
         </table>
     </div>
     <div class="row hide-on-med-and-up">
         <ul class="collapsible">
+            @foreach ($week as $day)
             <li>
-                <div class="collapsible-header grey darken-3 white-text"><b>Segunda</b></div>
+                <div class="collapsible-header grey darken-3 white-text"><b>{{$day}}</b></div>
                 <div class="collapsible-body">
                     <div class="row">
                         <div class="col s9">
@@ -64,114 +46,22 @@
                             <span><b>Situação</b></span>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col s9">
-                            <span>Arrumar a cama</span>
-                        </div>
-                        <div class="col s3">
-                            <img src="{{ asset('img/quadros/feito.png') }}">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s9">
-                            <span>Fazer seu café da manhã</span>
-                        </div>
-                        <div class="col s3">
-                            <img src="{{ asset('img/quadros/feito.png') }}">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s9">
-                            <span>Arrumar sua mochila</span>
-                        </div>
-                        <div class="col s3">
-                            <img src="{{ asset('img/quadros/feito.png') }}">
-                        </div>
-                    </div>
-                    <div class="row center">
-                        <div class="col s9">
-                            <span>Resultado</span>
-                        </div>
-                        <div class="col s3">
-                            <i class="material-icons">favorite</i>
-                        </div>
-                    </div>
+                    @foreach ($activities as $activity)
+                        @component(
+                        'component/boardAccordion', 
+                            [
+                                'propouse'=>$activity->propouse,
+                                'icon'=>$activity->icon,
+                                'name'=>$activity->name
+                            ]
+                        )
+                        
+                        @endcomponent
+                    @endforeach
                 </div>
             </li>
-            <li>
-                <div class="collapsible-header grey darken-3 white-text"><b>Terça</b></div>
-                <div class="collapsible-body">
-                    <div class="row">
-                        <div class="col s9">
-                            <span><b>Atividade</b></span>
-                        </div>
-                        <div class="col s3">
-                            <span><b>Situação</b></span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s9">
-                            <span>Arrumar a cama</span>
-                        </div>
-                        <div class="col s3">
-                            <img src="{{ asset('img/quadros/feito.png') }}">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s9">
-                            <span>Fazer seu café da manhã</span>
-                        </div>
-                        <div class="col s3">
-                            <img src="{{ asset('img/quadros/feito.png') }}">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s9">
-                            <span>Arrumar sua mochila</span>
-                        </div>
-                        <div class="col s3">
-                            <img src="{{ asset('img/quadros/feito.png') }}">
-                        </div>
-                    </div>
-                    <div class="row center">
-                        <div class="col s9">
-                            <span>Resultado</span>
-                        </div>
-                        <div class="col s3">
-                            <i class="material-icons">favorite_border</i>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="collapsible-header grey darken-3 white-text"><b>Quarta</b></div>
-                <div class="collapsible-body">Nada...
-                </div>
-            </li>
-            <li>
-                <div class="collapsible-header grey darken-3 white-text"><b>Quinta</b></div>
-                <div class="collapsible-body">Nada...
-                </div>
-            </li>
-            <li>
-                <div class="collapsible-header grey darken-3 white-text"><b>Sexta</b></div>
-                <div class="collapsible-body">Nada...
-                </div>
-            </li>
-            <li>
-                <div class="collapsible-header grey darken-3 white-text"><b>Sábado</b></div>
-                <div class="collapsible-body">Nada...
-                </div>
-            </li>
-            <li>
-                <div class="collapsible-header grey darken-3 white-text"><b>Domingo</b></div>
-                <div class="collapsible-body">Nada...
-                </div>
-            </li>
+            @endforeach        
         </ul>
-    </div>
-    <div class="row">
-        <button class="waves-light btn-small orange darken-2" type="submit" name="action">Salvar</button>
     </div>
 </div>
 @endsection
