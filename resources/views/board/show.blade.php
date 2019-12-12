@@ -18,15 +18,15 @@
             </thead>
             <tbody>
                 @foreach ($activities as $activity)
-                    @component(
-                    'component/boardTable', 
-                        [
-                            'propouse'=>$activity->propouse,
-                            'icon'=>$activity->icon,
-                            'name'=>$activity->name
-                        ]
-                    )
-                    @endcomponent
+                @component(
+                'component/boardTable',
+                [
+                'propouse'=>$activity->propouse,
+                'icon'=>$activity->icon,
+                'name'=>$activity->name
+                ]
+                )
+                @endcomponent
                 @endforeach
                 @component('component/total', $result)@endcomponent
             </tbody>
@@ -39,28 +39,31 @@
                 <div class="collapsible-header grey darken-3 white-text"><b>{{$day}}</b></div>
                 <div class="collapsible-body">
                     <div class="row">
+                        <div class="col s1">
+                            <span>&nbsp;</span>
+                        </div>
                         <div class="col s9">
                             <span><b>Atividade</b></span>
                         </div>
-                        <div class="col s3">
+                        <div class="col s2">
                             <span><b>Situação</b></span>
                         </div>
                     </div>
                     @foreach ($activities as $activity)
-                        @component(
-                        'component/boardAccordion', 
-                            [
-                                'propouse'=>$activity->propouse,
-                                'icon'=>$activity->icon,
-                                'name'=>$activity->name
-                            ]
-                        )
-                        
-                        @endcomponent
+                    @component(
+                    'component/boardAccordion',
+                    [
+                    'propouse'=>$activity->propouse,
+                    'icon'=>$activity->icon,
+                    'name'=>$activity->name
+                    ]
+                    )
+
+                    @endcomponent
                     @endforeach
                 </div>
             </li>
-            @endforeach        
+            @endforeach
         </ul>
     </div>
 </div>

@@ -71,6 +71,9 @@ class BoardController extends Controller
             ->where('boards.code', $code)
             ->first();
 
+        $monday = DB::table('marks')
+                ->select('marks.*');
+
         $activities = DB::table('boards')
                 ->join(
                     'activities',
@@ -90,15 +93,31 @@ class BoardController extends Controller
                     '=',
                     'activity_types.propouse_type_id'
                 )
+                ->leftJoin(
+                    'marks',
+                    'activity_id',
+                    '=',
+                    'activities.id'
+                )
                 ->select(
+                    'activities.id',
                     'activities.value',
                     'activity_types.name',
                     'propouse_types.icon',
-                    'propouse_types.name as propouse'
+                    'propouse_types.name as propouse',
+                    'marks.monday',
+                    'marks.tuesday',
+                    'marks.wednesday',
+                    'marks.thursday',
+                    'marks.friday',
+                    'marks.saturday',
+                    'marks.sunday'
                 )
                 ->where('boards.code', '=', $code)
                 ->get();
 
+        $activitiesEmoji = $this->findEmoji($activities, $this->week);
+        dd($activitiesEmoji);
         $result = $this->resultAllowance($code);
         $week = $this->week;
 
@@ -142,6 +161,36 @@ class BoardController extends Controller
         }
         $result['money'] = $money;
         return $result;
+    }
+
+    /**
+     * Find a emoji to activity status
+     *
+     * @param  array  $activities
+     * @return array $activities
+     */
+    protected function findEmoji($activities, $week)
+    {
+        $i = 0;
+        foreach ($activities as $activity) {
+            $activities[$i];
+            $activities['id'] = $activity->id;
+            $activities['value'] = $activity->value;
+            $activities['name'] = $activity->name;
+            $activities['icon'] = $activity->icon;
+            $activities['propouse'] = $activity->propouse;
+            foreach ($week as $day) {
+                if ($activity->$day === 'Y') {
+                    $activities[$day] = 'img/quadros/fez.png';
+                } elseif ($activity->$day === 'N') {
+                    $activities[$day] = 'img/quadros/nao-fez.png';
+                } else {
+                    $activities[$day] = 'img/quadros/nao-pode.png';
+                }
+            }
+            $i++;
+        }
+        return $activities;
     }
 
     public function copy($code)
