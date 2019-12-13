@@ -5,11 +5,11 @@
         </i>
     </td>
     <td>{{$name}}</td>
-    <td class="center"><img src="{{ asset('img/quadros/nao-fez.png') }}"></td>
-    <td class="center"><img src="{{ asset('img/quadros/nao-pode.png') }}"></td>
-    <td class="center"><img src="{{ asset('img/quadros/feito.png') }}"></td>
-    <td class="center"><img src="{{ asset('img/quadros/nao-fez.png') }}"></td>
-    <td class="center"><img src="{{ asset('img/quadros/nao-pode.png') }}"></td>
-    <td class="center"><img src="{{ asset('img/quadros/feito.png') }}"></td>
-    <td class="center"><img src="{{ asset('img/quadros/feito.png') }}"></td>
+    <td class="center"><img src="{{ asset($monday) }}"></td>
+    <td class="center"><img src="{{ asset($tuesday) }}"></td>
+    <td class="center"><img src="{{ asset($wednesday) }}"></td>
+    <td class="center"><img src="{{ asset($thursday) }}"></td>
+    <td class="center"><img src="{{ asset($friday) }}"></td>
+    <td class="center"><img src="{{ asset($saturday) }}"></td>
+    <td class="center"><img src="{{ asset($sunday) }}"></td>
 </tr>

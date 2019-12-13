@@ -2,41 +2,59 @@
 
 @section('conteudo')
 <div class="container">
-    <h3 class="center">Quadro de {{ $board->name }}</h3>
+    <h3 class="center">Quadro de {{ $boardAllowance['board']['type'] }}</h3>
     <hr class="linha">
-    <h5>Você conseguiu {{ $result['money'] }} de mesada</h5>
+    @component(
+    'component/subtitle',
+    [
+    'name'=>$boardAllowance['person']['name'],
+    'message'=>' você conseguiu',
+    'result'=>null,
+    'total'=>$boardAllowance['totals']['money'],
+    'unit'=>'de mesada até agora'
+    ]
+    )
+    @endcomponent
+    
     <div class="row">
         <table class="responsive-table hide-on-med-and-down">
             <thead>
                 <tr>
                     <th>&nbsp;</th>
                     <th>Atividade</th>
-                    @foreach ($week as $day)
-                    <th class="center">{{$day}}</th>
-                    @endforeach
+                    @foreach ($boardAllowance['week'] as $day)
+                    <th class="center">{{$day}}</th>                        
+                    @endforeach                    
                 </tr>
             </thead>
             <tbody>
-                @foreach ($activities as $activity)
+                @foreach ($boardAllowance['activities'] as $activity)
                 @component(
                 'component/boardTable',
                 [
-                'propouse'=>$activity->propouse,
-                'icon'=>$activity->icon,
-                'name'=>$activity->name
+                'propouse'=>$activity['propouse'],
+                'icon'=>$activity['icon'],
+                'name'=>$activity['name'],
+                'monday'=>$activity['monday'],
+                'tuesday'=>$activity['tuesday'],
+                'wednesday'=>$activity['wednesday'],
+                'thursday'=>$activity['thursday'],
+                'friday'=>$activity['friday'],
+                'saturday'=>$activity['saturday'],
+                'sunday'=>$activity['sunday']
                 ]
                 )
                 @endcomponent
                 @endforeach
-                @component('component/total', $result)@endcomponent
+                @component('component/total', $boardAllowance['totals'])@endcomponent
             </tbody>
         </table>
     </div>
     <div class="row hide-on-med-and-up">
         <ul class="collapsible">
-            @foreach ($week as $day)
+            @foreach ($boardAllowance['week'] as $day => $name)
             <li>
-                <div class="collapsible-header grey darken-3 white-text"><b>{{$day}}</b></div>
+                <div class="collapsible-header grey darken-3 white-text"><b>{{$name}}</b></div>
                 <div class="collapsible-body">
                     <div class="row">
                         <div class="col s1">
@@ -49,13 +67,14 @@
                             <span><b>Situação</b></span>
                         </div>
                     </div>
-                    @foreach ($activities as $activity)
+                    @foreach ($boardAllowance['activities'] as $activity)
                     @component(
                     'component/boardAccordion',
                     [
-                    'propouse'=>$activity->propouse,
-                    'icon'=>$activity->icon,
-                    'name'=>$activity->name
+                    'propouse'=>$activity['propouse'],
+                    'icon'=>$activity['icon'],
+                    'name'=>$activity['name'],
+                    'day'=>$activity[$day]
                     ]
                     )
 

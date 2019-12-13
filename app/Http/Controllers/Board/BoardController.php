@@ -16,9 +16,6 @@ use Auth;
 
 class BoardController extends Controller
 {
-    protected $week = ["monday", "tuesday", "wednesday",
-        "thursday", "friday", "saturday", "sunday"];
-
     /**
      * Display a listing of the resource.
      *
@@ -71,69 +68,100 @@ class BoardController extends Controller
             ->where('boards.code', $code)
             ->first();
 
-        $monday = DB::table('marks')
-                ->select('marks.*');
-
         $activities = DB::table('boards')
-                ->join(
-                    'activities',
-                    'activities.board_id',
-                    '=',
-                    'boards.id'
-                )
-                ->join(
-                    'activity_types',
-                    'activity_types.id',
-                    '=',
-                    'activities.id'
-                )
-                ->join(
-                    'propouse_types',
-                    'propouse_types.id',
-                    '=',
-                    'activity_types.propouse_type_id'
-                )
-                ->leftJoin(
-                    'marks',
-                    'activity_id',
-                    '=',
-                    'activities.id'
-                )
-                ->select(
-                    'activities.id',
-                    'activities.value',
-                    'activity_types.name',
-                    'propouse_types.icon',
-                    'propouse_types.name as propouse',
-                    'marks.monday',
-                    'marks.tuesday',
-                    'marks.wednesday',
-                    'marks.thursday',
-                    'marks.friday',
-                    'marks.saturday',
-                    'marks.sunday'
-                )
-                ->where('boards.code', '=', $code)
-                ->get();
+            ->join(
+                'activities',
+                'activities.board_id',
+                '=',
+                'boards.id'
+            )
+            ->join(
+                'activity_types',
+                'activity_types.id',
+                '=',
+                'activities.id'
+            )
+            ->join(
+                'propouse_types',
+                'propouse_types.id',
+                '=',
+                'activity_types.propouse_type_id'
+            )
+            ->leftJoin(
+                'marks',
+                'activity_id',
+                '=',
+                'activities.id'
+            )
+            ->select(
+                'activities.id',
+                'activities.value',
+                'activity_types.name',
+                'propouse_types.icon',
+                'propouse_types.name as propouse',
+                'marks.monday',
+                'marks.tuesday',
+                'marks.wednesday',
+                'marks.thursday',
+                'marks.friday',
+                'marks.saturday',
+                'marks.sunday'
+            )
+            ->where('boards.code', '=', $code)
+            ->get();
 
-        $activitiesEmoji = $this->findEmoji($activities, $this->week);
-        dd($activitiesEmoji);
-        $result = $this->resultAllowance($code);
-        $week = $this->week;
-
-        return view('board.show', compact('board', 'activities', 'result', 'week'));
+        //Prepare data to view
+        $boardAllowance = $this->getVO(
+            $code,
+            $board,
+            $activities
+        );
+        
+        return view('board.show', compact('boardAllowance'));
     }
 
     /**
-     * Calculate value of allowance
+     * Mount a value object to prepare data to view
      *
-     * @param  string  $code
-     * @return array $result
+     * @param  string $code
+     * @param  object $board
+     * @param  list   $activities
+     * @return array  $boardAllowance
      */
-    protected function resultAllowance($code)
+    protected function getVO($code, $board, $activities)
     {
+        $boardAllowance = array();
+        $boardAllowance['week'] = array();
+        $boardAllowance['week']['monday'] = "Segunda";
+        $boardAllowance['week']['tuesday'] = "Terça";
+        $boardAllowance['week']['wednesday'] = "Quarta";
+        $boardAllowance['week']['thursday'] = "Quinta";
+        $boardAllowance['week']['friday'] = "Sexta";
+        $boardAllowance['week']['saturday'] = "Sábado";
+        $boardAllowance['week']['sunday'] = "Domingo";
+        $boardAllowance['person']['name'] = $board->name;
+        $boardAllowance['board']['type'] = $board->type;
+        $boardAllowance['activities'] = array();
+        foreach ($activities as $activity) {
+            $actvt['id'] = $activity->id;
+            $actvt['value'] = $activity->value;
+            $actvt['name'] = $activity->name;
+            $actvt['icon'] = $activity->icon;
+            $actvt['propouse'] = $activity->propouse;
+            foreach ($boardAllowance['week'] as $day => $name) {
+                if ($activity->$day === 'Y') {
+                    $actvt[$day] = 'img/quadros/fez.png';
+                } elseif ($activity->$day === 'N') {
+                    $actvt[$day] = 'img/quadros/nao-fez.png';
+                } else {
+                    $actvt[$day] = 'img/quadros/nao-pode.png';
+                }
+            }
+            array_push($boardAllowance['activities'], $actvt);
+        }
+        
         $money = null;
-        foreach ($this->week as $day) {
+        foreach ($boardAllowance['week'] as $day => $name) {
             $result[$day] = DB::table('boards')
                 ->join(
                     'activities',
@@ -160,37 +188,8 @@ class BoardController extends Controller
             $money = $money + $result[$day];
         }
         $result['money'] = $money;
-        return $result;
-    }
-
-    /**
-     * Find a emoji to activity status
-     *
-     * @param  array  $activities
-     * @return array $activities
-     */
-    protected function findEmoji($activities, $week)
-    {
-        $i = 0;
-        foreach ($activities as $activity) {
-            $activities[$i];
-            $activities['id'] = $activity->id;
-            $activities['value'] = $activity->value;
-            $activities['name'] = $activity->name;
-            $activities['icon'] = $activity->icon;
-            $activities['propouse'] = $activity->propouse;
-            foreach ($week as $day) {
-                if ($activity->$day === 'Y') {
-                    $activities[$day] = 'img/quadros/fez.png';
-                } elseif ($activity->$day === 'N') {
-                    $activities[$day] = 'img/quadros/nao-fez.png';
-                } else {
-                    $activities[$day] = 'img/quadros/nao-pode.png';
-                }
-            }
-            $i++;
-        }
-        return $activities;
+        $boardAllowance['totals'] = $result;        
+        return $boardAllowance;
     }
 
     public function copy($code)
