@@ -27,6 +27,18 @@ Route::prefix('login')->group(
             '/entrar',
             ['uses' => 'Site\LoginController@signin']
         )->name('site.login.signin');
+        Route::get(
+            '/novo',
+            ['uses' => 'Admin\ProfileController@create']
+        )->name('profile.create');
+        Route::post(
+            '/salvar',
+            ['uses' => 'Admin\ProfileController@store']
+        )->name('profile.store');
+        Route::get(
+            '/relembrar',
+            ['uses' => 'Admin\ProfileController@remember']
+        )->name('profile.remember');
     }
 );
 
@@ -35,13 +47,17 @@ Route::middleware(['auth'])->group(
         Route::prefix('perfil')->group(
             function () {
                 Route::get(
-                    '/editar/{id}',
+                    '/editar',
                     ['uses' => 'Admin\ProfileController@edit']
                 )->name('profile.edit');
                 Route::put(
-                    '/atualizar/{id}',
+                    '/atualizar',
                     ['uses' => 'Admin\ProfileController@update']
                 )->name('profile.update');
+                Route::get(
+                    '/deletar',
+                    ['uses' => 'Admin\ProfileController@destroy']
+                )->name('profile.destroy');
             }
         );
         Route::prefix('quadros')->group(

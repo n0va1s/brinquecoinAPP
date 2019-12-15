@@ -38,7 +38,7 @@
                     </ul>
                     @if(!Auth::guest())
                     <ul id="configuracoes" class="dropdown-content">
-                        <li><a href="{{route('profile.edit',Auth::user()->id)}}">Meu Perfil</a></li>
+                        <li><a href="{{route('profile.edit')}}">Meu Perfil</a></li>
                         <li><a href="{{ route('site.login.signout') }}">Sair</a></li>
                     </ul>
                     <ul class="right hide-on-med-and-down">
@@ -56,7 +56,7 @@
             <li><a href="{{route('site.login')}}">Login</a></li>
             @else
             <li><a href="{{route('board.index')}}">Quadrinhos</a></li>
-            <li><a href="{{route('profile.edit',Auth::user()->id)}}">Meu Perfil</a></li>
+            <li><a href="{{route('profile.edit')}}">Meu Perfil</a></li>
             <li><a href="{{route('capsule.index')}}">Cápsula do tempo</a></li>
             <li><a href="{{ route('site.login.signout') }}">Sair</a></li>
             @endif

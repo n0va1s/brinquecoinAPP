@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Model\ActivityType;
 use App\Model\Activity;
 use App\Model\Board;
+use App\Model\Person;
 
 use Auth;
 
@@ -33,6 +34,7 @@ class BoardController extends Controller
                 'board_types.image'
             )
             ->where('active', 'Y')
+            ->where('user_id', Auth::user()->id)
             ->get();
         return view('board.index', compact('boards'));
     }
@@ -116,7 +118,7 @@ class BoardController extends Controller
             $board,
             $activities
         );
-        
+
         return view('board.show', compact('boardAllowance'));
     }
 
@@ -159,7 +161,7 @@ class BoardController extends Controller
             }
             array_push($boardAllowance['activities'], $actvt);
         }
-        
+
         $money = null;
         foreach ($boardAllowance['week'] as $day => $name) {
             $result[$day] = DB::table('boards')
@@ -188,13 +190,74 @@ class BoardController extends Controller
             $money = $money + $result[$day];
         }
         $result['money'] = $money;
-        $boardAllowance['totals'] = $result;        
+        $boardAllowance['totals'] = $result;
         return $boardAllowance;
     }
 
     public function copy($code)
     {
-        //TODO: duplicar o quadro e as atividades (sem marcacao)
+        $board = DB::table('boards')
+            ->join(
+                'people',
+                'people.board_id',
+                '=',
+                'boards.id'
+            )
+            ->select(
+                'boards.user_id',
+                'boards.board_type_id',
+                'people.name',
+                'people.gender',
+                'people.age'
+            )
+            ->where('boards.active', 'Y')
+            ->where('boards.code', $code)
+            ->first();
+
+        $new_board = Board::create(
+            [
+                'user_id' => $board->user_id,
+                'board_type_id' => $board->board_type_id,
+                'code' => Str::uuid()->toString()
+            ]
+        );
+
+        $person = new Person();
+        $person->name = $board->name;
+        $person->gender = $board->gender;
+        $person->age = $board->age;
+        $new_board->person()->save($person);
+
+        $activities = DB::table('boards')
+            ->join(
+                'activities',
+                'activities.board_id',
+                '=',
+                'boards.id'
+            )
+            ->select(
+                'activities.activity_type_id',
+                'activities.value'
+            )
+            ->where('boards.code', '=', $code)
+            ->get();
+
+        foreach ($activities as $activity) {
+            Activity::create(
+                [
+                    'board_id' => $new_board->id,
+                    'activity_type_id' => $activity->activity_type_id,
+                    'value'=> $activity->value,
+                    'code'=> Str::uuid()->toString()
+                ]
+            );
+        }
+
+        $notification = array(
+            'message' => 'Quadro duplicado!',
+            'alert-type' => 'success'
+        );
+        return back()->with($notification);
     }
 
     public function close($code)

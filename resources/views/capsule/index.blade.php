@@ -5,7 +5,7 @@
 @section('conteudo')
 <div class="container">
     <div class="fixed-action-btn">
-        <a class="btn-floating btn-large red" href="{{route('admin.capsula.adicionar')}}">
+        <a class="btn-floating btn-large red" href="{{route('capsule.create')}}">
             <i class=" large material-icons">add</i>
         </a>
     </div>
