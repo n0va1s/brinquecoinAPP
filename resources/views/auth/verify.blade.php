@@ -1,11 +1,3 @@
-@extends('layout.app')
-
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Verify Your Email Address') }}</div>
 
                 <div class="card-body">
                     @if (session('resent'))
@@ -23,6 +15,28 @@
                     </form>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@extends('layout.app')
+
+@section('titulo','Brinque Coin - Login')
+
+@section('content')
+<div class="container center-align">
+    <div class="row">
+        <div class="col l4 offset-l4">
+            <h3>{{ __('Confirme seu email') }}</h3>
+
+            {{ __('Antes de continuar, por favor verifique seu email e clique no link.') }}
+            {{ __('Se vc não recebeu o email') }},
+            <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
+                {{ csrf_field() }}
+                <button type="submit"
+                    class="col s12 btn btn-large deep-orange">{{ __('Clique aqui para reenviar') }}</button>.
+            </form>
         </div>
     </div>
 </div>

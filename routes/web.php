@@ -11,34 +11,30 @@
 |
 */
 
-Auth::routes();
-
 Route::get('/', ['uses' => 'Site\HomeController@index'])->name('site.home');
 
-Route::prefix('login')->group(
-    function () {
-        Route::get(
-            '/',
-            ['uses' => 'Site\LoginController@index']
-        )->name('site.login');
-        Route::get(
-            '/sair',
-            ['uses' => 'Site\LoginController@signout']
-        )->name('site.login.signout');
-        Route::post(
-            '/entrar',
-            ['uses' => 'Site\LoginController@signin']
-        )->name('site.login.signin');
-        Route::get(
-            '/novo',
-            ['uses' => 'Admin\ProfileController@create']
-        )->name('profile.create');
-        Route::post(
-            '/salvar',
-            ['uses' => 'Admin\ProfileController@store']
-        )->name('profile.store');
-    }
-);
+/*
+get('login', 'Auth\LoginController@showLoginForm')->name('login');
+post('login', 'Auth\LoginController@login');
+post('logout', 'Auth\LoginController@logout')->name('logout');
+get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+post('register', 'Auth\RegisterController@register');
+get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+get('password/confirm', 'Auth\ConfirmPasswordController@showConfirmForm')->name('password.confirm');
+post('password/confirm', 'Auth\ConfirmPasswordController@confirm');
+get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
+get('email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
+post('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
+*/
+Auth::routes();
+/*
+By default logout its a POST method
+This rewrite to GET method
+*/
+Route::get('logout', 'Auth\LoginController@logout');
 
 Route::middleware(['auth'])->group(
     function () {

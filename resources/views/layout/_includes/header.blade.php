@@ -30,7 +30,7 @@
                     <ul class="left hide-on-med-and-down">
                         <li><a href="{{route('site.home')}}">Início</a></li>
                         @if(Auth::guest())
-                        <li><a href="{{route('site.login')}}">Login</a></li>
+                        <li><a href="{{route('login')}}">Login</a></li>
                         @else
                         <li><a href="{{route('board.index')}}">Quadrinhos</a></li>
                         <li><a href="{{route('capsule.index')}}">Cápsula do tempo</a></li>
@@ -38,8 +38,7 @@
                     </ul>
                     @if(!Auth::guest())
                     <ul id="configuracoes" class="dropdown-content">
-                        <li><a href="{{route('profile.edit')}}">Meu Perfil</a></li>
-                        <li><a href="{{ route('site.login.signout') }}">Sair</a></li>
+                        <li><a href="{{ route('logout') }}">Sair</a></li>
                     </ul>
                     <ul class="right hide-on-med-and-down">
                         <li><a class="dropdown-trigger" href="{{route('board.index')}}" data-target="configuracoes">Olá,
@@ -53,12 +52,11 @@
         <ul class="sidenav" id="mobile">
             <li><a href="{{route('site.home')}}">Início</a></li>
             @if(Auth::guest())
-            <li><a href="{{route('site.login')}}">Login</a></li>
+            <li><a href="{{route('login')}}">Login</a></li>
             @else
             <li><a href="{{route('board.index')}}">Quadrinhos</a></li>
-            <li><a href="{{route('profile.edit')}}">Meu Perfil</a></li>
             <li><a href="{{route('capsule.index')}}">Cápsula do tempo</a></li>
-            <li><a href="{{ route('site.login.signout') }}">Sair</a></li>
+            <li><a href="{{ route('logout') }}">Sair</a></li>
             @endif
         </ul>
     </header>
