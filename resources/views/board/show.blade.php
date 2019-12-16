@@ -1,6 +1,6 @@
-@extends('layout.site')
+@extends('layout.app')
 
-@section('conteudo')
+@section('content')
 <div class="container">
     <h3 class="center">Quadro de {{ $boardAllowance['board']['type'] }}</h3>
     <hr class="linha">
@@ -15,7 +15,7 @@
     ]
     )
     @endcomponent
-    
+
     <div class="row">
         <table class="responsive-table hide-on-med-and-down">
             <thead>
@@ -23,8 +23,8 @@
                     <th>&nbsp;</th>
                     <th>Atividade</th>
                     @foreach ($boardAllowance['week'] as $day)
-                    <th class="center">{{$day}}</th>                        
-                    @endforeach                    
+                    <th class="center">{{$day}}</th>
+                    @endforeach
                 </tr>
             </thead>
             <tbody>

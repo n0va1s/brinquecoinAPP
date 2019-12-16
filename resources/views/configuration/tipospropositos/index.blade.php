@@ -1,8 +1,8 @@
-@extends('layout.site')
+@extends('layout.app')
 
 @section('titulo','Brinque Coin - Configuração de Propósitos')
 
-@section('conteudo')
+@section('content')
 <div class="container">
     <h3 class="center">Tipos de Propósitos</h3>
     <div class="container">

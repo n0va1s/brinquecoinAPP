@@ -1,8 +1,8 @@
-@extends('layout.site')
+@extends('layout.app')
 
 @section('titulo','Brinque Coin - Configuração de Quadros')
 
-@section('conteudo')
+@section('content')
 <div class="container">
     <h3 class="center">Tipos de Quadros</h3>
     <div class="container">

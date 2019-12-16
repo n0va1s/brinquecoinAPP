@@ -1,8 +1,8 @@
-@extends('layout.site')
+@extends('layout.app')
 
 @section('titulo','Brinque Coin - Configuração de Atividades')
 
-@section('conteudo')
+@section('content')
 <div class="container">
     <h3 class="center">Tipos de Atividades</h3>
     <div class="container">

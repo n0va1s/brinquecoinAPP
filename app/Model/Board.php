@@ -10,7 +10,7 @@ class Board extends Model
     use SoftDeletes;
 
     protected $table = 'boards';
-    
+
     protected $fillable = [
         'board_type_id', 'goal', 'user_id', 'code', 'active'
     ];
@@ -29,7 +29,7 @@ class Board extends Model
         return $this->hasOne('App\Model\BoardType');
     }
 
-    public function parent()
+    public function user()
     {
         return $this->hasOne('App\User');
     }

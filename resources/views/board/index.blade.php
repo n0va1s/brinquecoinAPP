@@ -1,8 +1,8 @@
-@extends('layout.site')
+@extends('layout.app')
 
 @section('titulo','Brinque Coin - Quadros')
 
-@section('conteudo')
+@section('content')
 <div class="container">
     <div class="fixed-action-btn">
         <a class="btn-floating btn-large red">

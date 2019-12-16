@@ -1,8 +1,8 @@
-@extends('layout.site')
+@extends('layout.app')
 
 @section('titulo','Brinque Coin - Login')
 
-@section('conteudo')
+@section('content')
 <div class="section"></div>
 <main>
     <center>
@@ -25,11 +25,6 @@
                             <input class='validate' type='password' name='senha' id='senha' />
                             <label for='password'>Sua senha</label>
                         </div>
-                        <!--
-                        <label style='float: right;'>
-                            <a href='{{route('profile.remember')}}'><b>Esqueceu a senha?</b></a>
-                        </label>
-                        -->
                         <label style='float: left'>
                             <a href='{{route('profile.create')}}'><b>Criar conta</b></a>
                         </label>

@@ -1,9 +1,9 @@
-@extends('layout.site')
+@extends('layout.app')
 
-@section('titulo','BrinqueCoin - meus quadros')
+@section('titulo','Brinque Coin - Início')
 
-@section('conteudo')
-  <div class="container">
+@section('content')
+<div class="container">
     <h3 class="center">Nosso impacto</h3>
     <div class="row">
         <div id="card-stats">
@@ -11,12 +11,12 @@
                 <div class="col s12 m6 l3">
                     <div class="card animate fadeLeft">
                         <div class="card-content cyan white-text">
-                        <p class="card-stats-title"><i class="material-icons">person_outline</i> Quadros</p>
-                        <h4 class="card-stats-number white-text">113</h4>
-                        <p class="card-stats-compare">
-                            <i class="material-icons">keyboard_arrow_up</i> criados
-                            <span class="cyan text text-lighten-5">até o momento</span>
-                        </p>
+                            <p class="card-stats-title"><i class="material-icons">person_outline</i> Quadros</p>
+                            <h4 class="card-stats-number white-text">113</h4>
+                            <p class="card-stats-compare">
+                                <i class="material-icons">keyboard_arrow_up</i> criados
+                                <span class="cyan text text-lighten-5">até o momento</span>
+                            </p>
                         </div>
                         <div class="card-action cyan darken-1"></div>
                     </div>
@@ -24,12 +24,12 @@
                 <div class="col s12 m6 l3">
                     <div class="card animate fadeLeft">
                         <div class="card-content red accent-2 white-text">
-                        <p class="card-stats-title"><i class="material-icons">attach_money</i>Mães e Pais</p>
-                        <h4 class="card-stats-number white-text">43</h4>
-                        <p class="card-stats-compare">
-                            <i class="material-icons">keyboard_arrow_up</i> jogando
-                            <span class="red-text text-lighten-5">regularmente</span>
-                        </p>
+                            <p class="card-stats-title"><i class="material-icons">attach_money</i>Mães e Pais</p>
+                            <h4 class="card-stats-number white-text">43</h4>
+                            <p class="card-stats-compare">
+                                <i class="material-icons">keyboard_arrow_up</i> jogando
+                                <span class="red-text text-lighten-5">regularmente</span>
+                            </p>
                         </div>
                         <div class="card-action red"></div>
                     </div>
@@ -37,12 +37,12 @@
                 <div class="col s12 m6 l3">
                     <div class="card animate fadeRight">
                         <div class="card-content orange lighten-1 white-text">
-                        <p class="card-stats-title"><i class="material-icons">trending_up</i> Crianças</p>
-                        <h4 class="card-stats-number white-text">44</h4>
-                        <p class="card-stats-compare">
-                            <i class="material-icons">keyboard_arrow_up</i> usando
-                            <span class="orange-text text-lighten-5">a metodologia</span>
-                        </p>
+                            <p class="card-stats-title"><i class="material-icons">trending_up</i> Crianças</p>
+                            <h4 class="card-stats-number white-text">44</h4>
+                            <p class="card-stats-compare">
+                                <i class="material-icons">keyboard_arrow_up</i> usando
+                                <span class="orange-text text-lighten-5">a metodologia</span>
+                            </p>
                         </div>
                         <div class="card-action orange"></div>
                     </div>
@@ -50,12 +50,12 @@
                 <div class="col s12 m6 l3">
                     <div class="card animate fadeRight">
                         <div class="card-content green lighten-1 white-text">
-                        <p class="card-stats-title"><i class="material-icons">content_copy</i> Quadro mais usado</p>
-                        <h4 class="card-stats-number white-text">Mesada</h4>
-                        <p class="card-stats-compare">
-                            <i class="material-icons">keyboard_arrow_down</i> transformando
-                            <span class="green-text text-lighten-5">o futuro</span>
-                        </p>
+                            <p class="card-stats-title"><i class="material-icons">content_copy</i> Quadro mais usado</p>
+                            <h4 class="card-stats-number white-text">Mesada</h4>
+                            <p class="card-stats-compare">
+                                <i class="material-icons">keyboard_arrow_down</i> transformando
+                                <span class="green-text text-lighten-5">o futuro</span>
+                            </p>
                         </div>
                         <div class="card-action green"></div>
                     </div>
@@ -63,5 +63,5 @@
             </div>
         </div>
     </div>
-  </div>
+</div>
 @endsection

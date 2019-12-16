@@ -1,6 +1,6 @@
-@extends('layout.site')
+@extends('layout.app')
 
-@section('conteudo')
+@section('content')
 <div class="container">
     <h3 class="center">Quadro de Tarefa</h3>
     <div class="row">

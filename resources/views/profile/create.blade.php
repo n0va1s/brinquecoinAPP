@@ -1,8 +1,8 @@
-@extends('layout.site')
+@extends('layout.app')
 
 @section('titulo','Brinque Coin - Perfil')
 
-@section('conteudo')
+@section('content')
 <div class="section"></div>
 <main>
     <center>
