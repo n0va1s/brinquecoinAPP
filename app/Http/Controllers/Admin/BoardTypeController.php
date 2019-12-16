@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\BoardType;
 
-class Board_TypeController extends Controller
+class BoardTypeController extends Controller
 {
     public function index()
     {

@@ -11,6 +11,8 @@
 |
 */
 
+Auth::routes();
+
 Route::get('/', ['uses' => 'Site\HomeController@index'])->name('site.home');
 
 Route::prefix('login')->group(
@@ -35,10 +37,6 @@ Route::prefix('login')->group(
             '/salvar',
             ['uses' => 'Admin\ProfileController@store']
         )->name('profile.store');
-        Route::get(
-            '/relembrar',
-            ['uses' => 'Admin\ProfileController@remember']
-        )->name('profile.remember');
     }
 );
 
@@ -155,77 +153,77 @@ Route::middleware(['auth'])->group(
             function () {
                 Route::get(
                     '/tiposquadros',
-                    ['uses' => 'Admin\TipoQuadroController@index']
+                    ['uses' => 'Admin\BoardTypeController@index']
                 )->name('board.type.index');
                 Route::get(
                     '/tiposquadros/adicionar',
-                    ['uses' => 'Admin\TipoQuadroController@create']
+                    ['uses' => 'Admin\BoardTypeController@create']
                 )->name('board.type.create');
                 Route::post(
                     '/tiposquadros/salvar',
-                    ['uses' => 'Admin\TipoQuadroController@store']
+                    ['uses' => 'Admin\BoardTypeController@store']
                 )->name('board.type.store');
                 Route::get(
                     '/tiposquadros/editar/{id}',
-                    ['uses' => 'Admin\TipoQuadroController@edit']
+                    ['uses' => 'Admin\BoardTypeController@edit']
                 )->name('board.type.edit');
                 Route::put(
                     '/tiposquadros/atualizar/{id}',
-                    ['uses' => 'Admin\TipoQuadroController@update']
+                    ['uses' => 'Admin\BoardTypeController@update']
                 )->name('board.type.update');
                 Route::get(
                     '/tiposquadros/deletar/{id}',
-                    ['uses' => 'Admin\TipoQuadroController@destroy']
+                    ['uses' => 'Admin\BoardTypeController@destroy']
                 )->name('board.type.delete');
 
                 Route::get(
                     '/tipospropositos',
-                    ['uses' => 'Admin\TipoPropositoController@index']
+                    ['uses' => 'Admin\PropouseTypeController@index']
                 )->name('propouse.type.index');
                 Route::get(
                     '/tipospropositos/adicionar',
-                    ['uses' => 'Admin\TipoPropositoCeontroller@create']
+                    ['uses' => 'Admin\PropouseTypeController@create']
                 )->name('propouse.type.create');
                 Route::post(
                     '/tipospropositos/salvar',
-                    ['uses' => 'Admin\TipoPropositoController@store']
+                    ['uses' => 'Admin\PropouseTypeController@store']
                 )->name('propouse.type.store');
                 Route::get(
                     '/tipospropositos/editar/{id}',
-                    ['uses' => 'Admin\TipoPropositoController@edit']
+                    ['uses' => 'Admin\PropouseTypeController@edit']
                 )->name('propouse.type.edit');
                 Route::put(
                     '/tipospropositos/atualizar/{id}',
-                    ['uses' => 'Admin\TipoPropositoController@update']
+                    ['uses' => 'Admin\PropouseTypeController@update']
                 )->name('propouse.type.update');
                 Route::get(
                     '/tipospropositos/deletar/{id}',
-                    ['uses' => 'Admin\TipoPropositoController@delete']
+                    ['uses' => 'Admin\PropouseTypeController@delete']
                 )->name('propouse.type.delete');
 
                 Route::get(
                     '/tiposatividades',
-                    ['uses' => 'Admin\TipoAtividadeController@index']
+                    ['uses' => 'Admin\ActivityTypeController@index']
                 )->name('activity.type.index');
                 Route::get(
                     '/tiposatividades/adicionar',
-                    ['uses' => 'Admin\TipoAtividadeController@create']
+                    ['uses' => 'Admin\ActivityTypeController@create']
                 )->name('activity.type.create');
                 Route::post(
                     '/tiposatividades/salvar',
-                    ['uses' => 'Admin\TipoAtividadeController@store']
+                    ['uses' => 'Admin\ActivityTypeController@store']
                 )->name('activity.type.store');
                 Route::get(
                     '/tiposatividades/editar/{id}',
-                    ['uses' => 'Admin\TipoAtividadeController@edit']
+                    ['uses' => 'Admin\ActivityTypeController@edit']
                 )->name('activity.type.edit');
                 Route::put(
                     '/tiposatividades/atualizar/{id}',
-                    ['uses' => 'Admin\TipoAtividadeController@update']
+                    ['uses' => 'Admin\ActivityTypeController@update']
                 )->name('activity.type.update');
                 Route::get(
                     '/tiposatividades/deletar/{id}',
-                    ['uses' => 'Admin\TipoAtividadeController@delete']
+                    ['uses' => 'Admin\ActivityTypeController@delete']
                 )->name('activity.type.delete');
             }
         );

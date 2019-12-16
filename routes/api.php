@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Http\Response;
-use App\Http\Resources\TipoAtividadeCollection;
-use App\TipoAtividade;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,5 +16,3 @@ use App\TipoAtividade;
 Route::get('/', function () {
     return response()->json(['message' => 'Brinque Coin APIs', 'status' => 'Connected']);
 })->name('api.inicio');
-
-Route::get('/tiposatividades', ['uses' => 'Admin\TipoAtividadeController@listar'])->name('api.tiposatividades');

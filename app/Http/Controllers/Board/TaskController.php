@@ -42,7 +42,7 @@ class TaskController extends Controller
                 'name' => 'required|max:200',
                 'gender' => 'required',
                 'age' => 'required|numeric',
-                'goal' => Rule::requiredIf($req->get('board_type_id') === "4")]
+                'goal' => Rule::requiredIf($req->get('board_type_id') === "4")
             ]
         );
         $data['user_id'] = Auth::user()->id;
@@ -189,7 +189,7 @@ class TaskController extends Controller
                 'name' => 'required|max:200',
                 'gender' => 'required',
                 'age' => 'required|numeric',
-                'goal' => Rule::requiredIf($req->get('board_type_id') === "4")]
+                'goal' => Rule::requiredIf($req->get('board_type_id') === "4")
             ]
         );
         $data['user_id'] = Auth::user()->id;
