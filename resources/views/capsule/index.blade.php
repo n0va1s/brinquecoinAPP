@@ -28,16 +28,16 @@
                     <img src="{{ asset('img/capsula.jpg') }}" alt="Imagem ilustrativa da capsula do tempo">
                 </div>
                 <div class="card-content">
-                    <p>De: {{$registro->nomeDe}}</p>
+                    <p>De: {{$registro->from}}</p>
                     <br />
-                    <p>Para: {{$registro->nomePara}}</p>
+                    <p>Para: {{$registro->to}}</p>
                     <br />
-                    <p>Data: {{date('d/m/Y', strtotime($registro->avisadoEm))}}</p>
+                    <p>Data: {{date('d/m/Y', strtotime($registro->remember_at))}}</p>
                 </div>
                 <div class="grey lighten-3">
                     <div class="card-action center">
                         <a class="waves-light btn-small red darken-2"
-                            href="{{route('admin.capsula.deletar', $registro->codigo)}}">Cancelar</a>
+                            href="{{route('capsule.destroy', $registro->code)}}">Cancelar</a>
                     </div>
                 </div>
             </div>

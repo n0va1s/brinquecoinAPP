@@ -30,7 +30,7 @@ class CapsuleController extends Controller
             'from' => 'required|max:200',
             'to' => 'required|max:200',
             'email' => 'required|email',
-            'rememberAt' => 'required|date',
+            'remember_at' => 'required|date',
             'message' => 'required',
             ]
         );

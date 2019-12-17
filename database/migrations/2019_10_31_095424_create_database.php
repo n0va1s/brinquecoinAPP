@@ -100,7 +100,7 @@ class CreateDatabase extends Migration
             $table->string('to', 200);
             $table->string('email', 100);
             $table->timestamp('remember_at');
-            $table->text('menssage');
+            $table->text('message');
             $table->enum('active', ['Y','N'])->default('Y');
             $table->timestamps();
             $table->softDeletes();

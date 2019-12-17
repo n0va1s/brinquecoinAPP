@@ -142,7 +142,7 @@ Route::middleware(['auth'])->group(
                 Route::get(
                     '/deletar/{codigo}',
                     ['uses' => 'Admin\CapsuleController@destroy']
-                )->name('capsule.delete');
+                )->name('capsule.destroy');
             }
         );
         Route::prefix('configuracao')->group(
