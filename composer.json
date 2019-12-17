@@ -1,10 +1,19 @@
 {
-    "name": "laravel/laravel",
-    "type": "project",
-    "description": "The Laravel Framework.",
+    "name": "Brinque Coin o quadro do sucesso",
+    "type": "app",
+    "description": "Um aplicativo para ajudar pais e mães com a arte de educar filhos e filhas. São quadros de tarefas, mesada e hábito para transformá-los",
     "keywords": [
-        "framework",
-        "laravel"
+        "app",
+        "brinquecoin",
+        "gamificacao",
+        "quadrinho",
+        "quadro de tarefas",
+        "mesada",
+        "quadro de mesada",
+        "hábito",
+        "bons hábitos",
+        "desenvolver hábito",
+        "criar filho"
     ],
     "license": "MIT",
     "require": {
@@ -19,7 +28,8 @@
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^3.0",
         "phpunit/phpunit": "^8.0",
-        "squizlabs/php_codesniffer": "^3.5"
+        "squizlabs/php_codesniffer": "^3.5",
+        "laravel/ui": "^1.1"
     },
     "config": {
         "optimize-autoloader": true,

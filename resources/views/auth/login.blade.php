@@ -11,31 +11,31 @@
                 {{ csrf_field() }}
                 <div class='row'>
                     <div class='input-field col s12'>
-                        <input type='email' name='email' id='email' value="{{ old('email') }}" required autocomplete="email" autofocus/>
+                        <input type='email' name='email' id='email' value="{{ old('email') }}" required
+                            autocomplete="email" autofocus />
                         <label for='email'>{{ __('E-Mail') }}</label>
                     </div>
                     <div class='input-field col s12'>
-                        <input type='password' name='password' id='password' required autocomplete="current-password"/>
+                        <input type='password' name='password' id='password' required autocomplete="current-password" />
                         <label for='password'>{{ __('Senha') }}</label>
                     </div>
                     <div class='col s6'>
-                        <p>
-                            <label for='remember'>
-                                <span>{{ __('Lembrar') }}</span>
-                                <input type='checkbox' class='filled-in' name='remember' id='remember' {{ old('remember') ? 'checked' : '' }}/>
-                            </label>
-                        </p>
+                        <label for='remember'>
+                            <input type='checkbox' class='filled-in' name='remember' id='remember'
+                                {{ old('remember') ? 'checked' : '' }} />
+                            <span>{{ __('Lembrar') }}</span>
+                        </label>
                     </div>
-                    <div class='input-field col s6'>
+                    <div class='col s6'>
                         <a href="{{ route('register') }}">
-                            {{ __('Novo cadastro') }}
+                            <span>{{ __('Novo cadastro') }}</span>
                         </a>
                     </div>
                     <div class='input-field col s12'>
                         <button type="submit" class="col s12 btn btn-large deep-orange">{{ __('Login') }}</button>
                         @if (Route::has('password.request'))
                         <a class="" href="{{ route('password.request') }}">
-                            {{ __('Esqueceu a senha?') }}
+                            <span>{{ __('Esqueceu a senha?') }}</span>
                         </a>
                         @endif
                     </div>

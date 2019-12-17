@@ -11,19 +11,23 @@
                 {{ csrf_field() }}
                 <div class='row'>
                     <div class='input-field col s12'>
-                        <input class='validate' type='text' name='name' id='name' value="{{ old('name') }}" required autocomplete="name" autofocus/>
+                        <input class='validate' type='text' name='name' id='name' value="{{ old('name') }}" required
+                            autocomplete="name" autofocus />
                         <label for='name'>{{ __('Nome') }}</label>
                     </div>
                     <div class='input-field col s12'>
-                        <input class='validate' type='email' name='email' id='email' value="{{ old('email') }}" required autocomplete="email" autofocus/>
+                        <input class='validate' type='email' name='email' id='email' value="{{ old('email') }}" required
+                            autocomplete="email" autofocus />
                         <label for='email'>{{ __('E-Mail') }}</label>
                     </div>
                     <div class='input-field col s12'>
-                        <input class='validate' type='password' name='password' id='password' required autocomplete="current-password"/>
+                        <input class='validate' type='password' name='password' id='password' required
+                            autocomplete="current-password" />
                         <label for='password'>{{ __('Senha') }}</label>
                     </div>
                     <div class='input-field col s12'>
-                        <input class='validate' type='password' name='password-confirm' id='password-confirm' required autocomplete="new-password"/>
+                        <input class='validate' type='password' name='password_confirmation' id='password_confirmation'
+                            required autocomplete="new-password" />
                         <label for='password'>{{ __('Confirme') }}</label>
                     </div>
                     <div class="row">
