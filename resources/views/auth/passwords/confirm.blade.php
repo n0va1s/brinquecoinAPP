@@ -18,7 +18,7 @@
                         <button type="submit" class="col s12 btn btn-large deep-orange">{{ __('Login') }}</button>
                         @if (Route::has('password.request'))
                         <a class="" href="{{ route('password.request') }}">
-                            {{ __('Esqueceu a senha?') }}
+                            {{ __('Não consegue entrar?') }}
                         </a>
                         @endif
                     </div>

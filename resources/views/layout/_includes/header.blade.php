@@ -15,6 +15,16 @@
     <!-- Fonts-->
     <link href="https://fonts.googleapis.com/css?family=Handlee&display=swap" rel="stylesheet">
 
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Brinque Coin">
+    <meta name="description"
+        content="Um aplicativo para ajudar pais e mães com a arte de educar filhos e filhas. São quadros de tarefas, mesada e hábito para transformá-los">
+    <link rel="apple-touch-icon" href="/images/icons/icon-152x152.png">
+    <meta name="theme-color" content="#ff5252" />
+
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>

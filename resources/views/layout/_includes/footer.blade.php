@@ -10,6 +10,10 @@
     </div>
 </footer>
 
+<!-- PWA -->
+<script type="text/javascript" src="/sw.js"></script>
+<script src="/js/install.js"></script>
+
 <!--Import jQuery before materialize.js-->
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 

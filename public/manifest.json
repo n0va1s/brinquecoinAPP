@@ -1,6 +1,6 @@
 {
     "name": "Brinque Coin o quadro do sucesso",
-    "short_name": "BrinqueCoin",
+    "short_name": "Brinque Coin",
     "icons": [
         {
             "src": "/img/icons/app-icon-48x48.png",
@@ -38,12 +38,12 @@
             "sizes": "512x512"
         }
     ],
-    "start_url": "/",
+    "start_url": "/login",
     "scope": ".",
     "display": "standalone",
     "orientation": "portrait-primary",
-    "background_color": "#fff",
-    "theme_color": "#3f51b5",
+    "background_color": "#00bcd4",
+    "theme_color": "#ff5252",
     "description": "Um aplicativo para ajudar pais e mães com a arte de educar filhos e filhas. São quadros de tarefas, mesada e hábito para transformá-los",
     "dir": "ltr",
     "lang": "pt-BR"

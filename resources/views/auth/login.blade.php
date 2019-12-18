@@ -28,14 +28,14 @@
                     </div>
                     <div class='col s6'>
                         <a href="{{ route('register') }}">
-                            <span>{{ __('Novo cadastro') }}</span>
+                            <span>{{ __('Criar uma conta') }}</span>
                         </a>
                     </div>
                     <div class='input-field col s12'>
                         <button type="submit" class="col s12 btn btn-large deep-orange">{{ __('Login') }}</button>
                         @if (Route::has('password.request'))
                         <a class="" href="{{ route('password.request') }}">
-                            <span>{{ __('Esqueceu a senha?') }}</span>
+                            <span>{{ __('Não consegue entrar?') }}</span>
                         </a>
                         @endif
                     </div>
