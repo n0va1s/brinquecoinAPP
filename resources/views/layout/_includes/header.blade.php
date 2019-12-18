@@ -41,10 +41,11 @@
                         <li><a href="{{route('site.home')}}">Início</a></li>
                         @if(Auth::guest())
                         <li><a href="{{route('login')}}">Login</a></li>
+                        <li><a href="#" id="install">Instalar</a></li>
                         @else
                         <li><a href="{{route('board.index')}}">Quadrinhos</a></li>
                         <li><a href="{{route('capsule.index')}}">Cápsula do tempo</a></li>
-                        @endif
+                        @endif                        
                     </ul>
                     @if(!Auth::guest())
                     <ul id="configuracoes" class="dropdown-content">
@@ -63,6 +64,7 @@
             <li><a href="{{route('site.home')}}">Início</a></li>
             @if(Auth::guest())
             <li><a href="{{route('login')}}">Login</a></li>
+            <li><a href="#" id="install">Instalar</a></li>
             @else
             <li><a href="{{route('board.index')}}">Quadrinhos</a></li>
             <li><a href="{{route('capsule.index')}}">Cápsula do tempo</a></li>

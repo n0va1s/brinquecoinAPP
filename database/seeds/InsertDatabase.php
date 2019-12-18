@@ -25,10 +25,10 @@ class InsertDatabase extends Seeder
             DB::table('users')->insert($user);
         }
         //Registros das tabelas basicas
-        DB::table('board_types')->insert(['type' => 'F', 'name' => 'Férias', 'image' => 'img/tiposquadros/ferias.jpg']);
-        DB::table('board_types')->insert(['type' => 'H', 'name' => 'Hábito', 'image' => 'img/tiposquadros/habito.png']);
-        DB::table('board_types')->insert(['type' => 'M', 'name' => 'Mesada', 'image' => 'img/tiposquadros/mesada.jpg']);
-        DB::table('board_types')->insert(['type' => 'T', 'name' => 'Tarefa', 'image' => 'img/tiposquadros/tarefas.jpg']);
+        DB::table('board_types')->insert(['type' => 'F', 'name' => 'Férias', 'image' => 'img/boards/ferias.jpg']);
+        DB::table('board_types')->insert(['type' => 'H', 'name' => 'Hábito', 'image' => 'img/boards/habito.jpg']);
+        DB::table('board_types')->insert(['type' => 'M', 'name' => 'Mesada', 'image' => 'img/boards/mesada.jpg']);
+        DB::table('board_types')->insert(['type' => 'T', 'name' => 'Tarefa', 'image' => 'img/boards/tarefas.jpg']);
 
         DB::table('propouse_types')->insert(['propouse' => 'E', 'name' => 'Escola', 'icon' => 'school']);
         DB::table('propouse_types')->insert(['propouse' => 'H', 'name' => 'Higiene', 'icon' => 'hot_tub']);
