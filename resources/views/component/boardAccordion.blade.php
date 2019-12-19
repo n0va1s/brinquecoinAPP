@@ -10,6 +10,6 @@
         <span>&nbsp;&nbsp;&nbsp;{{$name}}</span>
     </div>
     <div class="col s3">
-        <img src="{{ asset($day) }}">
+        <img src="{{ asset($day) }}" onclick="markActivity({{$id}},{{$day}})">
     </div>
 </div>

@@ -1,6 +1,21 @@
-$(document).ready(function() {
-    $('.emoji').click(function(event) {
+function markActivity($id, $day) {
+    $.ajax({
+        url: '/board/atividade/marcar',
+        type: 'POST',
+        data: { dia: celula[0], atividade: celula[1], valor: valor },
+        success: function () {
+            console.log('OK. Marcacao realizada com sucesso');
+        },
+        error: function () {
+            console.log('NOK. Erro ao marcar no quadro');
+        }
+    });
+}
+
+$(document).ready(function () {
+    $('.emoji').click(function (event) {
         event.preventDefault();
+        alert('aqui');
         var celula = $(this).attr('id').split('_');
         var quadro = $('#tipo').val();
         var valor;
@@ -20,39 +35,39 @@ $(document).ready(function() {
                     valor = null;
                     $(this).children().removeClass("otimo").addClass("duvida");
                     break;
-                }
-            
+            }
+
         } else {
             //Para quadros de ferias
             //a regra e otimo (4), bom(3), ruim (2), pessimo (1)
             //multiplicado pelo valor atribuido a atividade
             switch ($(this).children().attr('class')) {
-              case 'duvida':
-                valor = 1;
-                $(this).children().removeClass("duvida").addClass("pessimo");
-                break;
+                case 'duvida':
+                    valor = 1;
+                    $(this).children().removeClass("duvida").addClass("pessimo");
+                    break;
                 case 'pessimo':
-                valor = 2;
-                $(this).children().removeClass("pessimo").addClass("ruim");
-                break;
+                    valor = 2;
+                    $(this).children().removeClass("pessimo").addClass("ruim");
+                    break;
                 case 'ruim':
-                valor = 3;
-                $(this).children().removeClass("ruim").addClass("bom");
-                break;
+                    valor = 3;
+                    $(this).children().removeClass("ruim").addClass("bom");
+                    break;
                 case 'bom':
-                valor = 4;
-                $(this).children().removeClass("bom").addClass("otimo");
-                break;
+                    valor = 4;
+                    $(this).children().removeClass("bom").addClass("otimo");
+                    break;
                 default:
-                valor = null;
-                $(this).children().removeClass("otimo").addClass("duvida");
-                break;
+                    valor = null;
+                    $(this).children().removeClass("otimo").addClass("duvida");
+                    break;
             }
         }
         $.ajax({
             url: '/quadro/atividade/marcar',
             type: 'POST',
-            data: {dia: celula[0], atividade: celula[1], valor: valor},
+            data: { dia: celula[0], atividade: celula[1], valor: valor },
             success: function () {
                 console.log('OK. Marcacao realizada com sucesso');
             },

@@ -362,4 +362,27 @@ class BoardController extends Controller
         );
         return back()->with($notification);
     }
+
+    /**
+     * Store a mark of activity realization on board.
+     *
+     * @param  string $code
+     * @param  int $id
+     * @param  string $day
+     * @return \Illuminate\Http\Response
+     */
+    public function markActivity($code, $id, $day)
+    {
+        $board = Board::where(
+            'code',
+            '=',
+            $req->input('code')
+        )->firstOrFail();
+
+        $activity = Activity::find($id)->firstOrFail();
+
+        $activity[$day] = 'Y';
+
+        return response()->json($activity[$day]);
+    }
 }

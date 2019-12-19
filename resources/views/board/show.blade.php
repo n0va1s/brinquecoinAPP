@@ -35,6 +35,7 @@
                 'propouse'=>$activity['propouse'],
                 'icon'=>$activity['icon'],
                 'name'=>$activity['name'],
+                'id'=>$activity['id'],
                 'monday'=>$activity['monday'],
                 'tuesday'=>$activity['tuesday'],
                 'wednesday'=>$activity['wednesday'],
@@ -73,6 +74,7 @@
                     [
                     'propouse'=>$activity['propouse'],
                     'icon'=>$activity['icon'],
+                    'id'=>$activity['id'],
                     'name'=>$activity['name'],
                     'day'=>$activity[$day]
                     ]
@@ -86,6 +88,7 @@
         </ul>
     </div>
 </div>
+<script src="/js/board.js"></script>
 @endsection
 <style>
     hr {

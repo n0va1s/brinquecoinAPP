@@ -5,14 +5,14 @@
         <div class="row"></div>
     </div>
     <div class="container">
-        <div class="row">
-            <div class="col s4">
+        <div class="row center">
+            <div class="col s4 m4">
                 <a class="grey-text text-lighten-4 left" href="\">© 2019 brinquecoin.com</a>
             </div>
-            <div class="col s4">
-                <button id="butInstall" class="btn red darken-2">Instalar</button>
+            <div class="col s4 m4">
+                <button id="btnInstall" class="btn red darken-2">Instalar app</button>
             </div>
-            <div class="col s4">
+            <div class="col s4 m4">
                 <a class="grey-text text-lighten-4 right" href="\">Termos de uso</a>
             </div>
         </div>

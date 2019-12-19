@@ -1,15 +1,15 @@
 'use strict';
 
 let deferredInstallPrompt = null;
-const installButton = document.getElementById('butInstall');
-installButton.addEventListener('click', installPWA);
+const btn = document.getElementById('btnInstall');
+btn.addEventListener('click', installPWA);
 
 window.addEventListener('beforeinstallprompt', saveBeforeInstallPromptEvent);
 
 function saveBeforeInstallPromptEvent(evt) {
     evt.preventDefault();
     deferredInstallPrompt = evt;
-    installButton.setAttribute('visibility', 'visible');
+    btn.setAttribute('visibility', 'visible');
 
     deferredInstallPrompt.userChoice
         .then((choice) => {
@@ -25,7 +25,7 @@ function saveBeforeInstallPromptEvent(evt) {
 function installPWA(evt) {
     deferredInstallPrompt.prompt();
     window.addEventListener('appinstalled', logAppInstalled);
-    evt.srcElement.setAttribute('visibility', 'hidden');
+    btn.setAttribute('visibility', 'hidden');
 }
 
 function logAppInstalled(evt) {
