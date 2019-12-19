@@ -5,8 +5,17 @@
         <div class="row"></div>
     </div>
     <div class="container">
-        <a class="grey-text text-lighten-4 left" href="\">© 2019 brinquecoin.com</a>
-        <a class="grey-text text-lighten-4 right" href="\">Termos de uso</a>
+        <div class="row">
+            <div class="col s4">
+                <a class="grey-text text-lighten-4 left" href="\">© 2019 brinquecoin.com</a>
+            </div>
+            <div class="col s4">
+                <button id="butInstall" class="btn red darken-2">Instalar</button>
+            </div>
+            <div class="col s4">
+                <a class="grey-text text-lighten-4 right" href="\">Termos de uso</a>
+            </div>
+        </div>
     </div>
 </footer>
 

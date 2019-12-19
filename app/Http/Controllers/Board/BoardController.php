@@ -152,11 +152,11 @@ class BoardController extends Controller
             $actvt['propouse'] = $activity->propouse;
             foreach ($boardAllowance['week'] as $day => $name) {
                 if ($activity->$day === 'Y') {
-                    $actvt[$day] = 'img/quadros/fez.png';
+                    $actvt[$day] = 'img/boards/fez.png';
                 } elseif ($activity->$day === 'N') {
-                    $actvt[$day] = 'img/quadros/nao-fez.png';
+                    $actvt[$day] = 'img/boards/nao-fez.png';
                 } else {
-                    $actvt[$day] = 'img/quadros/nao-pode.png';
+                    $actvt[$day] = 'img/boards/nao-pode.png';
                 }
             }
             array_push($boardAllowance['activities'], $actvt);

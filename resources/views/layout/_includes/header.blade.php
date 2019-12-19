@@ -35,17 +35,16 @@
             <nav>
                 <div class="nav-wrapper red accent-2">
                     <a href="#!" class="brand-logo center"><img class="responsive-img" style="width: 80px;"
-                            src="{{asset('img/brinquecoin.png')}}" /></a>
+                            src="{{asset('img/brinquecoin.png')}}" alt="logo do Brinque Coin" /></a>
                     <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul class="left hide-on-med-and-down">
                         <li><a href="{{route('site.home')}}">Início</a></li>
                         @if(Auth::guest())
                         <li><a href="{{route('login')}}">Login</a></li>
-                        <li><a href="#" id="install">Instalar</a></li>
                         @else
                         <li><a href="{{route('board.index')}}">Quadrinhos</a></li>
                         <li><a href="{{route('capsule.index')}}">Cápsula do tempo</a></li>
-                        @endif                        
+                        @endif
                     </ul>
                     @if(!Auth::guest())
                     <ul id="configuracoes" class="dropdown-content">
@@ -64,7 +63,6 @@
             <li><a href="{{route('site.home')}}">Início</a></li>
             @if(Auth::guest())
             <li><a href="{{route('login')}}">Login</a></li>
-            <li><a href="#" id="install">Instalar</a></li>
             @else
             <li><a href="{{route('board.index')}}">Quadrinhos</a></li>
             <li><a href="{{route('capsule.index')}}">Cápsula do tempo</a></li>
