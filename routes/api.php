@@ -13,6 +13,18 @@ use Illuminate\Http\Response;
 |
 */
 
-Route::get('/', function () {
-    return response()->json(['message' => 'Brinque Coin APIs', 'status' => 'Connected']);
-})->name('api.inicio');
+use App\Model\Mark;
+
+Route::get(
+    '/',
+    function () {
+        return response()->json(
+            ['message' => 'Brinque Coin APIs', 'status' => 'Connected']
+        );
+    }
+)->name('api.inicio');
+
+Route::post(
+    '/atividades/marcar/{codigo}',
+    ['uses' => 'Board\BoardController@markActivity']
+)->name('api.activity.mark')

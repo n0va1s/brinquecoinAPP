@@ -92,11 +92,7 @@ Route::middleware(['auth'])->group(
                     '/mesada/deletar/{codigo}',
                     ['uses' => 'Board\AllowanceController@destroy']
                 )->name('board.allowance.delete');
-                Route::get(
-                    '/mesada/atividades/marcar/{codigo}',
-                    ['uses' => 'Board\BoardController@markActivity']
-                )->name('board.allowance.mark');
-
+                
                 Route::get(
                     '/habito',
                     ['uses' => 'Board\HabitController@create']
