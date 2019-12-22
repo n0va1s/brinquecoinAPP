@@ -3,36 +3,7 @@ importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox
 
 if (workbox) {
     console.log('Workbox is loaded');
-    workbox.precaching.precacheAndRoute([
-  {
-    "url": "favicon.ico",
-    "revision": "21b275af1a58f4d527e62529dc2cabcb"
-  },
-  {
-    "url": "index.php",
-    "revision": "b9901d13f00ef92e0793e2d9fcd57431"
-  },
-  {
-    "url": "manifest.json",
-    "revision": "5d0d71697a8a5376a542bf6df66e7da0"
-  },
-  {
-    "url": "mix-manifest.json",
-    "revision": "207fd484b7c2ceeff7800b8c8a11b3b6"
-  },
-  {
-    "url": "offline.html",
-    "revision": "73beeb77d139447e043bcf8501b10cea"
-  },
-  {
-    "url": "robots.txt",
-    "revision": "b6216d61c03e6ce0c9aea6ca7808f7ca"
-  },
-  {
-    "url": "web.config",
-    "revision": "df72170f1cdffd64352bb4dafbd6efa0"
-  }
-]);
+    workbox.precaching.precacheAndRoute([]);
 
     /* cache images in the e.g others folder; edit to other folders you got
     and config in the sw-config.js file

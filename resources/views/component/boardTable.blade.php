@@ -5,29 +5,29 @@
     </td>
     <td>{{$name}}</td>
     <td class="center">
-        <img src="{{ asset($monday) }}" alt="emoji representando se a pessoa cumpriu ou não a atividade"
-            onclick="markActivity({{$id}},'monday')">
+        <img class="emoji" data-id="{{$id}}" data-day="monday" src="{{ asset($monday) }}"
+            alt="emoji se a pessoa cumpriu ou não a atividade">
     </td>
     <td class="center">
-        <img src="{{ asset($tuesday) }}" alt="emoji representando se a pessoa cumpriu ou não a atividade"
-            onclick="markActivity({{$id}},'tuesday')">
+        <img class="emoji" data-id="{{$id}}" data-day="tuesday" src="{{ asset($tuesday) }}"
+            alt="emoji se a pessoa cumpriu ou não a atividade">
     </td>
     <td class="center">
-        <img src="{{ asset($wednesday) }}" alt="emoji representando se a pessoa cumpriu ou não a atividade"
-            onclick="markActivity({{$id}},'wednesday')">
+        <img class="emoji" data-id="{{$id}}" data-day="wednesday" src="{{ asset($wednesday) }}"
+            alt="emoji se a pessoa cumpriu ou não a atividade">
     </td>
     <td class="center">
-        <img src="{{ asset($thursday) }}" alt="emoji representando se a pessoa cumpriu ou não a atividade"
-            onclick="markActivity({{$id}},'thursday')"></td>
+        <img class="emoji" data-id="{{$id}}" data-day="thursday" src="{{ asset($thursday) }}"
+            alt="emoji se a pessoa cumpriu ou não a atividade"></td>
     <td class="center">
-        <img src="{{ asset($friday) }}" alt="emoji representando se a pessoa cumpriu ou não a atividade"
-            onclick="markActivity({{$id}},'friday')">
+        <img class="emoji" data-id="{{$id}}" data-day="friday" src="{{ asset($friday) }}"
+            alt="emoji se a pessoa cumpriu ou não a atividade">
     </td>
     <td class="center">
-        <img src="{{ asset($saturday) }}" alt="emoji representando se a pessoa cumpriu ou não a atividade"
-            onclick="markActivity({{$id}},'saturday')"></td>
+        <img class="emoji" data-id="{{$id}}" data-day="saturday" src="{{ asset($saturday) }}"
+            alt="emoji se a pessoa cumpriu ou não a atividade"></td>
     <td class="center">
-        <img src="{{ asset($sunday) }}" alt="emoji representando se a pessoa cumpriu ou não a atividade"
-            onclick="markActivity({{$id}},'sunday')">
+        <img class="emoji" data-id="{{$id}}" data-day="sunday" src="{{ asset($sunday) }}"
+            alt="emoji se a pessoa cumpriu ou não a atividade">
     </td>
 </tr>

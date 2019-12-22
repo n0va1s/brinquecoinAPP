@@ -12,6 +12,7 @@ use App\Model\ActivityType;
 use App\Model\Activity;
 use App\Model\Board;
 use App\Model\Person;
+use App\Model\Mark;
 
 use Auth;
 
@@ -143,6 +144,7 @@ class BoardController extends Controller
         $boardAllowance['week']['sunday'] = "Domingo";
         $boardAllowance['person']['name'] = $board->name;
         $boardAllowance['board']['type'] = $board->type;
+        $boardAllowance['board']['code'] = $board->code;
         $boardAllowance['activities'] = array();
         foreach ($activities as $activity) {
             $actvt['id'] = $activity->id;
@@ -151,12 +153,12 @@ class BoardController extends Controller
             $actvt['icon'] = $activity->icon;
             $actvt['propouse'] = $activity->propouse;
             foreach ($boardAllowance['week'] as $day => $name) {
-                if ($activity->$day === 'Y') {
-                    $actvt[$day] = 'img/boards/fez.png';
-                } elseif ($activity->$day === 'N') {
-                    $actvt[$day] = 'img/boards/nao-fez.png';
+                if ($activity->$day === 1) {
+                    $actvt[$day] = 'img/boards/1.png';
+                } elseif ($activity->$day === 2) {
+                    $actvt[$day] = 'img/boards/2.png';
                 } else {
-                    $actvt[$day] = 'img/boards/nao-pode.png';
+                    $actvt[$day] = 'img/boards/0.png';
                 }
             }
             array_push($boardAllowance['activities'], $actvt);
@@ -366,23 +368,45 @@ class BoardController extends Controller
     /**
      * Store a mark of activity realization on board.
      *
-     * @param  string $code
-     * @param  int $id
-     * @param  string $day
+     * @param  \Illuminate\Http\Request $req
      * @return \Illuminate\Http\Response
      */
-    public function markActivity($code, $id, $day)
+    public function markActivity(Request $req)
     {
+        $code   = $req->input('board');
+        $id     = $req->input('activity');
+        $day    = $req->input('day');
+        $value  = $req->input('value');
+
         $board = Board::where(
             'code',
             '=',
-            $req->input('code')
+            $code
         )->firstOrFail();
 
-        $activity = Activity::find($id)->firstOrFail();
-
-        $activity[$day] = 'Y';
-
-        return response()->json($activity[$day]);
+        if ($board) {
+            $activity = Activity::find($id)->firstOrFail();
+            if ($board->id === $activity->board_id) {
+                Mark::updateOrCreate(
+                    ['activity_id'=>$id],
+                    [$day => $value]
+                );
+                $notification = [
+                    'success'=>'Data stored',
+                    'data'=>"activity: $id - day: $day - value: $value"
+                ];
+            } else {
+                $notification = [
+                    'error'=>'This activity dont belongs to this board',
+                    'activity'=>$id
+                ];
+            }
+        } else {
+            $notification = [
+                'error'=>'Board not found',
+                'board'=>$code
+        ];
+        }
+        return response()->json($notification);
     }
 }

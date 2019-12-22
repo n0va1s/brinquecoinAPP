@@ -25,6 +25,6 @@ Route::get(
 )->name('api.inicio');
 
 Route::post(
-    '/atividades/marcar/{codigo}',
+    '/atividades/marcar/',
     ['uses' => 'Board\BoardController@markActivity']
-)->name('api.activity.mark')
+)->name('api.activity.mark');

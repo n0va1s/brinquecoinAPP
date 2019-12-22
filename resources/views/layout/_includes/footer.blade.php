@@ -24,13 +24,18 @@
 <script src="/js/install.js"></script>
 
 <!--Import jQuery before materialize.js-->
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="/js/board.js"></script>
 
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
 <!-- Toastr -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+
+<!-- Workbox -->
+<script src="https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js"></script>
+
 <script type="text/javascript">
     $(document).ready(function(){
     $('.sidenav').sidenav();

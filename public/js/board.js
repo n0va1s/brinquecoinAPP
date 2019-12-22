@@ -1,25 +1,47 @@
-function postActivity(opts) {
-    console.log('Sending post...');
-    fetch('/atividades/marcar/{codigo}', {
-      method: 'post',
-      body: JSON.stringify(opts)
-    }).then(function(response) {
-      return response.json();
-    }).then(function(data) {
-      console.log('SUCCESS - mark created', data.html_url);
-    });
-  }
-  
-  function markActivity(id, day) {
-    console.log('Data received: id: '+id+' day '+day);
-    if (id && day) {
+$(document).ready(function () {
+    $('img.emoji').click(function (event) {
+        event.preventDefault();
+
+        //Change emojis
+        img = this.src.split('/')[5];
+        emojis = ['0.png', '1.png', '2.png'];
+        n = emojis.indexOf(img);
+        if ((n + 1) <= (emojis.length - 1)) {
+            emoji = emojis[n + 1];
+        } else {
+            emoji = emojis[0];
+        }
+        this.src = '/img/boards/' + emoji;
+
+        //Send post
+        id = this.dataset.id;
+        day = this.dataset.day;
+        code = document.getElementById('code').value;
         postActivity(
             {
-                id: id,
-                day: day
+                board: code,
+                activity: id,
+                day: day,
+                value: n
             }
         );
-    } else {
-      console.log('ERROR - id: '+id+' day: '+day);
-    }
-  }
+    })
+});
+
+function postActivity(opts) {
+    console.log('Sending post: ' + JSON.stringify(opts));
+    fetch('/api/atividades/marcar/', {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        method: 'post',
+        body: JSON.stringify(opts)
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        console.log(data);
+    }).catch(function (error) {
+        console.log(error);
+    });
+}

@@ -3,6 +3,7 @@
 @section('content')
 <div class="container">
     <h3 class="center">Quadro de {{ $boardAllowance['board']['type'] }}</h3>
+    <input type="hidden" id="code" value="{{ $boardAllowance['board']['code'] }}">
     <hr class="linha">
     @component(
     'component/subtitle',
@@ -79,7 +80,6 @@
                     'day'=>$activity[$day]
                     ]
                     )
-
                     @endcomponent
                     @endforeach
                 </div>
@@ -88,7 +88,6 @@
         </ul>
     </div>
 </div>
-<script src="/js/board.js"></script>
 @endsection
 <style>
     hr {

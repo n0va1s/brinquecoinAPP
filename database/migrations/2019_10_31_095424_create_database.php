@@ -81,13 +81,13 @@ class CreateDatabase extends Migration
         Schema::create('marks', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('activity_id');
-            $table->enum('monday', ['Y','N'])->nullable();
-            $table->enum('tuesday', ['Y','N'])->nullable();
-            $table->enum('wednesday', ['Y','N'])->nullable();
-            $table->enum('thursday', ['Y','N'])->nullable();
-            $table->enum('friday', ['Y','N'])->nullable();
-            $table->enum('saturday', ['Y','N'])->nullable();
-            $table->enum('sunday', ['Y','N'])->nullable();
+            $table->enum('monday', [0,1,2])->nullable();
+            $table->enum('tuesday', [0,1,2])->nullable();
+            $table->enum('wednesday', [0,1,2])->nullable();
+            $table->enum('thursday', [0,1,2])->nullable();
+            $table->enum('friday', [0,1,2])->nullable();
+            $table->enum('saturday', [0,1,2])->nullable();
+            $table->enum('sunday', [0,1,2])->nullable();
             $table->timestamps();
             $table->foreign('activity_id')->references('id')->on('activities');
         });
