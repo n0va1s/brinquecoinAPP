@@ -6,13 +6,10 @@
     </div>
     <div class="container">
         <div class="row center">
-            <div class="col s4 m4">
+            <div class="col s6 m6">
                 <a class="grey-text text-lighten-4 left" href="\">© 2019 brinquecoin.com</a>
             </div>
-            <div class="col s4 m4">
-                <button id="btnInstall" class="btn red darken-2">Instalar app</button>
-            </div>
-            <div class="col s4 m4">
+            <div class="col s6 m6">
                 <a class="grey-text text-lighten-4 right" href="\">Termos de uso</a>
             </div>
         </div>
@@ -20,8 +17,15 @@
 </footer>
 
 <!-- PWA -->
-<script type="text/javascript" src="/sw.js"></script>
-<script src="/js/install.js"></script>
+<script>
+    // Check that service workers are supported
+if ('serviceWorker' in navigator) {
+  // Use the window load event to keep the page load performant
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js');
+  });
+}
+</script>
 
 <!--Import jQuery before materialize.js-->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -33,8 +37,6 @@
 <!-- Toastr -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
 
-<!-- Workbox -->
-<script src="https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function(){

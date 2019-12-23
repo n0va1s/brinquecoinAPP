@@ -1,43 +1,46 @@
-
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js');
 
 if (workbox) {
     console.log('Workbox is loaded');
+    workbox.core.setCacheNameDetails({
+        prefix: 'brinquecoin'
+    });
     workbox.precaching.precacheAndRoute([]);
 
-    /* cache images in the e.g others folder; edit to other folders you got
-    and config in the sw-config.js file
-      */
+    // 1. css
     workbox.routing.registerRoute(
-        /(.*)others(.*)\.(?:png|gif|jpg)/,
-        new workbox.strategies.CacheFirst({
-            cacheName: 'images',
+        new RegExp('\.css$'),
+        workbox.strategies.cacheFirst({
+            cacheName: 'brinquecoin-stylesheets',
             plugins: [
                 new workbox.expiration.Plugin({
-                    maxEntries: 50,
-                    maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
+                    maxAgeSeconds: 60 * 60 * 24 * 7, // cache for one week
+                    maxEntries: 20, // only cache 20 request
+                    purgeOnQuotaError: true
                 })
             ]
         })
     );
-    /* Make your JS and CSS ⚡ fast by returning the assets from the cache,
-  while making sure they are updated in the background for the next use.
-  */
+    // 2. images
     workbox.routing.registerRoute(
-        // cache js, css, scc files
-        /.*\.(?:css|js|scss|)/,
-        // use cache but update in the background ASAP
-        new workbox.strategies.StaleWhileRevalidate({
-            // use a custom cache name
-            cacheName: 'assets',
+        new RegExp('\.(png|svg|jpg|jpeg)$'),
+        workbox.strategies.cacheFirst({
+            cacheName: 'brinquecoin-images',
+            plugins: [
+                new workbox.expiration.Plugin({
+                    maxAgeSeconds: 60 * 60 * 24 * 7,
+                    maxEntries: 50,
+                    purgeOnQuotaError: true
+                })
+            ]
         })
     );
 
-    // cache google fonts
+    // materialize css
     workbox.routing.registerRoute(
-        new RegExp('https://fonts.(?:googleapis|gstatic).com/(.*)'),
+        new RegExp('https://cdnjs.cloudflare.com/(.*)'),
         new workbox.strategies.CacheFirst({
-            cacheName: 'google-fonts',
+            cacheName: 'brinquecoin-materializecss',
             plugins: [
                 new workbox.cacheableResponse.Plugin({
                     statuses: [0, 200],
@@ -45,6 +48,42 @@ if (workbox) {
             ],
         })
     );
+
+    // cache google fonts
+    workbox.routing.registerRoute(
+        new RegExp('https://fonts.(?:googleapis|gstatic).com/(.*)'),
+        new workbox.strategies.CacheFirst({
+            cacheName: 'brinquecoin-fonts',
+            plugins: [
+                new workbox.cacheableResponse.Plugin({
+                    statuses: [0, 200],
+                }),
+            ],
+        })
+    );
+
+    //Giving Offline Support with a fallback page
+    const networkFirstHandler = new workbox.strategies.NetworkFirst({
+        cacheName: 'brinquecoin-dynamic',
+        plugins: [
+            new workbox.expiration.Plugin({
+                maxEntries: 10
+            }),
+            new workbox.cacheableResponse.Plugin({
+                statuses: [200]
+            })
+        ]
+    });
+
+    const FALLBACK_URL = workbox.precaching.getCacheKeyForURL('/offline.html');
+    const matcher = ({ event }) => event.request.mode === 'navigate';
+    const handler = args =>
+        networkFirstHandler
+            .handle(args)
+            .then(response => response || caches.match(FALLBACK_URL))
+            .catch(() => caches.match(FALLBACK_URL));
+
+    workbox.routing.registerRoute(matcher, handler);
 
     // add offline analytics
     workbox.googleAnalytics.initialize();

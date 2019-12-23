@@ -17,6 +17,7 @@
 
     <!-- Manifest -->
     <link rel="manifest" href="/manifest.json">
+
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="Brinque Coin">
@@ -48,7 +49,17 @@
                     </ul>
                     @if(!Auth::guest())
                     <ul id="configuracoes" class="dropdown-content">
-                        <li><a href="{{ route('logout') }}">Sair</a></li>
+                        <li>
+                            <a href="#" onclick="addToHomeScreen()">
+                                <i class="material-icons">add</i>
+                                Instalar
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('logout') }}"><i class="material-icons">keyboard_return</i>
+                                Sair
+                            </a>
+                        </li>
                     </ul>
                     <ul class="right hide-on-med-and-down">
                         <li><a class="dropdown-trigger" href="{{route('board.index')}}" data-target="configuracoes">Olá,
@@ -66,7 +77,17 @@
             @else
             <li><a href="{{route('board.index')}}">Quadrinhos</a></li>
             <li><a href="{{route('capsule.index')}}">Cápsula do tempo</a></li>
-            <li><a href="{{ route('logout') }}">Sair</a></li>
+            <li>
+                <a href="#" onclick="addToHomeScreen()">
+                    <i class="material-icons">add</i>
+                    Instalar
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('logout') }}"><i class="material-icons">keyboard_return</i>
+                Sair
+                </a>
+            </li>
             @endif
         </ul>
     </header>
