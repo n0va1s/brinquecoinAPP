@@ -16,7 +16,7 @@ class ActivityType extends Model
     ];
 
     protected $guarded = [
-        'id', 'created_at', 'update_at', 'delete_at'
+        'id', 'created_at', 'update_at'
     ];
 
     public function activities()
@@ -27,18 +27,5 @@ class ActivityType extends Model
     public function propouse()
     {
         return $this->hasOne('App\Model\PropouseType');
-    }
-
-    public static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function ($activity_type) {
-            if ($activity_type->forceDeleting) {
-                $activity_type->activities()->withTrashed()->forceDelete();
-            } else {
-                $activity_type->activities()->delete();
-            }
-        });
     }
 }

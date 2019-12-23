@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class PropouseType extends Model
 {
+    use SoftDeletes;
+    
     protected $table = 'propouse_types';
 
     protected $fillable = [

@@ -97,7 +97,6 @@ class AllowanceController extends Controller
                 )
                 ->whereNull('user_id')
                 ->orWhere('user_id', Auth::user()->id)
-                ->whereNull('activity_types.deleted_at')
                 ->orderby('propouse_types.name', 'asc')
                 ->orderby('activity_types.name', 'asc')
                 ->get();
@@ -127,7 +126,6 @@ class AllowanceController extends Controller
                     'propouse_types.icon'
                 )
                 ->Where('boards.code', $code)
-                ->whereNull('activities.deleted_at')
                 ->get();
 
             //Lista de atividades criadas pelo usuario
@@ -145,7 +143,6 @@ class AllowanceController extends Controller
                     'propouse_types.icon'
                 )
                 ->Where('user_id', Auth::user()->id)
-                ->whereNull('activity_types.deleted_at')
                 ->get();
 
             $board = DB::table('boards')

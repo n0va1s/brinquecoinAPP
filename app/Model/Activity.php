@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Activity extends Model
 {
-    use SoftDeletes;
-
     protected $table = 'activities';
 
     protected $fillable = [
@@ -16,7 +14,7 @@ class Activity extends Model
     ];
 
     protected $guarded = [
-        'id', 'created_at', 'update_at', 'delete_at'
+        'id', 'created_at', 'update_at'
     ];
 
     public function board()

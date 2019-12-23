@@ -62,7 +62,6 @@ class CreateDatabase extends Migration
             $table->enum('gender', ['F', 'M']);
             $table->integer('age');
             $table->timestamps();
-            $table->softDeletes();
             $table->foreign('board_id')->references('id')->on('boards');
         });
 
@@ -73,7 +72,6 @@ class CreateDatabase extends Migration
             $table->decimal('value', 5, 2)->nullable();
             $table->string('code')->nullable();
             $table->timestamps();
-            $table->softDeletes();
             $table->foreign('board_id')->references('id')->on('boards');
             $table->foreign('activity_type_id')->references('id')->on('activity_types')->onDelete('cascade');
         });

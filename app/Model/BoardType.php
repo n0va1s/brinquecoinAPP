@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class BoardType extends Model
 {
+    use SoftDeletes;
+    
     protected $table = 'board_types';
     
     protected $fillable = [
