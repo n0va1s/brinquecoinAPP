@@ -26,7 +26,7 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
-
+<script src="/js/install.js"></script>
 <!--Import jQuery before materialize.js-->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="/js/board.js"></script>

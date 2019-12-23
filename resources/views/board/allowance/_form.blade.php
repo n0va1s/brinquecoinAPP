@@ -4,7 +4,7 @@
 </div>
 <div class="input-field col s12 m1">
     <label>Idade</label>
-    <input type="number" name="age" value="{{isset($board->age) ? $board->age : ''}}">
+    <input type="number" name="age" min="3" value="{{isset($board->age) ? $board->age : ''}}">
 </div>
 <div class="input-field col s12 m2">
     <select name="gender">

@@ -8,9 +8,12 @@ $(document).ready(function () {
         n = emojis.indexOf(img);
         if ((n + 1) <= (emojis.length - 1)) {
             emoji = emojis[n + 1];
+            n++;
         } else {
             emoji = emojis[0];
+            n=0;
         }
+        value = n.toString();
         this.src = '/img/boards/' + emoji;
 
         //Send post
@@ -22,7 +25,7 @@ $(document).ready(function () {
                 board: code,
                 activity: id,
                 day: day,
-                value: n
+                value: value
             }
         );
     })

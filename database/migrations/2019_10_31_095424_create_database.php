@@ -46,7 +46,7 @@ class CreateDatabase extends Migration
         Schema::create('boards', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('board_type_id')->unique();
+            $table->unsignedBigInteger('board_type_id');
             $table->string('goal')->nullable();
             $table->string('code')->nullable();
             $table->enum('active', ['Y','N'])->default('Y');

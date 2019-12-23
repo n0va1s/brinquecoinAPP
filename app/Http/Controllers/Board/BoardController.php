@@ -90,7 +90,7 @@ class BoardController extends Controller
                 '=',
                 'activity_types.propouse_type_id'
             )
-            ->leftJoin(
+            ->LeftJoin(
                 'marks',
                 'activity_id',
                 '=',
@@ -383,9 +383,10 @@ class BoardController extends Controller
             '=',
             $code
         )->firstOrFail();
-
+        
         if ($board) {
             $activity = Activity::find($id)->firstOrFail();
+            
             if ($board->id === $activity->board_id) {
                 Mark::updateOrCreate(
                     ['activity_id'=>$id],

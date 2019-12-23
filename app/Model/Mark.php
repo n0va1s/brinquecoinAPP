@@ -9,7 +9,7 @@ class Mark extends Model
     protected $table = 'marks';
 
     protected $fillable = [
-        'moday', 'tuesday','wednesday','thursday',
+        'monday', 'tuesday','wednesday','thursday',
         'friday','saturday','sunday', 'activity_id'
     ];
 
