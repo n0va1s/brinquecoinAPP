@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Board;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 use App\Http\Controllers\Controller;
+
+use App\Mail\SendMailable;
 
 use App\Model\ActivityType;
 use App\Model\Activity;
@@ -402,8 +405,20 @@ class BoardController extends Controller
             $notification = [
                 'error'=>'Board not found',
                 'board'=>$code
-        ];
+            ];
         }
         return response()->json($notification);
+    }
+
+    /**
+     * Send email
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function send()
+    {
+        $name = 'JP';
+        Mail::to('jp@appdividend.com')->send(new SendMailable($name));
+        return 'Email was sent';        
     }
 }

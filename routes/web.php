@@ -81,6 +81,10 @@ Route::middleware(['auth'])->group(
                     ['uses' => 'Board\AllowanceController@store']
                 )->name('board.allowance.save');
                 Route::get(
+                    '/mesada/enviar', 
+                    ['uses' => 'Board\BoardController@send']
+                )->name('board.allowance.send');
+                Route::get(
                     '/mesada/editar/{codigo}',
                     ['uses' => 'Board\AllowanceController@edit']
                 )->name('board.allowance.edit');
@@ -123,7 +127,7 @@ Route::middleware(['auth'])->group(
                 Route::get(
                     '/mesada/atividades/deletar/nova/{id}',
                     ['uses' => 'Board\BoardController@destroyActivityType']
-                )->name('board.activity.type.delete');
+                )->name('board.activity.type.delete');                
             }
         );
         Route::prefix('capsula')->group(
