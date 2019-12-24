@@ -1,3 +1,4 @@
+//https://shareurcodes.com/blog/how-to-easily-convert-your-existing-laravel-application-into-a-progressive-web-app-by-using-workbox
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js');
 
 if (workbox) {
@@ -10,7 +11,7 @@ if (workbox) {
     // 1. css
     workbox.routing.registerRoute(
         new RegExp('\.css$'),
-        workbox.strategies.cacheFirst({
+        new workbox.strategies.CacheFirst({
             cacheName: 'brinquecoin-stylesheets',
             plugins: [
                 new workbox.expiration.Plugin({
@@ -21,10 +22,11 @@ if (workbox) {
             ]
         })
     );
+
     // 2. images
     workbox.routing.registerRoute(
         new RegExp('\.(png|svg|jpg|jpeg)$'),
-        workbox.strategies.cacheFirst({
+        new workbox.strategies.CacheFirst({
             cacheName: 'brinquecoin-images',
             plugins: [
                 new workbox.expiration.Plugin({

@@ -50,7 +50,7 @@
                     @if(!Auth::guest())
                     <ul id="configuracoes" class="dropdown-content">
                         <li>
-                            <a href="#" onclick="addToHomeScreen()">
+                            <a href="#install" onclick="addToHomeScreen()">
                                 <i class="material-icons">add</i>
                                 Instalar
                             </a>
@@ -78,7 +78,7 @@
             <li><a href="{{route('board.index')}}">Quadrinhos</a></li>
             <li><a href="{{route('capsule.index')}}">Cápsula do tempo</a></li>
             <li>
-                <a href="#" onclick="addToHomeScreen()">
+                <a href="#install" onclick="addToHomeScreen()">
                     <i class="material-icons">add</i>
                     Instalar
                 </a>

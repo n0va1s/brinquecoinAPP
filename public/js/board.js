@@ -11,7 +11,7 @@ $(document).ready(function () {
             n++;
         } else {
             emoji = emojis[0];
-            n=0;
+            n = 0;
         }
         value = n.toString();
         this.src = '/img/boards/' + emoji;
@@ -32,7 +32,7 @@ $(document).ready(function () {
 });
 
 function postActivity(opts) {
-    console.log('Sending post: ' + JSON.stringify(opts));
+    //console.log('Sending post: ' + JSON.stringify(opts));
     fetch('/api/atividades/marcar/', {
         headers: {
             'Accept': 'application/json',

@@ -18,7 +18,7 @@
     @endcomponent
 
     <div class="row">
-        <table class="responsive-table hide-on-med-and-down">
+        <table class="responsive-table hide-on-small-only">
             <thead>
                 <tr>
                     <th>&nbsp;</th>
@@ -77,7 +77,8 @@
                     'icon'=>$activity['icon'],
                     'id'=>$activity['id'],
                     'name'=>$activity['name'],
-                    'day'=>$activity[$day]
+                    'emoji'=>$activity[$day],
+                    'day'=>$day
                     ]
                     )
                     @endcomponent

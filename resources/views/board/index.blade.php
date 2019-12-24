@@ -52,7 +52,7 @@
                     </div>
                 </a>
                 <div class="card-content">
-                    <p>Quadro de {{ $board->name }}</p>
+                    <p>Quadro de {{ $board->type }}</p>
                     <br />
                     <p>{{ $board->name }}</p>
                     <br />

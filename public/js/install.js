@@ -1,16 +1,20 @@
 "use strict";
 
-var deferredPrompt;
-window.addEventListener('beforeinstallprompt', function (event) {
+let installPromptEvent;
+
+window.addEventListener('beforeinstallprompt', (event) => {
+    // Prevent Chrome <= 67 from automatically showing the prompt
     event.preventDefault();
-    deferredPrompt = event;
+    // Stash the event so it can be triggered later.
+    installPromptEvent = event;
+    addToHomeScreen();
     return false;
 });
 
 function addToHomeScreen() {
-    if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then(function (choiceResult) {
+    if (installPromptEvent) {
+        installPromptEvent.prompt();
+        installPromptEvent.userChoice.then(function (choiceResult) {
             console.log(choiceResult.outcome);
             if (choiceResult.outcome === 'dismissed') {
                 console.log('User cancelled installation');
@@ -18,6 +22,12 @@ function addToHomeScreen() {
                 console.log('User added to home screen');
             }
         });
-        deferredPrompt = null;
+        installPromptEvent = null;
+    } else {
+        console.log('Prompt fail ' + installPromptEvent);
     }
 }
+
+window.addEventListener('appinstalled', (event) => {
+    console.log('Brinque Coin installed');
+});

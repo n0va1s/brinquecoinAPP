@@ -31,7 +31,7 @@ class BoardController extends Controller
             ->select(
                 'boards.*',
                 'people.*',
-                'board_types.name',
+                'board_types.name as type',
                 'board_types.image'
             )
             ->where('active', 'Y')
@@ -153,9 +153,9 @@ class BoardController extends Controller
             $actvt['icon'] = $activity->icon;
             $actvt['propouse'] = $activity->propouse;
             foreach ($boardAllowance['week'] as $day => $name) {
-                if ($activity->$day === 1) {
+                if ($activity->$day === '1') {
                     $actvt[$day] = 'img/boards/1.png';
-                } elseif ($activity->$day === 2) {
+                } elseif ($activity->$day === '2') {
                     $actvt[$day] = 'img/boards/2.png';
                 } else {
                     $actvt[$day] = 'img/boards/0.png';
@@ -185,7 +185,7 @@ class BoardController extends Controller
                 ->where(
                     [
                         ['boards.code', '=', $code],
-                        [$day, '=', 'Y'],
+                        [$day, '=', '1'],
                     ]
                 )
                 ->sum('activities.value');
@@ -383,10 +383,10 @@ class BoardController extends Controller
             '=',
             $code
         )->firstOrFail();
-        
+
         if ($board) {
             $activity = Activity::find($id)->firstOrFail();
-            
+
             if ($board->id === $activity->board_id) {
                 Mark::updateOrCreate(
                     ['activity_id'=>$id],
