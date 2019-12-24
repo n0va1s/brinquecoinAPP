@@ -34,7 +34,6 @@ class BoardController extends Controller
                 'board_types.name as type',
                 'board_types.image'
             )
-            ->where('active', 'Y')
             ->where('user_id', Auth::user()->id)
             ->get();
         return view('board.index', compact('boards'));
@@ -67,7 +66,6 @@ class BoardController extends Controller
                 'board_types.name as type',
                 'board_types.image'
             )
-            ->where('boards.active', 'Y')
             ->where('boards.code', $code)
             ->first();
 
@@ -212,7 +210,6 @@ class BoardController extends Controller
                 'people.gender',
                 'people.age'
             )
-            ->where('boards.active', 'Y')
             ->where('boards.code', $code)
             ->first();
 
@@ -265,8 +262,7 @@ class BoardController extends Controller
     public function close($code)
     {
         if ($code) {
-            Board::where('boards.code', $code)
-                ->update(['active' => 'N']);
+            Board::where('boards.code', $code)->delete();
             $notification = array(
                 'message' => 'Quadro encerrado!',
                 'alert-type' => 'success'

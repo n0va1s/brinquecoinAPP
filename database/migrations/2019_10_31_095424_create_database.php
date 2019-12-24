@@ -49,7 +49,6 @@ class CreateDatabase extends Migration
             $table->unsignedBigInteger('board_type_id');
             $table->string('goal')->nullable();
             $table->string('code')->nullable();
-            $table->enum('active', ['Y','N'])->default('Y');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users');
@@ -99,7 +98,6 @@ class CreateDatabase extends Migration
             $table->string('email', 100);
             $table->timestamp('remember_at');
             $table->text('message');
-            $table->enum('active', ['Y','N'])->default('Y');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users');
