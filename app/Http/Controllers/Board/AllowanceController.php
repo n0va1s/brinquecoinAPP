@@ -60,7 +60,6 @@ class AllowanceController extends Controller
 
         /*
         Mail::to('newuser@example.com')->send(new NewBoardMailable());
-        return 'Mensagem enviada com Mailtrap!';
         */
 
         $notification = array(
