@@ -28,10 +28,20 @@ class HomeController extends Controller
             ->orderBy('qtd', 'desc')
             ->first();
 
-            //Adding totals of old version
-            $result['board'] = $result['board'] + 113;
-            $result['parent'] = $result['parent'] + 43;
-
-            return view('home', compact('result'));
+        //Adding totals of old version
+        $result['board'] = $result['board'] + 113;
+        $result['parent'] = $result['parent'] + 43;
+        if (!$result['age']) {
+            $result['age'] = 0;
+        } else {
+            $result['age'] = $result['age']->value;
+        }
+        if (!$result['type']) {
+            $result['type'] = "A definir";
+        } else {
+            $result['type'] = $result['type']->name;
+        }
+        
+        return view('home', compact('result'));
     }
 }

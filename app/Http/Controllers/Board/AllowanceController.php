@@ -5,9 +5,12 @@ namespace App\Http\Controllers\board;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 
 use App\Http\Controllers\Controller;
+
+use App\Mail\NewBoardMailable;
 
 use App\Model\Board;
 use App\Model\Person;
@@ -54,6 +57,11 @@ class AllowanceController extends Controller
 
         $board = Board::create($data);
         $board->person()->save($person);
+
+        /*
+        Mail::to('newuser@example.com')->send(new NewBoardMailable());
+        return 'Mensagem enviada com Mailtrap!';
+        */
 
         $notification = array(
             'message' => 'Quadro criado!',

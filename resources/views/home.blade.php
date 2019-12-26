@@ -38,7 +38,7 @@
                     <div class="card animate fadeRight">
                         <div class="card-content orange lighten-1 white-text">
                             <p class="card-stats-title"><i class="material-icons">trending_up</i> Faixa de idade</p>
-                            <h4 class="card-stats-number white-text">{{$result['age']->value}}</h4>
+                            <h4 class="card-stats-number white-text">{{$result['age']}}</h4>
                             <p class="card-stats-compare">
                                 <i class="material-icons">keyboard_arrow_up</i> média
                                 <span class="orange-text text-lighten-5">de idade</span>
@@ -51,7 +51,7 @@
                     <div class="card animate fadeRight">
                         <div class="card-content green lighten-1 white-text">
                             <p class="card-stats-title"><i class="material-icons">content_copy</i> Quadro mais usado</p>
-                            <h4 class="card-stats-number white-text">{{$result['type']->name}}</h4>
+                            <h4 class="card-stats-number white-text">{{$result['type']}}</h4>
                             <p class="card-stats-compare">
                                 <i class="material-icons">keyboard_arrow_down</i> transformando
                                 <span class="green-text text-lighten-5">o futuro</span>
