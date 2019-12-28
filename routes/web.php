@@ -36,7 +36,7 @@ This rewrite to GET method
 */
 Route::get('logout', 'Auth\LoginController@logout');
 
-Route::middleware(['auth'])->group(
+Route::middleware(['auth.basic'])->group(
     function () {
         Route::prefix('perfil')->group(
             function () {

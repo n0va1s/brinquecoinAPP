@@ -3,11 +3,12 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PropouseType extends Model
 {
     use SoftDeletes;
-    
+
     protected $table = 'propouse_types';
 
     protected $fillable = [
@@ -15,7 +16,7 @@ class PropouseType extends Model
     ];
 
     protected $guarded = [
-        'id', 'created_at', 'update_at'
+        'id', 'created_at', 'update_at', 'delete_at'
     ];
 
     public function activities()

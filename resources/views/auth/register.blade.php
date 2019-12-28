@@ -22,7 +22,7 @@
                     </div>
                     <div class='input-field col s12'>
                         <input class='validate' type='password' name='password' id='password' required
-                            autocomplete="current-password" />
+                            autocomplete="current-password" placeholder="A senha precisa de 8 letras ou números" />
                         <label for='password'>{{ __('Senha') }}</label>
                     </div>
                     <div class='input-field col s12'>

@@ -35,6 +35,7 @@ class BoardController extends Controller
                 'board_types.image'
             )
             ->where('user_id', Auth::user()->id)
+            ->whereNull('boards.deleted_at')
             ->get();
         return view('board.index', compact('boards'));
     }
@@ -351,9 +352,7 @@ class BoardController extends Controller
      */
     public function destroyActivityType($id)
     {
-        $activity_type = ActivityType::find($id);
-        $activity_type->delete();
-
+        $activity_type = ActivityType::find($id)->delete();
         $notification = array(
             'message' => 'Atividade excluída!',
             'alert-type' => 'success'

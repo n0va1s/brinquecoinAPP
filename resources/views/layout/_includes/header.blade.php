@@ -21,8 +21,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="Brinque Coin">
-    <meta name="description"
-        content="Um aplicativo para ajudar pais e mães com a arte de educar filhos e filhas. São quadros de tarefas, mesada e hábito para transformá-los">
+    <meta name="description" content="Um aplicativo para ajudar na criação dos filhos">
     <link rel="apple-touch-icon" href="/images/icons/icon-152x152.png">
     <meta name="theme-color" content="#ff5252" />
 
@@ -50,7 +49,7 @@
                     @if(!Auth::guest())
                     <ul id="configuracoes" class="dropdown-content">
                         <li>
-                            <a href="#install" onclick="addToHomeScreen()">
+                            <a id="optInstall" href="#install">
                                 <i class="material-icons">add</i>
                                 Instalar
                             </a>
@@ -78,14 +77,14 @@
             <li><a href="{{route('board.index')}}">Quadrinhos</a></li>
             <li><a href="{{route('capsule.index')}}">Cápsula do tempo</a></li>
             <li>
-                <a href="#install" onclick="addToHomeScreen()">
+                <a id="optInstall" href="#install">
                     <i class="material-icons">add</i>
                     Instalar
                 </a>
             </li>
             <li>
                 <a href="{{ route('logout') }}"><i class="material-icons">keyboard_return</i>
-                Sair
+                    Sair
                 </a>
             </li>
             @endif

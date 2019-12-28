@@ -87,6 +87,7 @@ class AllowanceController extends Controller
             $propouse_types = DB::table('propouse_types')
                 ->select('propouse_types.*')
                 ->orderBy('propouse_types.name', 'asc')
+                ->whereNull('propouse_types.deleted_at')
                 ->get();
 
             //Combo de tipos de atividades
@@ -105,6 +106,7 @@ class AllowanceController extends Controller
                 )
                 ->whereNull('user_id')
                 ->orWhere('user_id', Auth::user()->id)
+                ->whereNull('activity_types.deleted_at')
                 ->orderby('propouse_types.name', 'asc')
                 ->orderby('activity_types.name', 'asc')
                 ->get();
@@ -151,12 +153,14 @@ class AllowanceController extends Controller
                     'propouse_types.icon'
                 )
                 ->Where('user_id', Auth::user()->id)
+                ->whereNull('activity_types.deleted_at')
                 ->get();
 
             $board = DB::table('boards')
                 ->join('people', 'boards.id', '=', 'people.board_id')
                 ->select('boards.*', 'people.*')
                 ->where('boards.code', '=', $code)
+                ->whereNull('boards.deleted_at')
                 ->first();
 
             return view(

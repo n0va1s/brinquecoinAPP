@@ -22,13 +22,13 @@
 <div class="row">
     @foreach($activities_user as $activity)
     <div class="chip">
-        <div class="col s2 m2">
+        <div class="col s2">
             <i class="material-icons">{{isset($activity->icon) ? $activity->icon : 'notifications_none'}}</i>
         </div>
-        <div class="col s8 m8">
+        <div class="col s8">
             <span>{{$activity->name}}</span>
         </div>
-        <div class="col s2  m2">
+        <div class="col s2">
             <a class="close material-icons" href="{{ route('board.activity.type.delete',$activity->id) }}">
                 <i class="close material-icons">close</i>
             </a>

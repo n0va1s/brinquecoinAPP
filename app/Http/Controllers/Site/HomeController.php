@@ -41,7 +41,7 @@ class HomeController extends Controller
         } else {
             $result['type'] = $result['type']->name;
         }
-        
+
         return view('home', compact('result'));
     }
 }

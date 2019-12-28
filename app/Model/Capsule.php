@@ -16,6 +16,6 @@ class Capsule extends Model
     ];
 
     protected $guarded = [
-        'id', 'created_at', 'update_at'
+        'id', 'created_at', 'update_at', 'delete_at'
     ];
 }
