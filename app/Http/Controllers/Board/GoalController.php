@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Board;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class VacationController extends Controller
+class GoalController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +24,7 @@ class VacationController extends Controller
      */
     public function create()
     {
-        //
+        return view('board.goal.create');
     }
 
     /**

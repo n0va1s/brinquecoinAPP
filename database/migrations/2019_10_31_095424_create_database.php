@@ -15,7 +15,7 @@ class CreateDatabase extends Migration
     {
         Schema::create('board_types', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('type', ['F', 'H', 'M', 'T']);
+            $table->enum('type', ['G', 'H', 'M', 'T']);
             $table->string('name', '100');
             $table->string('image');
             $table->timestamps();

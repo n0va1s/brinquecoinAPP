@@ -72,6 +72,7 @@ Route::middleware(['auth.basic'])->group(
                     '/fechar/{codigo}',
                     ['uses' => 'Board\BoardController@close']
                 )->name('board.close');
+
                 Route::get(
                     '/mesada',
                     ['uses' => 'Board\AllowanceController@create']
@@ -97,14 +98,64 @@ Route::middleware(['auth.basic'])->group(
                     '/habito',
                     ['uses' => 'Board\HabitController@create']
                 )->name('board.habit.create');
+                Route::post(
+                    '/habito/salvar',
+                    ['uses' => 'Board\HabitController@store']
+                )->name('board.habit.save');
+                Route::get(
+                    '/habito/editar/{codigo}',
+                    ['uses' => 'Board\HabitController@edit']
+                )->name('board.habit.edit');
+                Route::put(
+                    '/habito/atualizar/{codigo}',
+                    ['uses' => 'Board\HabitController@update']
+                )->name('board.habit.update');
+                Route::get(
+                    '/habito/deletar/{codigo}',
+                    ['uses' => 'Board\HabitController@destroy']
+                )->name('board.habit.delete');
+
                 Route::get(
                     '/tarefa',
                     ['uses' => 'Board\TaskController@create']
                 )->name('board.task.create');
+                Route::post(
+                    '/tarefa/salvar',
+                    ['uses' => 'Board\TaskController@store']
+                )->name('board.task.save');
                 Route::get(
-                    '/ferias',
-                    ['uses' => 'Board\VacationController@create']
-                )->name('board.vacation.create');
+                    '/tarefa/editar/{codigo}',
+                    ['uses' => 'Board\TaskController@edit']
+                )->name('board.task.edit');
+                Route::put(
+                    '/tarefa/atualizar/{codigo}',
+                    ['uses' => 'Board\TaskController@update']
+                )->name('board.task.update');
+                Route::get(
+                    '/tarefa/deletar/{codigo}',
+                    ['uses' => 'Board\TaskController@destroy']
+                )->name('board.task.delete');
+
+                Route::get(
+                    '/meta',
+                    ['uses' => 'Board\GoalController@create']
+                )->name('board.goal.create');
+                Route::post(
+                    '/meta/salvar',
+                    ['uses' => 'Board\GoalController@store']
+                )->name('board.goal.save');
+                Route::get(
+                    '/meta/editar/{codigo}',
+                    ['uses' => 'Board\GoalController@edit']
+                )->name('board.goal.edit');
+                Route::put(
+                    '/meta/atualizar/{codigo}',
+                    ['uses' => 'Board\GoalController@update']
+                )->name('board.goal.update');
+                Route::get(
+                    '/meta/deletar/{codigo}',
+                    ['uses' => 'Board\GoalController@destroy']
+                )->name('board.goal.delete');
 
 
                 Route::post(

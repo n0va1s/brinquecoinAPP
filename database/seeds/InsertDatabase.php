@@ -12,20 +12,8 @@ class InsertDatabase extends Seeder
      */
     public function run()
     {
-        //Dados do primeiro usuario
-        $user = [
-            'name' => 'João Paulo',
-            'email' => 'jp.trabalho@gmail.com',
-            'password' => bcrypt('linux1')
-        ];
-        //Verifica se esse o usuario ja existe
-        if (User::where('email', '=', $user['email'])->count()) {
-            DB::table('users')->update($user);
-        } else {
-            DB::table('users')->insert($user);
-        }
         //Registros das tabelas basicas
-        DB::table('board_types')->insert(['type' => 'F', 'name' => 'Férias', 'image' => 'img/boards/ferias.jpg']);
+        DB::table('board_types')->insert(['type' => 'G', 'name' => 'Meta', 'image' => 'img/boards/ferias.jpg']);
         DB::table('board_types')->insert(['type' => 'H', 'name' => 'Hábito', 'image' => 'img/boards/habito.jpg']);
         DB::table('board_types')->insert(['type' => 'M', 'name' => 'Mesada', 'image' => 'img/boards/mesada.jpg']);
         DB::table('board_types')->insert(['type' => 'T', 'name' => 'Tarefa', 'image' => 'img/boards/tarefas.jpg']);

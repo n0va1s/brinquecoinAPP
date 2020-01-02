@@ -20,7 +20,7 @@
                 <form action="{{route('board.allowance.update',$board->code)}}" method="post">
                     {{ csrf_field() }}
                     <input type="hidden" name="_method" value="put">
-                    @include('board.allowance._form')
+                    @include('board._includes._formPerson')
                     <!-- Tipo de Quadro -->
                     <input type="hidden" name="board_type_id" value="3">
                     <div class="row">
@@ -38,7 +38,7 @@
             <div class="row">
                 <form action="{{route('board.activity.save')}}" method="post">
                     {{ csrf_field() }}
-                    @include('board.allowance._formActivity')
+                    @include('board._includes._formActivity')
                     <input type="hidden" name="code" value={{ $board->code }}>
                     <div class="row">
                         <button class="waves-light btn-small orange darken-2" type="submit"
@@ -55,7 +55,7 @@
                 </div>
                 <form action="{{route('board.activity.type.save')}}" method="post">
                     {{ csrf_field() }}
-                    @include('board.allowance._formNewActivity')
+                    @include('board._includes._formNewActivity')
                     <input type="hidden" name="code" value={{ $board->code }}>
                     <div class="row">
                         <button class="waves-light btn-small orange darken-2" type="submit"

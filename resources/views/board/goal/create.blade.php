@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h3 class="center">Quadro de Mesada</h3>
+    <h3 class="center">Quadro de Meta</h3>
     <div class="row">
         <div class="col s12">
             <ul class="tabs">
@@ -15,11 +15,11 @@
                 <h5>Identifique a criança ou o jovem</h5>
             </div>
             <div class="row">
-                <form action="{{route('board.allowance.save')}}" method="post">
+                <form action="{{route('board.goal.save')}}" method="post">
                     {{ csrf_field() }}
-                    @include('board.allowance._form')
+                    @include('board._includes._formPerson')
                     <!-- Tipo de Quadro -->
-                    <input type="hidden" name="board_type_id" value="3">
+                    <input type="hidden" name="board_type_id" value="1">
                     <div class="row">
                         <button class="waves-light btn-small orange darken-2" type="submit"
                             name="action">Salvar</button>

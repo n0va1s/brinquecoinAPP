@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h3 class="center">Quadro de Mesada</h3>
+    <h3 class="center">Quadro de Tarefa</h3>
     <div class="row">
         <div class="col s12">
             <ul class="tabs">
@@ -17,12 +17,16 @@
                 <h5>Identifique a criança ou o jovem</h5>
             </div>
             <div class="row">
-                <form action="{{route('board.allowance.update',$board->code)}}" method="post">
+                <form action="{{route('board.task.update',$board->code)}}" method="post">
                     {{ csrf_field() }}
                     <input type="hidden" name="_method" value="put">
-                    @include('board.allowance._form')
+                    @include('board._includes._formPerson')
+                    <div class="input-field col s12 m12">
+                        <label>Recompensa</label>
+                        <input type="text" name="goal" value="{{isset($board->goal) ? $board->goal : ''}}">
+                    </div>
                     <!-- Tipo de Quadro -->
-                    <input type="hidden" name="board_type_id" value="3">
+                    <input type="hidden" name="board_type_id" value="4">
                     <div class="row">
                         <button class="waves-light btn-small orange darken-2" type="submit"
                             name="action">Salvar</button>
@@ -36,9 +40,9 @@
                 <h5>Escolha as atividades do quadro</h5>
             </div>
             <div class="row">
-                <form action="{{route('board.activity.save')}}" method="post">
+                <form action="{{route('board.task.save')}}" method="post">
                     {{ csrf_field() }}
-                    @include('board.allowance._formActivity')
+                    @include('board._includes._formActivity')
                     <input type="hidden" name="code" value={{ $board->code }}>
                     <div class="row">
                         <button class="waves-light btn-small orange darken-2" type="submit"
@@ -55,7 +59,7 @@
                 </div>
                 <form action="{{route('board.activity.type.save')}}" method="post">
                     {{ csrf_field() }}
-                    @include('board.allowance._formNewActivity')
+                    @include('board._includes._formNewActivity')
                     <input type="hidden" name="code" value={{ $board->code }}>
                     <div class="row">
                         <button class="waves-light btn-small orange darken-2" type="submit"

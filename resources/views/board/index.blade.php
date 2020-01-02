@@ -15,18 +15,18 @@
                 </a>
             </li>
             <li>
-                <a class="btn-floating yellow darken-1" href="{{route('board.task.create')}}">
-                    <i title="Quando de tarefas" class="material-icons">check</i>
+                <a class="btn-floating orange darken-2" href="{{route('board.task.create')}}">
+                    <i title="Quando de tarefa" class="material-icons">check</i>
                 </a>
             </li>
             <li>
-                <a class="btn-floating green" href="{{route('board.vacation.create')}}">
-                    <i title="Quando de férias" class="material-icons">flight</i>
+                <a class="btn-floating green" href="{{route('board.goal.create')}}">
+                    <i title="Quando de meta" class="material-icons">developer_board</i>
                 </a>
             </li>
             <li>
-                <a class="btn-floating blue href=" {{route('board.habit.create')}}">
-                    <i title="Quando de hábitos" class="material-icons">directions_run</i>
+                <a class="btn-floating blue" href="{{route('board.habit.create')}}">
+                    <i title="Quando de hábito" class="material-icons">directions_run</i>
                 </a>
             </li>
         </ul>

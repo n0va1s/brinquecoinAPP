@@ -24,7 +24,7 @@ class HabitController extends Controller
      */
     public function create()
     {
-        //
+        return view('board.habit.create');
     }
 
     /**
