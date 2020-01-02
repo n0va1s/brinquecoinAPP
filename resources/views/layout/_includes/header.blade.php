@@ -49,7 +49,7 @@
                     @if(!Auth::guest())
                     <ul id="configuracoes" class="dropdown-content">
                         <li>
-                            <a id="optInstall" href="#install">
+                            <a id="optInstall" href="#installAPP">
                                 <i class="material-icons">add</i>
                                 Instalar
                             </a>
@@ -77,7 +77,7 @@
             <li><a href="{{route('board.index')}}">Quadrinhos</a></li>
             <li><a href="{{route('capsule.index')}}">Cápsula do tempo</a></li>
             <li>
-                <a id="optInstall" href="#install">
+                <a id="optInstall" href="#installAPP">
                     <i class="material-icons">add</i>
                     Instalar
                 </a>

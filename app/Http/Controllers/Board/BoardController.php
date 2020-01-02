@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Board;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 use App\Http\Controllers\Controller;
+
+use App\Mail\NewBoardMailable;
 
 use App\Model\ActivityType;
 use App\Model\Activity;
@@ -252,7 +255,11 @@ class BoardController extends Controller
                 ]
             );
         }
-
+        
+        /*
+        Mail::to('newuser@example.com')->send(new NewBoardMailable());
+        */
+        
         $notification = array(
             'message' => 'Quadro duplicado!',
             'alert-type' => 'success'

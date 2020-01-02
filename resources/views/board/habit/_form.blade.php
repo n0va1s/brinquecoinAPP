@@ -16,6 +16,6 @@
     </select>
 </div>
 <div class="input-field col s12 m9">
-    <label>Recompensa</label>
+    <label>Hábito</label>
     <input type="text" name="goal" value="{{isset($board->goal) ? $board->goal : ''}}">
 </div>

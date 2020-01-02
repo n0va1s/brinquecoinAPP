@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 
 use App\Http\Controllers\Controller;
+
+use App\Mail\NewCapsuleMailable;
 
 use App\Model\Capsule;
 use Auth;
@@ -36,6 +39,10 @@ class CapsuleController extends Controller
         );
         $data['user_id'] = Auth::user()->id;
         $data['code'] = Str::uuid()->toString();
+        
+        /*
+        Mail::to('newuser@example.com')->send(new NewCapsuleMailable());
+        */
 
         $notification = array(
             'message' => 'Cápsula lacrada!',
