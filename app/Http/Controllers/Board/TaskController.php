@@ -5,9 +5,11 @@ namespace App\Http\Controllers\board;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Mail;
 
 use App\Http\Controllers\Controller;
+
+use App\Mail\NewBoardMailable;
 
 use App\Model\Board;
 use App\Model\Person;
@@ -42,7 +44,7 @@ class TaskController extends Controller
                 'name' => 'required|max:200',
                 'gender' => 'required',
                 'age' => 'required|numeric',
-                'goal' => Rule::requiredIf($req->get('board_type_id') === "4")
+                'goal' => 'required'
             ]
         );
         $data['user_id'] = Auth::user()->id;
@@ -55,6 +57,10 @@ class TaskController extends Controller
 
         $board = Board::create($data);
         $board->person()->save($person);
+
+        /*
+        Mail::to('newuser@example.com')->send(new NewBoardMailable());
+        */
 
         $notification = array(
             'message' => 'Quadro criado!',
@@ -80,6 +86,7 @@ class TaskController extends Controller
             $propouse_types = DB::table('propouse_types')
                 ->select('propouse_types.*')
                 ->orderBy('propouse_types.name', 'asc')
+                ->whereNull('propouse_types.deleted_at')
                 ->get();
 
             //Combo de tipos de atividades
@@ -128,7 +135,6 @@ class TaskController extends Controller
                     'propouse_types.icon'
                 )
                 ->Where('boards.code', $code)
-                ->whereNull('activities.deleted_at')
                 ->get();
 
             //Lista de atividades criadas pelo usuario
@@ -153,6 +159,7 @@ class TaskController extends Controller
                 ->join('people', 'boards.id', '=', 'people.board_id')
                 ->select('boards.*', 'people.*')
                 ->where('boards.code', '=', $code)
+                ->whereNull('boards.deleted_at')
                 ->first();
 
             return view(
@@ -189,7 +196,7 @@ class TaskController extends Controller
                 'name' => 'required|max:200',
                 'gender' => 'required',
                 'age' => 'required|numeric',
-                'goal' => Rule::requiredIf($req->get('board_type_id') === "4")
+                'goal' => 'required'
             ]
         );
         $data['user_id'] = Auth::user()->id;

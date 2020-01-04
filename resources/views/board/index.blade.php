@@ -60,13 +60,25 @@
                 </div>
                 <div class="grey lighten-3">
                     <div class="card-action center">
+                        @if($board->type === 'Mesada')
                         <a href="{{route('board.allowance.edit',$board->code)}}"
-                            class="waves-light btn-small red darken-2" title="Duplicar o quadro">
-                            <i class="material-icons">edit</i></a>
+                            class="waves-light btn-small red darken-2" title="Editar as atividades do quadro">
+                            <i class="material-icons">edit</i>
+                        </a>
+                        @elseif($board->type === 'Tarefa')
+                        <a href="{{route('board.task.edit',$board->code)}}" class="waves-light btn-small red darken-2"
+                            title="Editar as atividades do quadro">
+                            <i class="material-icons">edit</i>
+                        </a>
+                        @endif
                         <a href="{{route('board.copy',$board->code)}}" class="waves-light btn-small orange darken-2"
-                            title="Duplicar o quadro"><i class="material-icons">content_copy</i></a>
+                            title="Duplicar o quadro">
+                            <i class="material-icons">content_copy</i>
+                        </a>
                         <a href="{{route('board.close',$board->code)}}" class="waves-light btn-small cyan darken-2"
-                            title="Encerrar o quadro"><i class="material-icons">close</i></a>
+                            title="Encerrar o quadro">
+                            <i class="material-icons">close</i>
+                        </a>
                     </div>
                 </div>
             </div>

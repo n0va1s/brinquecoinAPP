@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'failed' => 'Suas informações não coincidem com as nossas.',
+    'failed' => 'Seu email ou senha estão errados. Digite novamente.',
     'throttle' => 'Várias tentativas de acesso. Por favor tente novamente em :seconds segundos.',
 
 ];

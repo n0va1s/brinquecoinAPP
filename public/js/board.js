@@ -20,6 +20,7 @@ $(document).ready(function () {
         id = this.dataset.id;
         day = this.dataset.day;
         code = document.getElementById('code').value;
+
         postActivity(
             {
                 board: code,
@@ -32,7 +33,7 @@ $(document).ready(function () {
 });
 
 function postActivity(opts) {
-    //console.log('Sending post: ' + JSON.stringify(opts));
+    console.log('Sending post: ' + JSON.stringify(opts));
     fetch('/api/atividades/marcar/', {
         headers: {
             'Accept': 'application/json',

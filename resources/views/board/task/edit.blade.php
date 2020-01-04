@@ -40,7 +40,7 @@
                 <h5>Escolha as atividades do quadro</h5>
             </div>
             <div class="row">
-                <form action="{{route('board.task.save')}}" method="post">
+                <form action="{{route('board.activity.save')}}" method="post">
                     {{ csrf_field() }}
                     @include('board._includes._formActivity')
                     <input type="hidden" name="code" value={{ $board->code }}>

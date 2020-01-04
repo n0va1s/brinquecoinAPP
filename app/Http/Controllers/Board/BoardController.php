@@ -116,13 +116,12 @@ class BoardController extends Controller
             ->get();
 
         //Prepare data to view
-        $boardAllowance = $this->getVO(
+        $boardVO = $this->getVO(
             $code,
             $board,
             $activities
         );
-
-        return view('board.show', compact('boardAllowance'));
+        return view('board.show', compact('boardVO'));
     }
 
     /**
@@ -131,30 +130,30 @@ class BoardController extends Controller
      * @param  string $code
      * @param  object $board
      * @param  list   $activities
-     * @return array  $boardAllowance
+     * @return array  $board
      */
     protected function getVO($code, $board, $activities)
     {
-        $boardAllowance = array();
-        $boardAllowance['week'] = array();
-        $boardAllowance['week']['monday'] = "Segunda";
-        $boardAllowance['week']['tuesday'] = "Terça";
-        $boardAllowance['week']['wednesday'] = "Quarta";
-        $boardAllowance['week']['thursday'] = "Quinta";
-        $boardAllowance['week']['friday'] = "Sexta";
-        $boardAllowance['week']['saturday'] = "Sábado";
-        $boardAllowance['week']['sunday'] = "Domingo";
-        $boardAllowance['person']['name'] = $board->name;
-        $boardAllowance['board']['type'] = $board->type;
-        $boardAllowance['board']['code'] = $board->code;
-        $boardAllowance['activities'] = array();
+        $boardVO = array();
+        $boardVO['week'] = array();
+        $boardVO['week']['monday'] = "Segunda";
+        $boardVO['week']['tuesday'] = "Terça";
+        $boardVO['week']['wednesday'] = "Quarta";
+        $boardVO['week']['thursday'] = "Quinta";
+        $boardVO['week']['friday'] = "Sexta";
+        $boardVO['week']['saturday'] = "Sábado";
+        $boardVO['week']['sunday'] = "Domingo";
+        $boardVO['person']['name'] = $board->name;
+        $boardVO['board']['type'] = $board->type;
+        $boardVO['board']['code'] = $board->code;
+        $boardVO['activities'] = array();
         foreach ($activities as $activity) {
             $actvt['id'] = $activity->id;
             $actvt['value'] = $activity->value;
             $actvt['name'] = $activity->name;
             $actvt['icon'] = $activity->icon;
             $actvt['propouse'] = $activity->propouse;
-            foreach ($boardAllowance['week'] as $day => $name) {
+            foreach ($boardVO['week'] as $day => $name) {
                 if ($activity->$day === '1') {
                     $actvt[$day] = 'img/boards/1.png';
                 } elseif ($activity->$day === '2') {
@@ -163,12 +162,13 @@ class BoardController extends Controller
                     $actvt[$day] = 'img/boards/0.png';
                 }
             }
-            array_push($boardAllowance['activities'], $actvt);
+            array_push($boardVO['activities'], $actvt);
         }
 
-        $money = null;
-        foreach ($boardAllowance['week'] as $day => $name) {
-            $result[$day] = DB::table('boards')
+        if ($board->type === 'Mesada') {
+            $money = null;
+            foreach ($boardVO['week'] as $day => $name) {
+                $result[$day] = DB::table('boards')
                 ->join(
                     'activities',
                     'activities.board_id',
@@ -191,11 +191,60 @@ class BoardController extends Controller
                     ]
                 )
                 ->sum('activities.value');
-            $money = $money + $result[$day];
+                $money = $money + $result[$day];
+            }
+            $result['partial'] = $money;
+        } elseif ($board->type === 'Tarefa') {
+            // calculate total points of activities' board
+            $result['day'] = DB::table('boards')
+                ->join(
+                    'activities',
+                    'activities.board_id',
+                    '=',
+                    'boards.id'
+                )
+                ->where('boards.code', $code)
+                ->sum('activities.value');
+            // caltulate total point of week
+            $result['total'] = $result['day'] * 7;
+            // calculate parcial points of board
+            $points = null;
+            foreach ($boardVO['week'] as $day => $name) {
+                $result[$day] = DB::table('boards')
+                ->join(
+                    'activities',
+                    'activities.board_id',
+                    '=',
+                    'boards.id'
+                )
+                ->join(
+                    'marks',
+                    'marks.activity_id',
+                    '=',
+                    'activities.id'
+                )
+                ->select(
+                    "marks.$day"
+                )
+                ->where(
+                    [
+                        ['boards.code', '=', $code],
+                        [$day, '=', '1'],
+                    ]
+                )
+                ->sum('activities.value');
+                $points = $points + $result[$day];
+                // set a image of special gift
+                if ($result[$day] === $result['day']) {
+                    $result[$day] = 'favorite';
+                } else {
+                    $result[$day] = 'favorite_border';
+                }
+            }
+            $result['partial'] = $points;
         }
-        $result['money'] = $money;
-        $boardAllowance['totals'] = $result;
-        return $boardAllowance;
+        $boardVO['totals'] = $result;
+        return $boardVO;
     }
 
     public function copy($code)
@@ -255,11 +304,11 @@ class BoardController extends Controller
                 ]
             );
         }
-        
+
         /*
         Mail::to('newuser@example.com')->send(new NewBoardMailable());
         */
-        
+
         $notification = array(
             'message' => 'Quadro duplicado!',
             'alert-type' => 'success'
@@ -387,9 +436,8 @@ class BoardController extends Controller
         )->firstOrFail();
 
         if ($board) {
-            $activity = Activity::find($id)->firstOrFail();
-
-            if ($board->id === $activity->board_id) {
+            $boardId = Activity::find($id)->board_id;
+            if ($board->id === $boardId) {
                 Mark::updateOrCreate(
                     ['activity_id'=>$id],
                     [$day => $value]

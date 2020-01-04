@@ -1,1 +1,0 @@
-<h5>{{$name}},{{$message}} {{$result}} {{ $total }} {{$unit}}</h5>

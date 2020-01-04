@@ -2,34 +2,32 @@
 
 @section('content')
 <div class="container">
-    <h3 class="center">Quadro de {{ $boardAllowance['board']['type'] }}</h3>
-    <input type="hidden" id="code" value="{{ $boardAllowance['board']['code'] }}">
+    <h3 class="center">Quadro de {{$boardVO['board']['type']}}</h3>
+    <input type="hidden" id="code" value="{{$boardVO['board']['code']}}">
     <hr class="linha">
-    @component(
-    'component/subtitle',
-    [
-    'name'=>$boardAllowance['person']['name'],
-    'message'=>' você conseguiu',
-    'result'=>null,
-    'total'=>$boardAllowance['totals']['money'],
-    'unit'=>'de mesada até agora'
-    ]
-    )
-    @endcomponent
-
+    @if($boardVO['board']['type'] === 'Mesada')
+    <h5>{{$boardVO['person']['name']}}, você conseguiu {{$boardVO['totals']['partial']}} reais de mesada
+        até
+        agora
+    </h5>
+    @elseif($boardVO['board']['type'] === 'Tarefa')
+    <h5>{{$boardVO['person']['name']}}, você conseguiu {{$boardVO['totals']['partial']}} /
+        {{$boardVO['totals']['total']}} pontos
+    </h5>
+    @endif
     <div class="row">
         <table class="responsive-table hide-on-small-only">
             <thead>
                 <tr>
                     <th>&nbsp;</th>
                     <th>Atividade</th>
-                    @foreach ($boardAllowance['week'] as $day)
+                    @foreach ($boardVO['week'] as $day)
                     <th class="center">{{$day}}</th>
                     @endforeach
                 </tr>
             </thead>
             <tbody>
-                @foreach ($boardAllowance['activities'] as $activity)
+                @foreach ($boardVO['activities'] as $activity)
                 @component(
                 'component/boardTable',
                 [
@@ -48,13 +46,27 @@
                 )
                 @endcomponent
                 @endforeach
-                @component('component/total', $boardAllowance['totals'])@endcomponent
+                @component(
+                'component/total',
+                [
+                'type'=>$boardVO['board']['type'],
+                'monday'=>$boardVO['totals']['monday'],
+                'tuesday'=>$boardVO['totals']['tuesday'],
+                'wednesday'=>$boardVO['totals']['wednesday'],
+                'thursday'=>$boardVO['totals']['thursday'],
+                'friday'=>$boardVO['totals']['friday'],
+                'saturday'=>$boardVO['totals']['saturday'],
+                'sunday'=>$boardVO['totals']['sunday']
+                ]
+
+                )
+                @endcomponent
             </tbody>
         </table>
     </div>
     <div class="row hide-on-med-and-up">
         <ul class="collapsible">
-            @foreach ($boardAllowance['week'] as $day => $name)
+            @foreach ($boardVO['week'] as $day => $name)
             <li>
                 <div class="collapsible-header grey darken-3 white-text"><b>{{$name}}</b></div>
                 <div class="collapsible-body">
@@ -69,7 +81,7 @@
                             <span><b>Situação</b></span>
                         </div>
                     </div>
-                    @foreach ($boardAllowance['activities'] as $activity)
+                    @foreach ($boardVO['activities'] as $activity)
                     @component(
                     'component/boardAccordion',
                     [
