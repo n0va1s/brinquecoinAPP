@@ -116,7 +116,7 @@ class HabitController extends Controller
         }
     }
 
-    /**
+/**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -127,21 +127,19 @@ class HabitController extends Controller
     {
         $data = $req->validate(
             [
-                'board_type_id' => 'required',
                 'name' => 'required|max:200',
                 'gender' => 'required',
                 'age' => 'required|numeric',
                 'goal' => 'required'
             ]
         );
-        $data['user_id'] = Auth::user()->id;
-        $board = Board::where('code', '=', $code);
+        $board = Board::where('code', $code)->first();
         if ($board) {
-            $board->name = $data['name'];
-            $board->gender = $data['gender'];
-            $board->age = $data['age'];
-
-            $board->save();
+            $person = Person::find($board->id);
+            $person->name = $data['name'];
+            $person->gender = $data['gender'];
+            $person->age = $data['age'];
+            $board->person()->save($person);
 
             $notification = array(
             'message' => 'Quadro atualizado!',
@@ -152,7 +150,6 @@ class HabitController extends Controller
                 'alert-type' => 'error'
             );
         }
-
         return back()->with($notification);
     }
 

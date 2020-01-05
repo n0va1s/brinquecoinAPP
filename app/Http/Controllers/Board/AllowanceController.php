@@ -85,6 +85,7 @@ class AllowanceController extends Controller
             $propouse_types = DB::table('propouse_types')
                 ->select('propouse_types.*')
                 ->orderBy('propouse_types.name', 'asc')
+                ->where('propouse_types.propouse', '<>', 'H')
                 ->whereNull('propouse_types.deleted_at')
                 ->get();
 
@@ -102,6 +103,7 @@ class AllowanceController extends Controller
                     'propouse_types.name AS propouse',
                     'activity_types.name AS activity'
                 )
+                ->where('propouse_types.propouse', '<>', 'H')
                 ->whereNull('user_id')
                 ->orWhere('user_id', Auth::user()->id)
                 ->whereNull('activity_types.deleted_at')
@@ -191,20 +193,18 @@ class AllowanceController extends Controller
     {
         $data = $req->validate(
             [
-                'board_type_id' => 'required',
                 'name' => 'required|max:200',
                 'gender' => 'required',
                 'age' => 'required|numeric'
             ]
         );
-        $data['user_id'] = Auth::user()->id;
-        $board = Board::where('code', '=', $code);
+        $board = Board::where('code', $code)->first();
         if ($board) {
-            $board->name = $data['name'];
-            $board->gender = $data['gender'];
-            $board->age = $data['age'];
-
-            $board->save();
+            $person = Person::find($board->id);
+            $person->name = $data['name'];
+            $person->gender = $data['gender'];
+            $person->age = $data['age'];
+            $board->person()->save($person);
 
             $notification = array(
             'message' => 'Quadro atualizado!',
@@ -215,7 +215,6 @@ class AllowanceController extends Controller
                 'alert-type' => 'error'
             );
         }
-
         return back()->with($notification);
     }
 

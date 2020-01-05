@@ -20,6 +20,6 @@ class BoardType extends Model
 
     public function boards()
     {
-        return $this->hasMany('App\Model\Boards');
+        return $this->hasMany(Board::class);
     }
 }

@@ -18,11 +18,11 @@ class Activity extends Model
 
     public function board()
     {
-        return $this->belongsTo('App\Model\Board');
+        return $this->belongsTo(Board::class);
     }
 
     public function activityType()
     {
-        return $this->belongsTo('App\Model\ActivityType');
+        return $this->belongsTo(ActivityType::class);
     }
 }

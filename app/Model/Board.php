@@ -21,21 +21,21 @@ class Board extends Model
 
     public function person()
     {
-        return $this->hasOne('App\Model\Person');
+        return $this->hasOne(Person::class);
     }
 
-    public function board_type()
+    public function type()
     {
-        return $this->hasOne('App\Model\BoardType');
+        return $this->belongsTo(BoardType::class);
     }
 
     public function user()
     {
-        return $this->hasOne('App\User');
+        return $this->belongsTo(User::class);
     }
 
     public function activities()
     {
-        return $this->hasMany('App\Model\Activity');
+        return $this->hasMany(Activity::class);
     }
 }

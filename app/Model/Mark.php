@@ -19,6 +19,6 @@ class Mark extends Model
 
     public function activity()
     {
-        return $this->belongsTo('App\Model\Activity');
+        return $this->belongsTo(Activity::class);
     }
 }

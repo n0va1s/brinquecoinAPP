@@ -7,17 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 class Person extends Model
 {
     protected $table = 'people';
+    protected $primaryKey = 'board_id';
 
     protected $fillable = [
-        'board_id', 'name', 'age', 'gender'
+        'name', 'age', 'gender'
     ];
 
     protected $guarded = [
-        'id', 'created_at', 'update_at'
+        'created_at', 'update_at'
     ];
 
     public function board()
     {
-        return $this->belongsTo('App\Model\Board');
+        return $this->belongsTo(Board::class);
     }
 }
