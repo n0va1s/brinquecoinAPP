@@ -4,12 +4,6 @@
 <div class="container">
     <h3 class="center">Quadro de Hábito</h3>
     <div class="row">
-        <div class="col s12">
-            <ul class="tabs">
-                <li class="tab col s3"><a class="active" href="#passo1">Para quem é o quadro</a></li>
-            </ul>
-        </div>
-
         <div id="passo1" class="col s12">
             <div class="row">
                 <h5>Identifique a criança ou o jovem</h5>
@@ -33,5 +27,4 @@
         </div>
     </div>
 </div>
-
 @endsection

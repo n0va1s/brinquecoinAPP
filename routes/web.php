@@ -136,28 +136,6 @@ Route::middleware(['auth.basic'])->group(
                     ['uses' => 'Board\TaskController@destroy']
                 )->name('board.task.delete');
 
-                Route::get(
-                    '/meta',
-                    ['uses' => 'Board\GoalController@create']
-                )->name('board.goal.create');
-                Route::post(
-                    '/meta/salvar',
-                    ['uses' => 'Board\GoalController@store']
-                )->name('board.goal.save');
-                Route::get(
-                    '/meta/editar/{codigo}',
-                    ['uses' => 'Board\GoalController@edit']
-                )->name('board.goal.edit');
-                Route::put(
-                    '/meta/atualizar/{codigo}',
-                    ['uses' => 'Board\GoalController@update']
-                )->name('board.goal.update');
-                Route::get(
-                    '/meta/deletar/{codigo}',
-                    ['uses' => 'Board\GoalController@destroy']
-                )->name('board.goal.delete');
-
-
                 Route::post(
                     '/mesada/atividades/salvar',
                     ['uses' => 'Board\BoardController@storeActivity']

@@ -10,7 +10,7 @@
     <td class="center">{{ $saturday }}</td>
     <td class="center">{{ $sunday }}</td>
 </tr>
-@elseif($type === 'Tarefa')
+@else
 <tr>
     <td>&nbsp;</td>
     <td>Resultado</td>

@@ -15,8 +15,8 @@ class CreateDatabase extends Migration
     {
         Schema::create('board_types', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('type', ['G', 'H', 'M', 'T']);
-            $table->string('name', '100');
+            $table->char('type', 1);
+            $table->string('name', 100);
             $table->string('image');
             $table->timestamps();
             $table->softDeletes();
@@ -24,9 +24,9 @@ class CreateDatabase extends Migration
 
         Schema::create('propouse_types', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('propouse', ['E', 'H', 'C', 'A', 'D', 'F', 'R', 'I']);
+            $table->char('propouse', 1);
             $table->string('name');
-            $table->string('icon', '50');
+            $table->string('icon', 50);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -58,7 +58,7 @@ class CreateDatabase extends Migration
         Schema::create('people', function (Blueprint $table) {
             $table->unsignedBigInteger('board_id');
             $table->string('name');
-            $table->enum('gender', ['F', 'M']);
+            $table->char('gender', 1);
             $table->integer('age');
             $table->timestamps();
             $table->foreign('board_id')->references('id')->on('boards');
@@ -78,13 +78,13 @@ class CreateDatabase extends Migration
         Schema::create('marks', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('activity_id');
-            $table->enum('monday', [0,1,2])->nullable();
-            $table->enum('tuesday', [0,1,2])->nullable();
-            $table->enum('wednesday', [0,1,2])->nullable();
-            $table->enum('thursday', [0,1,2])->nullable();
-            $table->enum('friday', [0,1,2])->nullable();
-            $table->enum('saturday', [0,1,2])->nullable();
-            $table->enum('sunday', [0,1,2])->nullable();
+            $table->integer('monday')->nullable();
+            $table->integer('tuesday')->nullable();
+            $table->integer('wednesday')->nullable();
+            $table->integer('thursday')->nullable();
+            $table->integer('friday')->nullable();
+            $table->integer('saturday')->nullable();
+            $table->integer('sunday')->nullable();
             $table->timestamps();
             $table->foreign('activity_id')->references('id')->on('activities');
         });

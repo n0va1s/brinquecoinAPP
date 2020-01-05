@@ -13,8 +13,6 @@ use App\Mail\NewBoardMailable;
 
 use App\Model\Board;
 use App\Model\Person;
-use App\Model\BoardType;
-use App\Model\PropouseType;
 
 use Auth;
 

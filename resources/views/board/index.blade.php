@@ -10,18 +10,13 @@
         </a>
         <ul>
             <li>
-                <a class="btn-floating red" href="{{route('board.allowance.create')}}">
+                <a class="btn-floating orange" href="{{route('board.allowance.create')}}">
                     <i title="Quando de mesada" class="material-icons">attach_money</i>
                 </a>
             </li>
             <li>
-                <a class="btn-floating orange darken-2" href="{{route('board.task.create')}}">
+                <a class="btn-floating green" href="{{route('board.task.create')}}">
                     <i title="Quando de tarefa" class="material-icons">check</i>
-                </a>
-            </li>
-            <li>
-                <a class="btn-floating green" href="{{route('board.goal.create')}}">
-                    <i title="Quando de meta" class="material-icons">developer_board</i>
                 </a>
             </li>
             <li>
@@ -48,15 +43,13 @@
             <div class="card">
                 <a href="{{route('board.show',$board->code)}}">
                     <div class="card-image">
-                        <img src="{{ asset($board->image) }}" alt="Imagem do tipo do quadro">
+                        <img height="200px" src="{{ asset($board->image) }}" alt="Imagem do tipo do quadro">
                     </div>
                 </a>
-                <div class="card-content">
+                <div class="card-content center">
                     <p>Quadro de {{ $board->type }}</p>
                     <br />
                     <p>{{ $board->name }}</p>
-                    <br />
-                    <p>{{ $board->goal }}</p>
                 </div>
                 <div class="grey lighten-3">
                     <div class="card-action center">
@@ -67,6 +60,11 @@
                         </a>
                         @elseif($board->type === 'Tarefa')
                         <a href="{{route('board.task.edit',$board->code)}}" class="waves-light btn-small red darken-2"
+                            title="Editar as atividades do quadro">
+                            <i class="material-icons">edit</i>
+                        </a>
+                        @elseif($board->type === 'Hábito')
+                        <a href="{{route('board.habit.edit',$board->code)}}" class="waves-light btn-small red darken-2"
                             title="Editar as atividades do quadro">
                             <i class="material-icons">edit</i>
                         </a>

@@ -84,7 +84,7 @@ class BoardController extends Controller
                 'activity_types',
                 'activity_types.id',
                 '=',
-                'activities.id'
+                'activities.activity_type_id'
             )
             ->join(
                 'propouse_types',
@@ -121,6 +121,7 @@ class BoardController extends Controller
             $board,
             $activities
         );
+
         return view('board.show', compact('boardVO'));
     }
 
@@ -154,9 +155,9 @@ class BoardController extends Controller
             $actvt['icon'] = $activity->icon;
             $actvt['propouse'] = $activity->propouse;
             foreach ($boardVO['week'] as $day => $name) {
-                if ($activity->$day === '1') {
+                if ($activity->$day === 1) {
                     $actvt[$day] = 'img/boards/1.png';
-                } elseif ($activity->$day === '2') {
+                } elseif ($activity->$day === 2) {
                     $actvt[$day] = 'img/boards/2.png';
                 } else {
                     $actvt[$day] = 'img/boards/0.png';
@@ -194,7 +195,7 @@ class BoardController extends Controller
                 $money = $money + $result[$day];
             }
             $result['partial'] = $money;
-        } elseif ($board->type === 'Tarefa') {
+        } else {
             // calculate total points of activities' board
             $result['day'] = DB::table('boards')
                 ->join(
