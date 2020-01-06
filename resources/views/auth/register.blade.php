@@ -5,7 +5,7 @@
 @section('content')
 <div class="container center-align">
     <div class="row">
-        <div class="col l4 offset-l4">
+        <div class="col s4 offset-s4">
             <h3>{{ __('Cadastre-se') }}</h3>
             <form method="POST" action="{{ route('register') }}">
                 {{ csrf_field() }}

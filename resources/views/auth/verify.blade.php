@@ -5,7 +5,7 @@
 @section('content')
 <div class="container">
     <div class="row center-align">
-        <div class="col l4 offset-l4">
+        <div class="col s4 offset-s4">
             <h3>{{ __('Confirme seu email') }}</h3>
 
             @if (session('resent'))

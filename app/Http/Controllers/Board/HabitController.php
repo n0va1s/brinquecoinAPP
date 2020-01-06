@@ -65,16 +65,21 @@ class HabitController extends Controller
             ->get();
 
         foreach ($activityHabit as $habit) {
-            $data['board_id'] = $board->id;
-            $data['activity_type_id'] = $habit->id;
-            $data['value'] = 1;
-            $data['code'] = Str::uuid()->toString();
-            Activity::create($data);
+            $actv['board_id'] = $board->id;
+            $actv['activity_type_id'] = $habit->id;
+            $actv['value'] = 1;
+            $actv['code'] = Str::uuid()->toString();
+            Activity::create($actv);
         }
 
-        /*
-        Mail::to('newuser@example.com')->send(new NewBoardMailable());
-        */
+        // Send board link
+        Mail::to(Auth::user()->email)->send(
+            new NewBoardMailable(
+                route('board.show', $data['code']),
+                'hábito',
+                $data['name']
+            )
+        );
 
         $notification = array(
             'message' => 'Quadro criado!',
@@ -116,13 +121,13 @@ class HabitController extends Controller
         }
     }
 
-/**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string  $code
-     * @return \Illuminate\Http\Response
-     */
+    /**
+         * Update the specified resource in storage.
+         *
+         * @param  \Illuminate\Http\Request  $request
+         * @param  string  $code
+         * @return \Illuminate\Http\Response
+         */
     public function update(Request $req, $code)
     {
         $data = $req->validate(

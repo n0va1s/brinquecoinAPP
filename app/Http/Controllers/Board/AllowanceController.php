@@ -57,9 +57,14 @@ class AllowanceController extends Controller
         $board = Board::create($data);
         $board->person()->save($person);
 
-        /*
-        Mail::to('newuser@example.com')->send(new NewBoardMailable());
-        */
+        // Send board link
+        Mail::to(Auth::user()->email)->send(
+            new NewBoardMailable(
+                route('board.show', $data['code']),
+                'mesada',
+                $data['name']
+            )
+        );
 
         $notification = array(
             'message' => 'Quadro criado!',

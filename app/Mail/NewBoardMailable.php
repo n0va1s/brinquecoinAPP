@@ -10,7 +10,6 @@ use Illuminate\Queue\SerializesModels;
 class NewBoardMailable extends Mailable
 {
     use Queueable, SerializesModels;
-    public $parent;
     public $link;
     public $type;
     public $person;
@@ -20,9 +19,8 @@ class NewBoardMailable extends Mailable
      *
      * @return void
      */
-    public function __construct($name, $link)
+    public function __construct($link, $type, $person)
     {
-        $this->parent = $parent;
         $this->link = $link;
         $this->type = $type;
         $this->person = $person;
@@ -35,11 +33,11 @@ class NewBoardMailable extends Mailable
      */
     public function build()
     {
-        return $this->from('contato@brinquecoin.com', 'BrinqueCoin')
-            ->subject('Novo quadro de '+$this->type+' para '+$this->person)
+        return $this->from('contato@brinquecoin.com', 'Brinque Coin')
+            ->subject('Novo quadro de '.$this->type.' para '.$this->person)
             ->markdown('mail.newBoard')
             ->with([
-                'name' => $this->parent,
+                'name' => $this->person,
                 'link' => $this->link,
                 'image' => 'https://brinquecoin.com/wp-content/uploads/2019/11/brinquecoinlogomin1.png'
             ]);

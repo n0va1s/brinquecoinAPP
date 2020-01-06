@@ -1,16 +1,12 @@
 @component('mail::message')
-<center>
-    <img width="100em" height="100em" src="{{$image}}">
-    <br />
-    Olá {{$name}},<br />
-    Aqui está o seu novo quadro.<br />
-    Clique no botão para abrir seu quadro:
-</center>
+<img width="100em" height="100em" src="{{ $image }}">
+<p>&nbsp;</p>
+Olá <b>{{ $person }}</b>,<br />
+Aqui está o seu novo quadro de {{ $type }}.<br />
+Clique no botão para abrir seu quadro:
 @component('mail::button', ['url' => $link])
 Abrir quadro
 @endcomponent
-<center>
-    Um abraço,<br />
-    Time {{ config('app.name') }}
-</center>
+Um abraço,<br />
+<b>Time {{ config('app.name') }}</b>
 @endcomponent

@@ -64,9 +64,6 @@
             </tbody>
         </table>
     </div>
-    <div class="row">
-        <a class="waves-light btn-small orange darken-2" type="submit" name="action">Atualizar</a>
-    </div>
     <div class="row hide-on-med-and-up">
         <ul class="collapsible">
             @foreach ($boardVO['week'] as $day => $name)
@@ -102,8 +99,11 @@
             </li>
             @endforeach
         </ul>
-        <div class="row">
-            <button class="waves-light btn-small orange darken-2" type="submit" name="action">Atualizar</button>
+    </div>
+    <div class="row center">
+        <div class="col s12">
+            <button class="btn btn-large deep-orange" type="submit"
+                onClick="window.location.reload()">Atualizar</button>
         </div>
     </div>
 </div>

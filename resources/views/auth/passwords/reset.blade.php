@@ -5,8 +5,14 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col l4 s3 offset-l4 offset-s3">
+        <div class="col s4 offset-s4">
             <h3>{{ __('Nova senha') }}</h3>
+
+            @if (session('resent'))
+            <div class="row green-text">
+                {{ __('Enviamos um email com as instruções.') }}
+            </div>
+            @endif
 
             <form method="POST" action="{{ route('password.update') }}">
                 {{ csrf_field() }}

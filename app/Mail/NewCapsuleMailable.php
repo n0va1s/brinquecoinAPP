@@ -29,12 +29,12 @@ class NewCapsuleMailable extends Mailable
      */
     public function build()
     {
-        return $this->from('contato@brinquecoin.com', 'BrinqueCoin')
+        return $this->from('contato@brinquecoin.com', 'Brinque Coin')
             ->subject('Sua cápsula do tempo foi criada')
             ->markdown('mail.newCapsule')
             ->with(
                 [
-                    'name' => $this->name                
+                    'name' => $this->name
                 ]
             );
     }
