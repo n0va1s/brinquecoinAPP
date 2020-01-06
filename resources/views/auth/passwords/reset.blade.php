@@ -3,9 +3,9 @@
 @section('titulo','Brinque Coin - Login')
 
 @section('content')
-<div class="container center-align">
+<div class="container">
     <div class="row">
-        <div class="col l4 offset-l4">
+        <div class="col l4 s3 offset-l4 offset-s3">
             <h3>{{ __('Nova senha') }}</h3>
 
             <form method="POST" action="{{ route('password.update') }}">

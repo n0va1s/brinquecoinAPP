@@ -6,13 +6,13 @@
     <input type="hidden" id="code" value="{{$boardVO['board']['code']}}">
     <hr class="linha">
     @if($boardVO['board']['type'] === 'Mesada')
-    <h5>{{$boardVO['person']['name']}}, você conseguiu {{$boardVO['totals']['partial']}} reais de mesada
+    <h5>{{$boardVO['person']['name']}}, você conseguiu {{$boardVO['totals']['partial']}} de mesada
         até
         agora
     </h5>
     @elseif($boardVO['board']['type'] === 'Tarefa')
     <h5>{{$boardVO['person']['name']}}, você conseguiu {{$boardVO['totals']['partial']}} /
-        {{$boardVO['totals']['total']}} pontos
+        {{$boardVO['totals']['total']}} ponto(s)
     </h5>
     @endif
     <div class="row">
@@ -64,6 +64,9 @@
             </tbody>
         </table>
     </div>
+    <div class="row">
+        <a class="waves-light btn-small orange darken-2" type="submit" name="action">Atualizar</a>
+    </div>
     <div class="row hide-on-med-and-up">
         <ul class="collapsible">
             @foreach ($boardVO['week'] as $day => $name)
@@ -99,6 +102,9 @@
             </li>
             @endforeach
         </ul>
+        <div class="row">
+            <button class="waves-light btn-small orange darken-2" type="submit" name="action">Atualizar</button>
+        </div>
     </div>
 </div>
 @endsection

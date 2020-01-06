@@ -15,18 +15,18 @@ window.addEventListener('beforeinstallprompt', function (e) {
 
 function showAddToHomeScreen() {
     console.log('showAddToHomeScreen');
-    var optInstall = document.querySelector("#optInstall");
+    var optInstall = document.querySelector('#optInstall');
     // Show the user interface that shows the install option
-    optInstall.style.display = "block";
+    optInstall.style.display = 'block';
     // Set event to click
-    optInstall.addEventListener("click", addToHomeScreen);
+    optInstall.addEventListener('click', addToHomeScreen);
 
 }
 
 function addToHomeScreen() {
     console.log('addToHomeScreen');
     // Hide the user interface that shows the install option
-    var optInstall = document.querySelector("#optInstall");
+    var optInstall = document.querySelector('#optInstall');
     optInstall.style.display = 'none';
     // Show the prompt
     deferredPrompt.prompt();
@@ -44,6 +44,6 @@ function addToHomeScreen() {
 
 window.addEventListener('appinstalled', function (e) {
     console.log('Brinque Coin installed');
-    var optInstall = document.querySelector("#optInstall");
+    var optInstall = document.querySelector('#optInstall');
     optInstall.style.display = 'none';
 });

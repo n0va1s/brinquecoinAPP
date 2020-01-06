@@ -7,6 +7,21 @@ use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(['auth','verified']);
+    }
+
+    /**
+     * Show the home page
+     *
+     * @return view
+     */
     public function index()
     {
         $result['board'] = DB::table('boards')->count();
