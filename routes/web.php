@@ -12,6 +12,7 @@
 */
 
 Route::get('/', ['uses' => 'Site\HomeController@index'])->name('site.home');
+Route::get('/send', ['uses' => 'Site\HomeController@send'])->name('site.mail');
 
 /*
 get('login', 'Auth\LoginController@showLoginForm')->name('login');

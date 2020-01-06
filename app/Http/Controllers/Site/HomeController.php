@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Mail\TestEmail;
 
 class HomeController extends Controller
 {
@@ -14,7 +15,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth','verified']);
+        //$this->middleware(['auth','verified']);
     }
 
     /**
@@ -58,5 +59,13 @@ class HomeController extends Controller
         }
 
         return view('home', compact('result'));
+    }
+
+    public function send()
+    {
+        $data = ['message' => 'This is a test!'];
+        \Mail::to('jp.trabalho@gmail.com')->send(new TestEmail($data));
+
+        return 'Email enviado';
     }
 }

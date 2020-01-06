@@ -57,7 +57,7 @@ class TaskController extends Controller
         $board->person()->save($person);
 
         // Send board link
-        Mail::to(Auth::user()->email)->send(
+        \Mail::to(Auth::user()->email)->send(
             new NewBoardMailable(
                 route('board.show', $data['code']),
                 'tarefa',

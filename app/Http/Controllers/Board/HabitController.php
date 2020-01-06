@@ -73,7 +73,7 @@ class HabitController extends Controller
         }
 
         // Send board link
-        Mail::to(Auth::user()->email)->send(
+        \Mail::to(Auth::user()->email)->send(
             new NewBoardMailable(
                 route('board.show', $data['code']),
                 'hábito',

@@ -39,7 +39,7 @@ class NewBoardMailable extends Mailable
             ->with([
                 'name' => $this->person,
                 'link' => $this->link,
-                'image' => 'https://brinquecoin.com/wp-content/uploads/2019/11/brinquecoinlogomin1.png'
+                'image' => 'https://app.brinquecoin.com/img/brinquecoin.png'
             ]);
     }
 }
