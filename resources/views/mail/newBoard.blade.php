@@ -1,6 +1,6 @@
 @component('mail::message')
 <img width="100em" height="100em" src="{{ $image }}">
-<p>&nbsp;</p>
+<br />
 Olá <b>{{ $person }}</b>,<br />
 Aqui está o seu novo quadro de {{ $type }}.<br />
 Clique no botão para abrir seu quadro:
