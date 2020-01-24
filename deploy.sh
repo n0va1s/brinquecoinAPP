@@ -1,7 +1,7 @@
 echo " `date` : start "
 
 echo " Change to the project directory "
-cd /domains/brinquecoin.com/public_html/app
+cd domains/brinquecoin.com/public_html/app
 
 echo " Turn on maintenance mode "
 php artisan down
