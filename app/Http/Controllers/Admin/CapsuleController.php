@@ -40,9 +40,9 @@ class CapsuleController extends Controller
         $data['user_id'] = Auth::user()->id;
         $data['code'] = Str::uuid()->toString();
         
-        /*
-        Mail::to('newuser@example.com')->send(new NewCapsuleMailable());
-        */
+        Mail::to(Auth::user()->email)->send(
+            new NewCapsuleMailable(Auth::user()->name)
+        );
 
         $notification = array(
             'message' => 'Cápsula lacrada!',
