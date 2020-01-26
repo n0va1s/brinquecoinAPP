@@ -34,7 +34,8 @@ class NewCapsuleMailable extends Mailable
             ->markdown('mail.newCapsule')
             ->with(
                 [
-                    'name' => $this->name
+                    'name' => $this->name,
+                    'image' => 'https://app.brinquecoin.com/img/brinquecoin.png'
                 ]
             );
     }
