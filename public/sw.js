@@ -1,3 +1,4 @@
+//https://shareurcodes.com/blog/how-to-easily-convert-your-existing-laravel-application-into-a-progressive-web-app-by-using-workbox
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js');
 
 if (workbox) {
@@ -32,15 +33,15 @@ if (workbox) {
   },
   {
     "url": "img/boards/habito.jpg",
-    "revision": "a374cb17c4fe406d454b293663218735"
+    "revision": "9a93c1ba07f1e455f0c04ace739eff4a"
   },
   {
     "url": "img/boards/mesada.jpg",
-    "revision": "a374cb17c4fe406d454b293663218735"
+    "revision": "0c64feb4321e9d78d277113cf8e27d2e"
   },
   {
     "url": "img/boards/tarefas.jpg",
-    "revision": "f7fda0b178e121b5d4e80e2933695e4f"
+    "revision": "4726b18c4656b6ad51cc21f7a930de9b"
   },
   {
     "url": "img/brinquecoin.png",
@@ -83,6 +84,10 @@ if (workbox) {
     "revision": "ccadfc74c69f691e3436b742db70c184"
   },
   {
+    "url": "img/offline.jpg",
+    "revision": "e416d2c67b01744f7a3ca1347fc6b80e"
+  },
+  {
     "url": "img/quadro.png",
     "revision": "3463ecefcbaa92cce0e1ed75eba75edf"
   },
@@ -96,7 +101,7 @@ if (workbox) {
   },
   {
     "url": "js/board.js",
-    "revision": "237f63c8bbf6db2f3a3bfa7710c0a542"
+    "revision": "a58273160613375332939265d66f65fc"
   },
   {
     "url": "js/fetch.js",
@@ -105,6 +110,10 @@ if (workbox) {
   {
     "url": "js/idb.js",
     "revision": "017ced36d82bea1e08b08393361e354d"
+  },
+  {
+    "url": "js/install.js",
+    "revision": "9f121358e90bb4eb9cd77f97a5e0159f"
   },
   {
     "url": "js/promise.js",
@@ -116,18 +125,18 @@ if (workbox) {
   },
   {
     "url": "sw-base.js",
-    "revision": "e349f170cb587655e52125a99922b87c"
+    "revision": "4efbc0f5ab51dd7b3ae05f4d239570a3"
   },
   {
     "url": "offline.html",
-    "revision": "73beeb77d139447e043bcf8501b10cea"
+    "revision": "d170ff0d500ac70647037afce29cbf70"
   }
 ]);
 
     // 1. css
     workbox.routing.registerRoute(
         new RegExp('\.css$'),
-        workbox.strategies.cacheFirst({
+        new workbox.strategies.CacheFirst({
             cacheName: 'brinquecoin-stylesheets',
             plugins: [
                 new workbox.expiration.Plugin({
@@ -138,10 +147,11 @@ if (workbox) {
             ]
         })
     );
+
     // 2. images
     workbox.routing.registerRoute(
         new RegExp('\.(png|svg|jpg|jpeg)$'),
-        workbox.strategies.cacheFirst({
+        new workbox.strategies.CacheFirst({
             cacheName: 'brinquecoin-images',
             plugins: [
                 new workbox.expiration.Plugin({
