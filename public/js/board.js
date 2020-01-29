@@ -32,7 +32,7 @@ $(document).ready(function () {
 
 function postActivity(opts) {
     console.log('Sending post: ' + JSON.stringify(opts));
-    fetch('https://app.brinquecoin.com/public/api/atividades/marcar', {
+    fetch('https://app.brinquecoin.com/api/atividades/marcar', {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
