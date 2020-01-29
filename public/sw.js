@@ -101,7 +101,7 @@ if (workbox) {
   },
   {
     "url": "js/board.js",
-    "revision": "a58273160613375332939265d66f65fc"
+    "revision": "ca670a585ac425b6348f4676d1be571b"
   },
   {
     "url": "js/fetch.js",

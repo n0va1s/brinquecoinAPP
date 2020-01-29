@@ -21,20 +21,18 @@ $(document).ready(function () {
         day = this.dataset.day;
         code = document.getElementById('code').value;
 
-        postActivity(
-            {
-                board: code,
-                activity: id,
-                day: day,
-                value: value
-            }
-        );
+        postActivity({
+            board: code,
+            activity: id,
+            day: day,
+            value: value
+        });
     })
 });
 
 function postActivity(opts) {
     console.log('Sending post: ' + JSON.stringify(opts));
-    fetch('/api/atividades/marcar/', {
+    fetch('/public/api/atividades/marcar', {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
