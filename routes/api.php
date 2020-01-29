@@ -15,7 +15,6 @@ use Illuminate\Http\Response;
 
 use App\Model\Mark;
 
-/*
 Route::get(
     '/',
     function () {
@@ -24,7 +23,6 @@ Route::get(
         );
     }
 )->name('api.inicio');
-*/
 
 Route::post(
     '/atividades/marcar/',

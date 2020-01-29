@@ -4,7 +4,8 @@ echo " Change to the project directory "
 # cd domains/brinquecoin.com/public_html/app
 
 echo " Turn on maintenance mode "
-php artisan down
+# php artisan down
+php artisan down --message="Updating app" --retry=60
 
 echo " Pull the latest changes from the git repository "
 git reset --hard
