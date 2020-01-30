@@ -17,11 +17,7 @@ use App\Model\Mark;
 
 Route::get(
     '/',
-    function () {
-        return response()->json(
-            ['message' => 'Brinque Coin APIs', 'status' => 'Connected']
-        );
-    }
+    ['user' => 'Site\HomeController@api']
 )->name('api.inicio');
 
 Route::post(

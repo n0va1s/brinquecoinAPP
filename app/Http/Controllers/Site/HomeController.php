@@ -61,11 +61,10 @@ class HomeController extends Controller
         return view('home', compact('result'));
     }
 
-    public function send()
+    public function api()
     {
-        $data = ['message' => 'This is a test!'];
-        \Mail::to('jp.trabalho@gmail.com')->send(new TestEmail($data));
-
-        return 'Email enviado';
+        return response()->json(
+            ['message' => 'Brinque Coin APIs', 'status' => 'Connected']
+        );
     }
 }

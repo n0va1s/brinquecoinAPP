@@ -39,8 +39,8 @@ php artisan view:cache
 # echo " Install node modules "
 # npm install
 
-echo " Build assets using Laravel Mix "
-npm run production
+# echo " Build assets using Laravel Mix "
+# npm run production
 # npm ci
 
 # echo " Generate SW "
