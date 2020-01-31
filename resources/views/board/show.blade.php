@@ -10,7 +10,7 @@
         até
         agora
     </h5>
-    @elseif($boardVO['board']['type'] === 'Tarefa')
+    @else($boardVO['board']['type'] === 'Tarefa')
     <h5>{{$boardVO['person']['name']}}, você conseguiu {{$boardVO['totals']['partial']}} /
         {{$boardVO['totals']['total']}} ponto(s)
     </h5>

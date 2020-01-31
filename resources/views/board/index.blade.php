@@ -46,10 +46,10 @@
                         <img height="200px" src="{{ asset($board->image) }}" alt="Imagem do tipo do quadro">
                     </div>
                 </a>
-                <div class="card-content center">
-                    <p>Quadro de {{ $board->type }}</p>
-                    <br />
-                    <p>{{ $board->name }}</p>
+                <div class="card-content">
+                    <p class="center-align">Quadro de {{ $board->type }}</p>
+                    <p class="center-align"><b>{{ $board->name }}</b></p>
+                    <p class="truncate">{{ $board->goal }}</p>
                 </div>
                 <div class="grey lighten-3">
                     <div class="card-action center">

@@ -51,7 +51,7 @@ class SendCapsule extends Command
             )
             ->distinct()
             ->where('capsules.status', 'N')
-            ->whereDate('capsules.remember_at', $today)
+            ->whereDate('capsules.remember_at', '<=', $today)
             ->get();
 
         $this->info('COUNT - '+count($data));
