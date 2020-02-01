@@ -40,7 +40,6 @@ class OpenCapsuleMailable extends Mailable
             ->markdown('mail.openCapsule')
             ->with(
                 [
-                    'created_at' => $this->created_at,
                     'from' => $this->from,
                     'to' => $this->to,
                     'message' => $this->message,

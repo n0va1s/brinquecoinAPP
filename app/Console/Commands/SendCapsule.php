@@ -41,7 +41,6 @@ class SendCapsule extends Command
         $today = (now())->format('Y-m-d');
         $this->info('DATE - '+$today);
         $data = DB::table('capsules')
-            ->join('users', 'users.id', '=', 'capsules.user_id')
             ->select(
                 'capsules.id',
                 'capsules.from',

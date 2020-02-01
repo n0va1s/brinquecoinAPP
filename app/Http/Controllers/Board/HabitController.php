@@ -140,6 +140,8 @@ class HabitController extends Controller
         );
         $board = Board::where('code', $code)->first();
         if ($board) {
+            $board->goal = $data['goal'];
+
             $person = Person::find($board->id);
             $person->name = $data['name'];
             $person->gender = $data['gender'];
