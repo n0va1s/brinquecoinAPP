@@ -147,6 +147,7 @@ class HabitController extends Controller
             $person->gender = $data['gender'];
             $person->age = $data['age'];
             $board->person()->save($person);
+            $board->save();
 
             $notification = array(
             'message' => 'Quadro atualizado!',

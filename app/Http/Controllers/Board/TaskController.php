@@ -206,11 +206,14 @@ class TaskController extends Controller
         );
         $board = Board::where('code', $code)->first();
         if ($board) {
+            $board->goal = $data['goal'];
+
             $person = Person::find($board->id);
             $person->name = $data['name'];
             $person->gender = $data['gender'];
             $person->age = $data['age'];
             $board->person()->save($person);
+            $board->save();
 
             $notification = array(
             'message' => 'Quadro atualizado!',
