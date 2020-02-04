@@ -3,9 +3,12 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class SendCapsule extends Command
 {
+    
     /**
      * The name and signature of the console command.
      *
@@ -37,9 +40,9 @@ class SendCapsule extends Command
      */
     public function handle()
     {
-        $this->info('BEGIN - '+now());
+        Log::info('## BEGIN - '.now().'##');
         $today = (now())->format('Y-m-d');
-        $this->info('DATE - '+$today);
+        Log::info('## DATE - '.$today.'##');
         $data = DB::table('capsules')
             ->select(
                 'capsules.id',
@@ -52,8 +55,8 @@ class SendCapsule extends Command
             ->where('capsules.status', 'N')
             ->whereDate('capsules.remember_at', '<=', $today)
             ->get();
-
-        $this->info('COUNT - '+count($data));
+        
+        Log::info('## QUANTITY - '.$data->count().'##');
 
         foreach ($data as $line) {
             Mail::to($line->email)->send(
@@ -63,10 +66,8 @@ class SendCapsule extends Command
                     $line->message
                 )
             );
-
             Capsule::where('id', $line->id)->update(['status' => 'R']);
         }
-        $this->info('EMAILS SENT');
-        $this->info('END - '+now());
+        Log::info('## END - '.now().'##');
     }
 }

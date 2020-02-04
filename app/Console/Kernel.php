@@ -24,8 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $filePath = '/log/'+(now())->format('Y-m-d');
+        $schedule->command('capsule:open')->daily()->appendOutputTo($filePath);
     }
 
     /**

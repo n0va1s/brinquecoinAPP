@@ -64,7 +64,10 @@ class HomeController extends Controller
     public function api()
     {
         return response()->json(
-            ['message' => 'Brinque Coin APIs', 'status' => 'Connected']
+            [
+                'message' => 'Brinque Coin APIs', 
+                'status' => 'Connected'
+            ]
         );
     }
 }
