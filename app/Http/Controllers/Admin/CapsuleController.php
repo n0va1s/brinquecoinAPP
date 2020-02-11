@@ -37,6 +37,10 @@ class CapsuleController extends Controller
             'message' => 'required',
             ]
         );
+        if (!$data) {
+            return back()->withInput();
+        }
+
         $data['user_id'] = Auth::user()->id;
         $data['code'] = Str::uuid()->toString();
         
@@ -44,22 +48,15 @@ class CapsuleController extends Controller
             new NewCapsuleMailable(Auth::user()->name)
         );
 
-        $notification = array(
-            'message' => 'Cápsula lacrada!',
-            'alert-type' => 'success'
-        );
-
         Capsule::create($data);
-        return redirect()->route('capsule.index')->with($notification);
+        toastr('Cápsula lacrada!', 'success');
+        return redirect()->route('capsule.index');
     }
 
     public function destroy($code)
     {
-        $notification = array(
-            'message' => 'Cápsula excluída!',
-            'alert-type' => 'success'
-        );
         Capsule::where('code', '=', $code)->delete();
-        return redirect()->route('capsule.index')->with($notification);
+        toastr('Cápsula cancelada!', 'success');
+        return redirect()->route('capsule.index');
     }
 }

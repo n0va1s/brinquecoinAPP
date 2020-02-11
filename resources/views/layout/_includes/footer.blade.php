@@ -15,6 +15,10 @@
         </div>
     </div>
 </footer>
+</body>
+@jquery
+@toastr_js
+@toastr_render
 
 <!-- PWA -->
 <script>
@@ -27,8 +31,6 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 
-<!--Import jQuery before materialize.js-->
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="/js/board.js"></script>
 
 <!-- PWA -->
@@ -36,10 +38,6 @@ if ('serviceWorker' in navigator) {
 
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-<!-- Toastr -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
-
 
 <script type="text/javascript">
     $(document).ready(function(){
@@ -51,62 +49,7 @@ if ('serviceWorker' in navigator) {
     $('.collapsible').collapsible();
     $('.tabs').tabs();
     $('.fixed-action-btn').floatingActionButton();
-
-    $('.datepicker').datepicker({
-        format: 'yyyy-mm-dd',
-        container: 'body',
-        minDate: new Date(),
-        i18n: {
-            months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-            monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-            weekdays: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabádo'],
-            weekdaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
-            weekdaysAbbrev: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
-            today: 'Hoje',
-            clear: 'Limpar',
-            cancel: 'Sair',
-            done: 'Confirmar',
-            labelMonthNext: 'Próximo mês',
-            labelMonthPrev: 'Mês anterior',
-            labelMonthSelect: 'Selecione um mês',
-            labelYearSelect: 'Selecione um ano',
-            selectMonths: true,
-            selectYears: 15,
-        },
-    });
-
-    toastr.options = {
-      "preventDuplicates": true
-    }
-
-    @if(Session::has('message'))
-      var type = "{{ Session::get('alert-type', 'info') }}";
-      switch(type){
-          case 'info':
-              toastr.info("{{ Session::get('message') }}");
-              break;
-
-          case 'warning':
-              toastr.warning("{{ Session::get('message') }}");
-              break;
-
-          case 'success':
-              toastr.success("{{ Session::get('message') }}");
-              break;
-
-          case 'error':
-              toastr.error("{{ Session::get('message') }}");
-              break;
-      }
-    @endif
-
-     @if(count($errors) > 0)
-        @foreach($errors->all() as $error)
-            toastr.error("{{ $error }}");
-        @endforeach
-    @endif
-  });
+});
 </script>
-</body>
 
 </html>

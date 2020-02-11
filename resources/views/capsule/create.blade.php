@@ -20,7 +20,7 @@
             </div>
             <div class="input-field col s12 m6">
                 <label>Abertura em</label>
-                <input type="text" name="remember_at" class="datepicker" value="{{isset($registro->remember_at) ? $registro->remember_at : ''}}">
+                <input type="date" name="remember_at" value="{{isset($registro->remember_at) ? $registro->remember_at : ''}}">
             </div>
             <div class="input-field col s12">
                 <label for="message">Mensagem</label>
