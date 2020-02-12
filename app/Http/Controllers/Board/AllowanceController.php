@@ -56,25 +56,18 @@ class AllowanceController extends Controller
 
         $board = Board::create($data);
         $board->person()->save($person);
+        toastr('Quadro criado!', 'success');
 
         // Send board link
-        \Mail::to(Auth::user()->email)->send(
+        Mail::to(Auth::user()->email)->send(
             new NewBoardMailable(
                 route('board.show', $data['code']),
                 'mesada',
                 $data['name']
             )
         );
-
-        $notification = array(
-            'message' => 'Quadro criado!',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->route(
-            'board.allowance.edit',
-            $data['code']
-        )->with($notification);
+        toastr('Email enviado com os dados do seu quadro', 'info');
+        return redirect()->route('board.allowance.edit', $data['code']);
     }
 
     /**
@@ -85,106 +78,102 @@ class AllowanceController extends Controller
      */
     public function edit($code)
     {
-        if ($code) {
-            //Combo de propositos
-            $propouse_types = DB::table('propouse_types')
-                ->select('propouse_types.*')
-                ->orderBy('propouse_types.name', 'asc')
-                ->where('propouse_types.propouse', '<>', 'H')
-                ->whereNull('propouse_types.deleted_at')
-                ->get();
-
-            //Combo de tipos de atividades
-            //Apresenta as atividades padrao e as criadas pelo usuario
-            $activity_types = DB::table('activity_types')
-                ->join(
-                    'propouse_types',
-                    'propouse_types.id',
-                    '=',
-                    'activity_types.propouse_type_id'
-                )
-                ->select(
-                    'activity_types.id',
-                    'propouse_types.name AS propouse',
-                    'activity_types.name AS activity'
-                )
-                ->where('propouse_types.propouse', '<>', 'H')
-                ->whereNull('user_id')
-                ->orWhere('user_id', Auth::user()->id)
-                ->whereNull('activity_types.deleted_at')
-                ->orderby('propouse_types.name', 'asc')
-                ->orderby('activity_types.name', 'asc')
-                ->get();
-
-            $activities_board = DB::table('activities')
-                ->join(
-                    'activity_types',
-                    'activity_types.id',
-                    '=',
-                    'activities.activity_type_id'
-                )
-                ->join(
-                    'propouse_types',
-                    'propouse_types.id',
-                    '=',
-                    'activity_types.propouse_type_id'
-                )
-                ->join(
-                    'boards',
-                    'boards.id',
-                    '=',
-                    'activities.board_id'
-                )
-                ->select(
-                    'activities.*',
-                    'activity_types.name',
-                    'propouse_types.icon'
-                )
-                ->Where('boards.code', $code)
-                ->get();
-
-            //Lista de atividades criadas pelo usuario
-            $activities_user = DB::table('activity_types')
-                ->join(
-                    'propouse_types',
-                    'propouse_types.id',
-                    '=',
-                    'activity_types.propouse_type_id'
-                )
-                ->select(
-                    'activity_types.id',
-                    'propouse_types.name AS propouse',
-                    'activity_types.name',
-                    'propouse_types.icon'
-                )
-                ->Where('user_id', Auth::user()->id)
-                ->whereNull('activity_types.deleted_at')
-                ->get();
-
-            $board = DB::table('boards')
-                ->join('people', 'boards.id', '=', 'people.board_id')
-                ->select('boards.*', 'people.*')
-                ->where('boards.code', '=', $code)
-                ->whereNull('boards.deleted_at')
-                ->first();
-
-            return view(
-                'board.allowance.edit',
-                compact(
-                    'board',
-                    'propouse_types',
-                    'activity_types',
-                    'activities_board',
-                    'activities_user'
-                )
-            );
-        } else {
-            $notification = array(
-                'message' => 'Código do quadro não localizado!',
-                'alert-type' => 'error'
-            );
-            return view('board.allowance.edit', $code)->with($notification);
+        if (!isset($code)) {
+            toastr('O código do quadro é obrigatório. Favor verificar', 'error');
+            return back();
         }
+        //Combo de propositos
+        $propouse_types = DB::table('propouse_types')
+            ->select('propouse_types.*')
+            ->orderBy('propouse_types.name', 'asc')
+            ->where('propouse_types.propouse', '<>', 'H')
+            ->whereNull('propouse_types.deleted_at')
+            ->get();
+
+        //Combo de tipos de atividades
+        //Apresenta as atividades padrao e as criadas pelo usuario
+        $activity_types = DB::table('activity_types')
+            ->join(
+                'propouse_types',
+                'propouse_types.id',
+                '=',
+                'activity_types.propouse_type_id'
+            )
+            ->select(
+                'activity_types.id',
+                'propouse_types.name AS propouse',
+                'activity_types.name AS activity'
+            )
+            ->where('propouse_types.propouse', '<>', 'H')
+            ->whereNull('user_id')
+            ->orWhere('user_id', Auth::user()->id)
+            ->whereNull('activity_types.deleted_at')
+            ->orderby('propouse_types.name', 'asc')
+            ->orderby('activity_types.name', 'asc')
+            ->get();
+
+        $activities_board = DB::table('activities')
+            ->join(
+                'activity_types',
+                'activity_types.id',
+                '=',
+                'activities.activity_type_id'
+            )
+            ->join(
+                'propouse_types',
+                'propouse_types.id',
+                '=',
+                'activity_types.propouse_type_id'
+            )
+            ->join(
+                'boards',
+                'boards.id',
+                '=',
+                'activities.board_id'
+            )
+            ->select(
+                'activities.*',
+                'activity_types.name',
+                'propouse_types.icon'
+            )
+            ->Where('boards.code', $code)
+            ->get();
+
+        //Lista de atividades criadas pelo usuario
+        $activities_user = DB::table('activity_types')
+            ->join(
+                'propouse_types',
+                'propouse_types.id',
+                '=',
+                'activity_types.propouse_type_id'
+            )
+            ->select(
+                'activity_types.id',
+                'propouse_types.name AS propouse',
+                'activity_types.name',
+                'propouse_types.icon'
+            )
+            ->Where('user_id', Auth::user()->id)
+            ->whereNull('activity_types.deleted_at')
+            ->get();
+
+        $board = DB::table('boards')
+            ->join('people', 'boards.id', '=', 'people.board_id')
+            ->select('boards.*', 'people.*')
+            ->where('boards.code', '=', $code)
+            ->whereNull('boards.deleted_at')
+            ->first();
+
+        return view(
+            'board.allowance.edit',
+            compact(
+                'board',
+                'propouse_types',
+                'activity_types',
+                'activities_board',
+                'activities_user'
+            )
+        );
     }
 
     /**
@@ -204,23 +193,17 @@ class AllowanceController extends Controller
             ]
         );
         $board = Board::where('code', $code)->first();
-        if ($board) {
-            $person = Person::find($board->id);
-            $person->name = $data['name'];
-            $person->gender = $data['gender'];
-            $person->age = $data['age'];
-            $board->person()->save($person);
-
-            $notification = array(
-            'message' => 'Quadro atualizado!',
-            'alert-type' => 'success');
-        } else {
-            $notification = array(
-                'message' => 'Quadro não encontrado!',
-                'alert-type' => 'error'
-            );
+        if (!isset($board)) {
+            toastr('Quadro não encontrado. Favor verificar', 'error');
+            return back();
         }
-        return back()->with($notification);
+        $person = Person::find($board->id);
+        $person->name = $data['name'];
+        $person->gender = $data['gender'];
+        $person->age = $data['age'];
+        $board->person()->save($person);
+        toastr('Quadro atualizado!', 'success');
+        return back();
     }
 
     /**
@@ -231,15 +214,10 @@ class AllowanceController extends Controller
      */
     public function destroy($code)
     {
-        if ($code) {
-            Board::where('code', '=', $code)->firstOrFail()->delete();
-        } else {
-            $notification = array(
-                'message' => 'Código do quadro não identificado!',
-                'alert-type' => 'error'
-            );
+        $deleted = Board::where('code', '=', $code)->firstOrFail()->delete();
+        if ($deleted === 0) {
+            toastr('Quadro não encontrado. Favor verificar', 'error');
         }
-
-        return redirect()->route('board.index')->with($notification);
+        return redirect()->route('board.index');
     }
 }

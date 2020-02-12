@@ -34,7 +34,7 @@ class BoardTypeController extends Controller
         }
 
         BoardType::create($dados);
-
+        toastr('Cadastrado!', 'success');
         return redirect()->route('board.type.index');
     }
 
@@ -59,13 +59,14 @@ class BoardTypeController extends Controller
         }
 
         BoardType::find($id)->update($dados);
-
+        toastr('Atualizado!', 'success');
         return redirect()->route('board.type.index');
     }
 
     public function destroy($id)
     {
         BoardType::find($id)->delete();
+        toastr('Excluído!', 'success');
         return redirect()->route('board.type.index');
     }
 }

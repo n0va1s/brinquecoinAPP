@@ -5,10 +5,12 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+
+use App\Mail\OpenCapsuleMailable;
 
 class SendCapsule extends Command
 {
-    
     /**
      * The name and signature of the console command.
      *
@@ -53,8 +55,9 @@ class SendCapsule extends Command
             )
             ->distinct()
             ->where('capsules.status', 'N')
+            ->whereNull('capsules.deleted_at')
             ->whereDate('capsules.remember_at', '<=', $today)
-            ->get();
+            ->get();         
         
         Log::info('## QUANTITY - '.$data->count().'##');
 

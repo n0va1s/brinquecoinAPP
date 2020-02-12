@@ -56,6 +56,7 @@ class HabitController extends Controller
 
         $board = Board::create($data);
         $board->person()->save($person);
+        toastr('Quadro criado!', 'success');
 
         // 3 weeks to develop a habit
         $activityHabit = DB::table('propouse_types')
@@ -73,23 +74,15 @@ class HabitController extends Controller
         }
 
         // Send board link
-        \Mail::to(Auth::user()->email)->send(
+        Mail::to(Auth::user()->email)->send(
             new NewBoardMailable(
                 route('board.show', $data['code']),
                 'hábito',
                 $data['name']
             )
         );
-
-        $notification = array(
-            'message' => 'Quadro criado!',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->route(
-            'board.habit.edit',
-            $data['code']
-        )->with($notification);
+        toastr('Email enviado com os dados do seu quadro', 'info');
+        return redirect()->route('board.habit.edit', $data['code']);
     }
 
     /**
@@ -100,25 +93,18 @@ class HabitController extends Controller
      */
     public function edit($code)
     {
-        if ($code) {
-            $board = DB::table('boards')
-                ->join('people', 'boards.id', '=', 'people.board_id')
-                ->select('boards.*', 'people.*')
-                ->where('boards.code', '=', $code)
-                ->whereNull('boards.deleted_at')
-                ->first();
-
-            return view(
-                'board.habit.edit',
-                compact('board')
-            );
-        } else {
-            $notification = array(
-                'message' => 'Código do quadro não localizado!',
-                'alert-type' => 'error'
-            );
-            return view('board.habit.edit', $code)->with($notification);
+        if (!isset($code)) {
+            toastr('O código do quadro é obrigatório. Favor verificar', 'error');
+            return back();
         }
+        $board = DB::table('boards')
+            ->join('people', 'boards.id', '=', 'people.board_id')
+            ->select('boards.*', 'people.*')
+            ->where('boards.code', '=', $code)
+            ->whereNull('boards.deleted_at')
+            ->first();
+
+        return view('board.habit.edit', compact('board'));
     }
 
     /**
@@ -139,26 +125,21 @@ class HabitController extends Controller
             ]
         );
         $board = Board::where('code', $code)->first();
-        if ($board) {
-            $board->goal = $data['goal'];
-
-            $person = Person::find($board->id);
-            $person->name = $data['name'];
-            $person->gender = $data['gender'];
-            $person->age = $data['age'];
-            $board->person()->save($person);
-            $board->save();
-
-            $notification = array(
-            'message' => 'Quadro atualizado!',
-            'alert-type' => 'success');
-        } else {
-            $notification = array(
-                'message' => 'Quadro não encontrado!',
-                'alert-type' => 'error'
-            );
+        if (!isset($board)) {
+            toastr('Quadro não encontrado. Favor verificar', 'error');
+            return back();
         }
-        return back()->with($notification);
+        $board->goal = $data['goal'];
+
+        $person = Person::find($board->id);
+        $person->name = $data['name'];
+        $person->gender = $data['gender'];
+        $person->age = $data['age'];
+        $board->person()->save($person);
+        $board->save();
+
+        toastr('Quadro atualizado!', 'success');
+        return back();
     }
 
     /**
@@ -169,15 +150,11 @@ class HabitController extends Controller
      */
     public function destroy($code)
     {
-        if ($code) {
-            Board::where('code', '=', $code)->firstOrFail()->delete();
-        } else {
-            $notification = array(
-                'message' => 'Código do quadro não identificado!',
-                'alert-type' => 'error'
-            );
+        
+        $deleted =  Board::where('code', '=', $code)->firstOrFail()->delete();
+        if ($deleted === 0) {
+            toastr('Quadro não encontrado. Favor verificar', 'error');
         }
-
-        return redirect()->route('board.index')->with($notification);
+        return redirect()->route('board.index');
     }
 }

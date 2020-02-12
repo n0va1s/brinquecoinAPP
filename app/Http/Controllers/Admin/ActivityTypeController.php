@@ -25,6 +25,7 @@ class ActivityTypeController extends Controller
     {
         $dados = $req->all();
         ActivityType::create($dados);
+        toastr('Cadastrado!', 'success');
         return redirect()->route('board.type.index');
     }
 
@@ -38,12 +39,14 @@ class ActivityTypeController extends Controller
     {
         $dados = $req->all();
         ActivityType::find($id)->update($dados);
+        toastr('Atualizado!', 'success');
         return redirect()->route('board.type.index');
     }
 
     public function destroy($id)
     {
         ActivityType::find($id)->delete();
+        toastr('Excluído!', 'success');
         return redirect()->route('board.type.index');
     }
 }

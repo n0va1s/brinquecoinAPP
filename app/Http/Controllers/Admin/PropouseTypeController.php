@@ -23,6 +23,7 @@ class PropouseTypeController extends Controller
     {
         $dados = $req->all();
         PropouseType::create($dados);
+        toastr('Cadastrado!', 'success');
         return redirect()->route('propouse.type.index');
     }
 
@@ -36,12 +37,14 @@ class PropouseTypeController extends Controller
     {
         $dados = $req->all();
         PropouseType::find($id)->update($dados);
+        toastr('Atualizado!', 'success');
         return redirect()->route('propouse.type.index');
     }
 
     public function destroy($id)
     {
         PropouseType::find($id)->delete();
+        toastr('Excluído!', 'success');
         return redirect()->route('propouse.type.index');
     }
 }

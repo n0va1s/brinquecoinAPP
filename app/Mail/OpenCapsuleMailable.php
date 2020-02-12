@@ -20,9 +20,8 @@ class OpenCapsuleMailable extends Mailable
      *
      * @return void
      */
-    public function __construct($created_at, $from, $to, $message)
+    public function __construct($from, $to, $message)
     {
-        $this->created_at = $created_at;
         $this->from = $from;
         $this->to = $to;
         $this->message = $message;

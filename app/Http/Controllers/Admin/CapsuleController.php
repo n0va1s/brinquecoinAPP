@@ -7,10 +7,9 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 
 use App\Http\Controllers\Controller;
-
 use App\Mail\NewCapsuleMailable;
-
 use App\Model\Capsule;
+
 use Auth;
 
 class CapsuleController extends Controller
