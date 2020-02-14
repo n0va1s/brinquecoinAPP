@@ -16,7 +16,7 @@ class SendCapsule extends Command
      *
      * @var string
      */
-    protected $signature = 'capsule:open';
+    protected $signature = 'capsule:send';
 
     /**
      * The console command description.
@@ -57,12 +57,13 @@ class SendCapsule extends Command
             ->where('capsules.status', 'N')
             ->whereNull('capsules.deleted_at')
             ->whereDate('capsules.remember_at', '<=', $today)
-            ->get();         
+            ->get();
         
         Log::info('## QUANTITY - '.$data->count().'##');
 
         foreach ($data as $line) {
-            Mail::to($line->email)->send(
+            $sender = Mail::to($line->email);
+            $sender->send(
                 new OpenCapsuleMailable(
                     $line->from,
                     $line->to,
