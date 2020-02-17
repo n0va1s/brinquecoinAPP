@@ -51,7 +51,8 @@ class SendCapsule extends Command
                 'capsules.from',
                 'capsules.to',
                 'capsules.email',
-                'capsules.message'
+                'capsules.message',
+                'capsules.created_at'
             )
             ->distinct()
             ->where('capsules.status', 'N')
@@ -62,9 +63,10 @@ class SendCapsule extends Command
         Log::info('## QUANTITY - '.$data->count().'##');
 
         foreach ($data as $line) {
-            $sender = Mail::to($line->email);
-            $sender->send(
+            $recipient = array('address'=>$line->email, 'name'=>$line->to);
+            Mail::to($recipient)->send(
                 new OpenCapsuleMailable(
+                    $line->created_at,
                     $line->from,
                     $line->to,
                     $line->message

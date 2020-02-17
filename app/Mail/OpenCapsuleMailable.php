@@ -20,8 +20,9 @@ class OpenCapsuleMailable extends Mailable
      *
      * @return void
      */
-    public function __construct($from, $to, $message)
+    public function __construct($created_at, $from, $to, $message)
     {
+        $this->created_at = $created_at;
         $this->from = $from;
         $this->to = $to;
         $this->message = $message;
@@ -34,6 +35,7 @@ class OpenCapsuleMailable extends Mailable
      */
     public function build()
     {
+        dd($this->from);
         return $this->from('capsula@brinquecoin.com', 'Brinque Coin')
             ->subject('Chegou o dia de abrir sua cápsula do tempo')
             ->markdown('mail.openCapsule')
