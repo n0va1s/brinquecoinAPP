@@ -35,16 +35,16 @@ class OpenCapsuleMailable extends Mailable
      */
     public function build()
     {
-        dd($this->from);
         return $this->from('capsula@brinquecoin.com', 'Brinque Coin')
             ->subject('Chegou o dia de abrir sua cápsula do tempo')
             ->markdown('mail.openCapsule')
             ->with(
                 [
+                    'created_at' => $this->created_at, 
                     'from' => $this->from,
                     'to' => $this->to,
                     'message' => $this->message,
-                    'image' => 'https://app.brinquecoin.com/img/brinquecoin.png'
+                    'image' => 'https://app.brinquecoin.com/img/brinquecoin.png',
                 ]
             );
     }

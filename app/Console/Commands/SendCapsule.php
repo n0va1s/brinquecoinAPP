@@ -3,11 +3,9 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 
-use App\Mail\OpenCapsuleMailable;
+use App\Http\Controllers\Admin\CapsuleController;
 
 class SendCapsule extends Command
 {
@@ -43,37 +41,7 @@ class SendCapsule extends Command
     public function handle()
     {
         Log::info('## BEGIN - '.now().'##');
-        $today = (now())->format('Y-m-d');
-        Log::info('## DATE - '.$today.'##');
-        $data = DB::table('capsules')
-            ->select(
-                'capsules.id',
-                'capsules.from',
-                'capsules.to',
-                'capsules.email',
-                'capsules.message',
-                'capsules.created_at'
-            )
-            ->distinct()
-            ->where('capsules.status', 'N')
-            ->whereNull('capsules.deleted_at')
-            ->whereDate('capsules.remember_at', '<=', $today)
-            ->get();
-        
-        Log::info('## QUANTITY - '.$data->count().'##');
-
-        foreach ($data as $line) {
-            $recipient = array('address'=>$line->email, 'name'=>$line->to);
-            Mail::to($recipient)->send(
-                new OpenCapsuleMailable(
-                    $line->created_at,
-                    $line->from,
-                    $line->to,
-                    $line->message
-                )
-            );
-            Capsule::where('id', $line->id)->update(['status' => 'R']);
-        }
+        CapsuleController::send();
         Log::info('## END - '.now().'##');
     }
 }
