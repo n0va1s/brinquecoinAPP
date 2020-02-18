@@ -58,23 +58,4 @@ class CapsuleController extends Controller
         toastr('Cápsula cancelada!', 'success');
         return redirect()->route('capsule.index');
     }
-
-    public static function send()
-    {
-        $today = (now())->format('Y-m-d');
-        $data = Capsule::where('remember_at', '<=', $today)
-            ->where('status', '=', 'N');
-        
-        foreach ($data as $line) {
-            Mail::to($line->email)->send(
-                new OpenCapsuleMailable(
-                    $line->created_at,
-                    $line->from,
-                    $line->to,
-                    $line->message
-                )
-            );
-            Capsule::where('id', $line->id)->update(['status' => 'R']);
-        }
-    }
 }

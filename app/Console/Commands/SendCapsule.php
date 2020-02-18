@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
-use App\Http\Controllers\Admin\CapsuleController;
+use App\Model\Capsule;
 
 class SendCapsule extends Command
 {
@@ -41,7 +41,23 @@ class SendCapsule extends Command
     public function handle()
     {
         Log::info('## BEGIN - '.now().'##');
-        CapsuleController::send();
+        $today = (now())->format('Y-m-d');
+        Log::info('## DATE - '.$today.'##');
+        $data = Capsule::where('remember_at', '<=', $today)
+            ->where('status', '=', 'N');
+        Log::info('## COUNT - '.$data->count().'##');
+        foreach ($data as $line) {
+            Mail::to($line->email)->send(
+                new OpenCapsuleMailable(
+                    $line->created_at,
+                    $line->from,
+                    $line->to,
+                    $line->message
+                )
+            );
+            Capsule::where('id', $line->id)->update(['status' => 'R']);
+        }
+        Log::info('## EMAIL SENT AND UPDATE RECORDS ##');
         Log::info('## END - '.now().'##');
     }
 }

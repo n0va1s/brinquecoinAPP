@@ -10,22 +10,22 @@ use Illuminate\Queue\SerializesModels;
 class OpenCapsuleMailable extends Mailable
 {
     use Queueable, SerializesModels;
-    public $created_at;
-    public $from;
-    public $to;
-    public $message;
+    public $dtCreatedAt;
+    public $nmSender;
+    public $nmRecipient;
+    public $txMessage;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($created_at, $from, $to, $message)
+    public function __construct($dtCreatedAt, $nmSender, $nmRecipient, $txMessage)
     {
-        $this->created_at = $created_at;
-        $this->from = $from;
-        $this->to = $to;
-        $this->message = $message;
+        $this->dtCreatedAt = $dtCreatedAt;
+        $this->nmSender = $nmSender;
+        $this->nmRecipient = $nmRecipient;
+        $this->txMessage = $txMessage;
     }
 
     /**
@@ -40,11 +40,11 @@ class OpenCapsuleMailable extends Mailable
             ->markdown('mail.openCapsule')
             ->with(
                 [
-                    'created_at' => $this->created_at, 
-                    'from' => $this->from,
-                    'to' => $this->to,
-                    'message' => $this->message,
-                    'image' => 'https://app.brinquecoin.com/img/brinquecoin.png',
+                    'dtCreatedAt' => $this->dtCreatedAt, 
+                    'nmSender' => $this->nmSender,
+                    'nmRecipient' => $this->nmRecipient,
+                    'txMessage' => $this->txMessage,
+                    'imLogo' => 'https://app.brinquecoin.com/img/brinquecoin.png',
                 ]
             );
     }
