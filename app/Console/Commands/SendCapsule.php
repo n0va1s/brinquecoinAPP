@@ -55,7 +55,12 @@ class SendCapsule extends Command
                     $line->message
                 )
             );
-            Capsule::where('id', $line->id)->update(['status' => 'R']);
+            Capsule::where('id', $line->id)->update(
+                [
+                    'status' => 'R',
+                    'deleted_at'=> now()
+                ]
+            );
         }
         Log::info('## EMAIL SENT AND UPDATE RECORDS ##');
         Log::info('## END - '.now().'##');
