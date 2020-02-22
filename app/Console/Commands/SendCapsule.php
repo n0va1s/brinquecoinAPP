@@ -3,9 +3,12 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 use App\Model\Capsule;
+use App\Mail\OpenCapsuleMailable;
 
 class SendCapsule extends Command
 {
@@ -43,8 +46,14 @@ class SendCapsule extends Command
         Log::info('## BEGIN - '.now().'##');
         $today = (now())->format('Y-m-d');
         Log::info('## DATE - '.$today.'##');
-        $data = Capsule::where('remember_at', '<=', $today)
-            ->where('status', '=', 'N');
+        $data = DB::table('capsules')
+        ->select(
+            'capsules.*'
+        )
+            ->where('remember_at', '<=', $today)
+            ->where('status', '=', 'N')
+            ->whereNull('deleted_at')
+            ->get();
         Log::info('## COUNT - '.$data->count().'##');
         foreach ($data as $line) {
             Mail::to($line->email)->send(
