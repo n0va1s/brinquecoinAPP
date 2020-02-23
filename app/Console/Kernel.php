@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-         'App\Console\Commands\SendCapsule'
+         'App\Console\Commands\SendCapsule',
     ];
 
     /**
@@ -25,7 +25,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $filePath = '/log/'.(now())->format('Y-m-d').'.log';
-        $schedule->command('capsule:send')->daily()->appendOutputTo($filePath);
+        $schedule->command('capsule:send')
+            ->daily()
+            ->appendOutputTo($filePath)
+            ->emailOutputOnFailure('contato@brinquecoin.com');
     }
 
     /**
