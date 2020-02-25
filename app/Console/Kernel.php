@@ -24,10 +24,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $filePath = '/log/'.(now())->format('Y-m-d').'.log';
         $schedule->command('capsule:send')
             ->daily()
-            ->appendOutputTo($filePath)
+            ->appendOutputTo('/Log/'.(now())->format('Y-m-d').'.log')
             ->emailOutputOnFailure('contato@brinquecoin.com');
     }
 
