@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 use App\Model\Capsule;
@@ -43,9 +42,9 @@ class SendCapsule extends Command
      */
     public function handle()
     {
-        Log::info('## BEGIN - '.now().'##');
+        $this->info('## BEGIN - '.now().' ##');
         $today = (now())->format('Y-m-d');
-        Log::info('## DATE - '.$today.'##');
+        $this->info('## DATE - '.$today.' ##');
         $data = DB::table('capsules')
         ->select(
             'capsules.*'
@@ -54,7 +53,7 @@ class SendCapsule extends Command
             ->where('status', '=', 'N')
             ->whereNull('deleted_at')
             ->get();
-        Log::info('## COUNT - '.$data->count().'##');
+        $this->info('## COUNT - '.$data->count().' ##');
         foreach ($data as $line) {
             Mail::to($line->email)->send(
                 new OpenCapsuleMailable(
@@ -71,7 +70,7 @@ class SendCapsule extends Command
                 ]
             );
         }
-        Log::info('## EMAIL SENT AND UPDATE RECORDS ##');
-        Log::info('## END - '.now().'##');
+        $this->info('## EMAIL SENT AND UPDATE RECORDS ##');
+        $this->info('## END - '.now().' ##');
     }
 }
