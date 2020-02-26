@@ -66,7 +66,7 @@ return [
             'driver' => 'monolog',
             'level' => 'debug',
             'handler' => SyslogUdpHandler::class,
-            'handler_with' => [
+                'handler_with' => [
                 'host' => env('PAPERTRAIL_URL'),
                 'port' => env('PAPERTRAIL_PORT'),
             ],

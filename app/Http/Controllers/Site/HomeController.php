@@ -58,6 +58,9 @@ class HomeController extends Controller
             $result['type'] = $result['type']->name;
         }
 
+        $result['capsuleCreated'] = DB::table('capsules')->count();
+        $result['capsuleSent'] = DB::table('capsules')->where('status', '=', 'R')->count();
+
         return view('home', compact('result'));
     }
 
@@ -65,7 +68,7 @@ class HomeController extends Controller
     {
         return response()->json(
             [
-                'message' => 'Brinque Coin APIs', 
+                'message' => 'Brinque Coin APIs',
                 'status' => 'Connected'
             ]
         );

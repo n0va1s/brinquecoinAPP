@@ -26,8 +26,14 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('capsule:send')
             ->daily()
-            ->appendOutputTo('/Log/'.(now())->format('Y-m-d').'.log')
-            ->emailOutputOnFailure('contato@brinquecoin.com');
+            ->sendOutputTo(storage_path('logs/capsulesend.log'))
+            ->emailOutputTo('contato@brinquecoin.com');
+
+        $schedule->command('auth:clear-resets')
+            ->daily()
+            ->sendOutputTo(storage_path('logs/authClearResets.log'))
+            ->emailOutputTo('contato@brinquecoin.com')
+            ->withoutOverlapping(10);
     }
 
     /**
