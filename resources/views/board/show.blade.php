@@ -5,15 +5,15 @@
     <h3 class="center">Quadro de {{$boardVO['board']['type']}}</h3>
     <input type="hidden" id="code" value="{{$boardVO['board']['code']}}">
     <hr class="linha">
+    <h5>{{$boardVO['person']['name']}}, seu objetivo <b>{{$boardVO['board']['goal']}}</b> está a caminho</h5>
     @if($boardVO['board']['type'] === 'Mesada')
-    <h5>{{$boardVO['person']['name']}}, você conseguiu {{$boardVO['totals']['partial']}} de mesada
-        até
-        agora
-    </h5>
+    <h6>Você conseguiu 
+        {{$boardVO['totals']['partial']}} de mesada até agora
+    </h6>
     @else($boardVO['board']['type'] === 'Tarefa')
-    <h5>{{$boardVO['person']['name']}}, você conseguiu {{$boardVO['totals']['partial']}} /
-        {{$boardVO['totals']['total']}} ponto(s)
-    </h5>
+    <h6>Você conseguiu 
+        {{$boardVO['totals']['partial']}} / {{$boardVO['totals']['total']}} ponto(s)
+    </h6>
     @endif
     <div class="row">
         <table class="responsive-table hide-on-small-only">

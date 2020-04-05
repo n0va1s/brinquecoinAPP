@@ -146,6 +146,7 @@ class BoardController extends Controller
         $boardVO['week']['sunday'] = "Domingo";
         $boardVO['person']['name'] = $board->name;
         $boardVO['board']['type'] = $board->type;
+        $boardVO['board']['goal'] = $board->goal;
         $boardVO['board']['code'] = $board->code;
         $boardVO['activities'] = array();
         foreach ($activities as $activity) {

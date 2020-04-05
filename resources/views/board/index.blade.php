@@ -51,32 +51,45 @@
                     <p class="center-align"><b>{{ $board->name }}</b></p>
                     <p class="truncate">{{ $board->goal }}</p>
                 </div>
-                <div class="grey lighten-3">
-                    <div class="card-action center">
-                        @if($board->type === 'Mesada')
-                        <a href="{{route('board.allowance.edit',$board->code)}}"
-                            class="waves-light btn-small red darken-2" title="Editar as atividades do quadro">
-                            <i class="material-icons">edit</i>
-                        </a>
-                        @elseif($board->type === 'Tarefa')
-                        <a href="{{route('board.task.edit',$board->code)}}" class="waves-light btn-small red darken-2"
-                            title="Editar as atividades do quadro">
-                            <i class="material-icons">edit</i>
-                        </a>
-                        @elseif($board->type === 'Hábito')
-                        <a href="{{route('board.habit.edit',$board->code)}}" class="waves-light btn-small red darken-2"
-                            title="Editar as atividades do quadro">
-                            <i class="material-icons">edit</i>
-                        </a>
-                        @endif
-                        <a href="{{route('board.copy',$board->code)}}" class="waves-light btn-small orange darken-2"
-                            title="Duplicar o quadro">
-                            <i class="material-icons">content_copy</i>
-                        </a>
-                        <a href="{{route('board.close',$board->code)}}" class="waves-light btn-small cyan darken-2"
-                            title="Encerrar o quadro">
-                            <i class="material-icons">close</i>
-                        </a>
+                <div class="card-action grey lighten-3">
+                    <div class="row">
+                        <div class="col s7 offset-s2 center">
+                            <a href="{{route('board.show',$board->code)}}"
+                                class="waves-light btn-small orange darken-2" title="Abrir o quadro">
+                                Abrir
+                            </a>
+                        </div>
+                        <div class="col s2 right">
+                            <a class='dropdown-trigger' href='#' data-target='options'>
+                            <i title="Administre seu quadro" class="material-icons">more_vert</i></a>
+                            <ul id='options' class='dropdown-content'>
+                                <li>
+                                    @if($board->type === 'Mesada')
+                                    <a href="{{route('board.allowance.edit',$board->code)}}"
+                                        title="Alterar as atividades do quadro">Alterar
+                                    </a>
+                                    @elseif($board->type === 'Tarefa')
+                                    <a href="{{route('board.task.edit',$board->code)}}"
+                                        title="Alterar as atividades do quadro">Alterar
+                                    </a>
+                                    @elseif($board->type === 'Hábito')
+                                    <a href="{{route('board.habit.edit',$board->code)}}"
+                                        title="Alterar as atividades do quadro">Alterar
+                                    </a>
+                                    @endif
+                                </li>
+                                <li>
+                                    <a href="{{route('board.copy',$board->code)}}"
+                                        title="Duplicar o quadro">Duplicar
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{route('board.close',$board->code)}}"
+                                        title="Encerrar o quadro">Fechar
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
