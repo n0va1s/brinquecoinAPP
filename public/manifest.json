@@ -41,7 +41,7 @@
     "start_url": "/",
     "scope": "/",
     "display": "standalone",
-    "orientation": "portrait-primary",
+    "orientation": "portrait",
     "background_color": "#00bcd4",
     "theme_color": "#ff5252",
     "description": "Um aplicativo para ajudar pais e mães com a arte de educar filhos e filhas. São quadros de tarefas, mesada e hábito para transformá-los",

@@ -38,31 +38,26 @@
                     <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul class="left hide-on-med-and-down">
                         <li><a href="{{route('site.home')}}">Início</a></li>
+                        <li><a id="optInstall">Instalar</a></li>
                         @if(Auth::guest())
                         <li><a href="{{route('login')}}">Login</a></li>
                         @else
                         <li><a href="{{route('board.index')}}">Quadrinhos</a></li>
                         <li><a href="{{route('capsule.index')}}">Cápsula do tempo</a></li>
-                        @endif
+                        @endif                        
                     </ul>
                     @if(!Auth::guest())
                     <ul id="configuracoes" class="dropdown-content">
                         <li>
-                            <a id="optInstall" href="#installAPP">
-                                <i class="material-icons">add</i>
-                                Instalar
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('logout') }}"><i class="material-icons">keyboard_return</i>
-                                Sair
-                            </a>
+                            <a href="{{ route('logout') }}">Sair</a>
                         </li>
                     </ul>
                     <ul class="right hide-on-med-and-down">
-                        <li><a class="dropdown-trigger" href="{{route('board.index')}}" data-target="configuracoes">Olá,
-                                {{ Auth::user()->name }}
-                                <i class="material-icons right">arrow_drop_down</i></a></li>
+                        <li>
+                            <a class="dropdown-trigger" href="{{route('board.index')}}" data-target="configuracoes">Olá,
+                                    {{ Auth::user()->name }}
+                            </a>
+                        </li>
                     </ul>
                     @endif
                 </div>
@@ -70,22 +65,13 @@
         </div>
         <ul class="sidenav" id="mobile">
             <li><a href="{{route('site.home')}}">Início</a></li>
+            <li><a id="optInstall">Instalar</a></li>
             @if(Auth::guest())
             <li><a href="{{route('login')}}">Login</a></li>
             @else
             <li><a href="{{route('board.index')}}">Quadrinhos</a></li>
             <li><a href="{{route('capsule.index')}}">Cápsula do tempo</a></li>
-            <li>
-                <a id="optInstall" href="#installAPP">
-                    <i class="material-icons">add</i>
-                    Instalar
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('logout') }}"><i class="material-icons">keyboard_return</i>
-                    Sair
-                </a>
-            </li>
+            <li><a href="{{ route('logout') }}">Sair</a></li>
             @endif
         </ul>
     </header>
