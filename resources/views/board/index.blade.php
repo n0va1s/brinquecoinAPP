@@ -60,9 +60,9 @@
                             </a>
                         </div>
                         <div class="col s2 right">
-                            <a class='dropdown-trigger' href='#' data-target='options'>
+                            <a class='dropdown-trigger' href='#' data-target={{$board->code}}>
                             <i title="Administre seu quadro" class="material-icons">more_vert</i></a>
-                            <ul id='options' class='dropdown-content'>
+                            <ul id={{$board->code}} class='dropdown-content'>
                                 <li>
                                     @if($board->type === 'Mesada')
                                     <a href="{{route('board.allowance.edit',$board->code)}}"
