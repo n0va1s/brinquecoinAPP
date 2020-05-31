@@ -12,20 +12,20 @@ class ActivityType extends Model
     protected $table = 'activity_types';
 
     protected $fillable = [
-        'propouse_type_id', 'name', 'user_id'
+        'propouse_type_id', 'name', 'user_id',
     ];
 
     protected $guarded = [
-        'id', 'created_at', 'update_at', 'delete_at'
+        'id', 'created_at', 'update_at', 'delete_at',
     ];
 
     public function activities()
     {
-        return $this->hasMany(Activity::class);
+        return $this->hasMany(Activity::class, 'activity_type_id');
     }
 
     public function propouse()
     {
-        return $this->belongsTo(PropouseType::class);
+        return $this->belongsTo(PropouseType::class, 'id');
     }
 }

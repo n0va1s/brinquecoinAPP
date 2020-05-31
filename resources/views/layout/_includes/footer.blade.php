@@ -42,7 +42,9 @@ if ('serviceWorker' in navigator) {
 <script type="text/javascript">
     $(document).ready(function(){
     $('.sidenav').sidenav();
-    $(".dropdown-trigger").dropdown();
+    $(".dropdown-trigger").dropdown(
+        { hover: true, constrainWidth: false }
+    );
     $('select').formSelect();
     $('.modal').modal();
     M.updateTextFields();

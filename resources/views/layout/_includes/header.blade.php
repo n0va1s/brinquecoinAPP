@@ -46,6 +46,17 @@
                         <li><a href="{{route('capsule.index')}}">Cápsula do tempo</a></li>
                         @endif                        
                     </ul>
+                    @component(
+                        'component/notification',
+                        [
+                            'notifications'=> [
+                                'id'=>1,
+                                'title'=>'Está na hora do quadrinho do João Pedro',
+                                'date'=>'01/05/2020'
+                            ]
+                        ]
+                    )
+                    @endcomponent
                     @if(!Auth::guest())
                     <ul id="configuracoes" class="dropdown-content">
                         <li>

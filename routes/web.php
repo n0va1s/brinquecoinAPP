@@ -176,6 +176,14 @@ Route::middleware(['auth'])->group(
                 )->name('capsule.destroy');
             }
         );
+        Route::prefix('notificacao')->group(
+            function () {
+                Route::get(
+                    '/',
+                    ['uses' => 'Site\NotificationController@index']
+                )->name('notification.list');
+            }
+        );
         Route::prefix('configuracao')->group(
             function () {
                 Route::get(
@@ -256,4 +264,3 @@ Route::middleware(['auth'])->group(
         );
     }
 );
-

@@ -9,11 +9,11 @@ class Activity extends Model
     protected $table = 'activities';
 
     protected $fillable = [
-        'board_id', 'activity_type_id', 'value', 'code'
+        'board_id', 'activity_type_id', 'value', 'code',
     ];
 
     protected $guarded = [
-        'id', 'created_at', 'update_at'
+        'id', 'created_at', 'update_at',
     ];
 
     public function board()
@@ -21,8 +21,14 @@ class Activity extends Model
         return $this->belongsTo(Board::class);
     }
 
-    public function activityType()
+    public function mark()
     {
-        return $this->belongsTo(ActivityType::class);
+        return $this->hasOne(Mark::class, 'activity_id');
+    }
+
+
+    public function type()
+    {
+        return $this->belongsTo(ActivityType::class, 'id');
     }
 }

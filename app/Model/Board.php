@@ -12,26 +12,26 @@ class Board extends Model
     protected $table = 'boards';
 
     protected $fillable = [
-        'board_type_id', 'goal', 'user_id', 'code'
+        'board_type_id', 'goal', 'user_id', 'code',
     ];
 
     protected $guarded = [
-        'id', 'created_at', 'update_at', 'delete_at'
+        'id', 'created_at', 'update_at', 'delete_at',
     ];
-
-    public function person()
-    {
-        return $this->hasOne(Person::class);
-    }
 
     public function type()
     {
-        return $this->belongsTo(BoardType::class);
+        return $this->belongsTo(BoardType::class, 'id');
     }
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function person()
+    {
+        return $this->hasOne(Person::class);
     }
 
     public function activities()
