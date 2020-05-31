@@ -14,14 +14,8 @@
             <h3 class="center">Suas cápsulas do tempo</h3>
         </div>
     </div>
-    @if (count($registros) === 0)
-    <div class="row center">
-        <img src="{{ asset('img/capsula.jpg') }}" alt="Imagem ilustrativa da capsula do tempo">
-        <h5>Nenhuma cápsula por aqui...</h5>
-    </div>
-    @endif
     <div class="row">
-        @foreach ($registros as $registro)
+        @forelse ($registros as $registro)
         <div class="col s12 m4">
             <div class="card">
                 <div class="card-image">
@@ -42,7 +36,12 @@
                 </div>
             </div>
         </div>
-        @endforeach
+        @empty
+        <div class="col s12 center">
+            <img src="{{ asset('img/capsula.jpg') }}" alt="Imagem ilustrativa da capsula do tempo">
+            <h5>Nenhuma cápsula por aqui...</h5>
+        </div>
+        @endforelse
     </div>
     <div class="row">
         {{ $registros->links() }}

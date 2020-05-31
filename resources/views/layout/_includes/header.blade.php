@@ -46,17 +46,6 @@
                         <li><a href="{{route('capsule.index')}}">Cápsula do tempo</a></li>
                         @endif                        
                     </ul>
-                    @component(
-                        'component/notification',
-                        [
-                            'notifications'=> [
-                                'id'=>1,
-                                'title'=>'Está na hora do quadrinho do João Pedro',
-                                'date'=>'01/05/2020'
-                            ]
-                        ]
-                    )
-                    @endcomponent
                     @if(!Auth::guest())
                     <ul id="configuracoes" class="dropdown-content">
                         <li>
@@ -67,6 +56,15 @@
                         <li>
                             <a class="dropdown-trigger" href="{{route('board.index')}}" data-target="configuracoes">Olá,
                                     {{ Auth::user()->name }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('notification.list')}}">
+                                <i title="Mensagens pra vc" class="material-icons">notifications
+                                <span class="badge blue" data-badge-caption="mensagens">
+                                {{ Auth::user()->unreadNotifications->count() }}
+                                </span>
+                                </i>
                             </a>
                         </li>
                     </ul>
@@ -82,6 +80,10 @@
             @else
             <li><a href="{{route('board.index')}}">Quadrinhos</a></li>
             <li><a href="{{route('capsule.index')}}">Cápsula do tempo</a></li>
+            <li><a href="{{route('notification.list')}}">
+                    <i title="Mensagens pra vc" class="material-icons">notifications</i>
+                </a>
+            </li>
             <li><a href="{{ route('logout') }}">Sair</a></li>
             @endif
         </ul>
