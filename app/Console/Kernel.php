@@ -24,6 +24,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('board:reminder')
+            ->dailyAt('21:00')
+            ->timezone('America/Sao_Paulo')
+            ->sendOutputTo(storage_path('logs/boardReminder.log'))
+            ->emailOutputTo('contato@brinquecoin.com');
+
         $schedule->command('capsule:send')
             ->daily()
             ->sendOutputTo(storage_path('logs/capsulesend.log'))
