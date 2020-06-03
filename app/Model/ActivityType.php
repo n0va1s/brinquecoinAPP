@@ -21,11 +21,11 @@ class ActivityType extends Model
 
     public function activities()
     {
-        return $this->hasMany(Activity::class, 'activity_type_id');
+        return $this->hasMany(Activity::class, 'id');
     }
 
     public function propouse()
     {
-        return $this->belongsTo(PropouseType::class, 'id');
+        return $this->belongsTo(PropouseType::class);
     }
 }

@@ -18,17 +18,16 @@ class Activity extends Model
 
     public function board()
     {
-        return $this->belongsTo(Board::class);
+        return $this->belongsTo(Board::class, 'board_id');
     }
 
     public function mark()
     {
-        return $this->hasOne(Mark::class, 'activity_id');
+        return $this->hasOne(Mark::class);
     }
-
 
     public function type()
     {
-        return $this->belongsTo(ActivityType::class, 'id');
+        return $this->belongsTo(ActivityType::class, 'activity_type_id');
     }
 }

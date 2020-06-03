@@ -10,7 +10,7 @@ class Board extends Model
     use SoftDeletes;
 
     protected $table = 'boards';
-
+    
     protected $fillable = [
         'board_type_id', 'goal', 'user_id', 'code',
     ];
@@ -21,7 +21,7 @@ class Board extends Model
 
     public function type()
     {
-        return $this->belongsTo(BoardType::class, 'id');
+        return $this->belongsTo(BoardType::class, 'board_type_id');
     }
 
     public function user()

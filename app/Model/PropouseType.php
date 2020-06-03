@@ -21,6 +21,6 @@ class PropouseType extends Model
 
     public function activities()
     {
-        return $this->hasMany(Activity::class, 'propouse_type_id');
+        return $this->hasMany(Activity::class);
     }
 }

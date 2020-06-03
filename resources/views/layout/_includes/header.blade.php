@@ -61,7 +61,7 @@
                         <li>
                             <a href="{{route('notification.list')}}">
                                 <i title="Mensagens pra vc" class="material-icons">notifications
-                                <span class="badge blue" data-badge-caption="mensagens">
+                                <span class="badge blue">
                                 {{ Auth::user()->unreadNotifications->count() }}
                                 </span>
                                 </i>
