@@ -10,22 +10,20 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Tipo de Quadro</th>
                         <th>Tipo de Propósito</th>
                         <th>Descrição</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($registros as $registro)
+                    @foreach($data as $line)
                     <tr>
-                        <td>{{ $registro->descricao }}</td>
-                        <td>{{ $registro->descricao }}</td>
-                        <td>{{ $registro->descricao }}</td>
+                        <td>&nbsp;</td>
+                        <td>{{ $line->name }}</td>
                         <td>
                             <a class="btn red darken-2"
-                                href="{{ route('admin.configuracao.tiposatividades.editar',$registro->id) }}">Editar</a>
+                                href="{{ route('activity.type.edit',$line->id) }}">Editar</a>
                             <a class="btn cyan darken-2"
-                                href="{{ route('admin.configuracao.tiposatividades.deletar',$registro->id) }}">Deletar</a>
+                                href="{{ route('activity.type.delete',$line->id) }}">Deletar</a>
                         </td>
                     </tr>
                     @endforeach
@@ -34,7 +32,7 @@
         </div>
         <div class="row">
             <a class="btn orange darken-2"
-                href="{{ route('admin.configuracao.tiposatividades.adicionar') }}">Adicionar</a>
+                href="{{ route('activity.type.create') }}">Adicionar</a>
         </div>
     </div>
 </div>

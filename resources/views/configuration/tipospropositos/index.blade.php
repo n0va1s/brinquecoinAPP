@@ -17,13 +17,13 @@
                 <tbody>
                     @foreach($registros as $registro)
                     <tr>
-                        <td>{{ $registro->proposito }}</td>
-                        <td>{{ $registro->descricao }}</td>
+                        <td>{{ $registro->propouse }}</td>
+                        <td>{{ $registro->name }}</td>
                         <td>
                             <a class="btn red darken-2"
-                                href="{{ route('admin.configuracao.tipospropositos.editar',$registro->id) }}">Editar</a>
+                                href="{{ route('propouse.type.edit',$registro->id) }}">Editar</a>
                             <a class="btn cyan darken-2"
-                                href="{{ route('admin.configuracao.tipospropositos.deletar',$registro->id) }}">Deletar</a>
+                                href="{{ route('propouse.type.delete',$registro->id) }}">Deletar</a>
                         </td>
                     </tr>
                     @endforeach
@@ -32,7 +32,7 @@
         </div>
         <div class="row">
             <a class="btn orange darken-2"
-                href="{{ route('admin.configuracao.tipospropositos.adicionar') }}">Adicionar</a>
+                href="{{ route('propouse.type.create') }}">Adicionar</a>
         </div>
     </div>
 </div>

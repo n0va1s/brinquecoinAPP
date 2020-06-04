@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\PropouseTypeRequest;
 use App\Model\PropouseType;
+
+use Auth;
 
 class PropouseTypeController extends Controller
 {
@@ -21,40 +23,42 @@ class PropouseTypeController extends Controller
     public function index()
     {
         $registros = PropouseType::all();
-        return view('propouse.type.index', compact('registros'));
+        return view('configuration.tipospropositos.index', compact('registros'));
     }
 
     public function create()
     {
-        return view('propouse.type.create');
+        return view('configuration.tipospropositos.adicionar');
     }
 
-    public function store(Request $req)
+    public function store(PropouseTypeRequest $req)
     {
-        $dados = $req->all();
-        PropouseType::create($dados);
+        $data = $req->validated();
+        $data['user_id'] = Auth::user()->id;
+        PropouseType::create($data);
         toastr('Cadastrado!', 'success');
-        return redirect()->route('propouse.type.index');
+        return back();
     }
 
     public function edit($id)
     {
         $registro = PropouseType::find($id);
-        return view('propouse.type.edit', compact('registro'));
+        return view('configuration.tipospropositos.editar', compact('registro'));
     }
 
-    public function update(Request $req, $id)
+    public function update(PropouseTypeRequest $req, $id)
     {
-        $dados = $req->all();
-        PropouseType::find($id)->update($dados);
+        $data = $req->validated();
+        $data['user_id'] = Auth::user()->id;
+        PropouseType::find($id)->update($data);
         toastr('Atualizado!', 'success');
-        return redirect()->route('propouse.type.index');
+        return back();
     }
 
     public function destroy($id)
     {
         PropouseType::find($id)->delete();
         toastr('Excluído!', 'success');
-        return redirect()->route('propouse.type.index');
+        return back();
     }
 }

@@ -26,6 +26,6 @@ class ActivityType extends Model
 
     public function propouse()
     {
-        return $this->belongsTo(PropouseType::class);
+        return $this->belongsTo(PropouseType::class, 'propouse_type_id');
     }
 }

@@ -5,10 +5,10 @@
   <h3 class="center">Tipos de Atividades</h3>
   <div class="row">
     <div class="container">
-      <form class="" action="{{route('admin.configuracao.tiposatividades.salvar')}}" method="post"
+      <form class="" action="{{route('activity.type.store')}}" method="post"
         enctype="multipart/form-data">
         {{ csrf_field() }}
-        @include('admin.configuracao.tiposatividades._form')
+        @include('configuration.tiposatividades._form')
         <button class="btn orange darken-2">Salvar</button>
       </form>
     </div>

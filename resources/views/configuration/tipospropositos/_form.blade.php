@@ -1,9 +1,9 @@
 <div class="input-field">
-  <input type="text" name="proposito" value="{{ isset($registro->proposito) ? $registro->proposito : ''}}">
+  <input type="text" name="propouse" value="{{ isset($registro->propouse) ? $registro->propouse : ''}}" required autofocus>
   <label>Propósito (Letra)</label>
 </div>
 
 <div class="input-field">
-  <input type="text" name="descricao" value="{{ isset($registro->descricao) ? $registro->descricao : ''}}">
+  <input type="text" name="name" value="{{ isset($registro->name) ? $registro->name : ''}}">
   <label>Descrição</label>
 </div>

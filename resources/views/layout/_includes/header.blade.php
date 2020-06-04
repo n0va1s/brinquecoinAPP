@@ -44,6 +44,11 @@
                         @else
                         <li><a href="{{route('board.index')}}">Quadrinhos</a></li>
                         <li><a href="{{route('capsule.index')}}">Cápsula do tempo</a></li>
+                            @if(Auth::user()->isRole('Admin'))
+                            <li><a href="{{route('board.type.index')}}">Quadro</a></li>
+                            <li><a href="{{route('activity.type.index')}}">Atividade</a></li>
+                            <li><a href="{{route('propouse.type.index')}}">Propósito</a></li>
+                            @endif
                         @endif                        
                     </ul>
                     @if(!Auth::guest())
@@ -84,6 +89,11 @@
                     <i title="Mensagens pra vc" class="material-icons">notifications</i>
                 </a>
             </li>
+            @if(Auth::user()->isRole('Admin'))
+            <li><a href="{{route('board.type.index')}}">Quadro</a></li>
+            <li><a href="{{route('activity.type.index')}}">Atividade</a></li>
+            <li><a href="{{route('propouse.type.index')}}">Propósito</a></li>
+            @endif
             <li><a href="{{ route('logout') }}">Sair</a></li>
             @endif
         </ul>

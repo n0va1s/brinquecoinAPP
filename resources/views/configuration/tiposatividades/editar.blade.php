@@ -5,11 +5,11 @@
   <h3 class="center">Tipos de Atividades</h3>
   <div class="row">
     <div class="container">
-      <form class="" action="{{route('admin.configuracao.tiposatividades.atualizar',$registro->id)}}" method="post"
+      <form class="" action="{{route('activity.type.update',$data->id)}}" method="post"
         enctype="multipart/form-data">
         {{ csrf_field() }}
         <input type="hidden" name="_method" value="put">
-        @include('admin.configuracao.tiposatividades._form')
+        @include('configuration.tiposatividades._form')
         <button class="btn orange darken-2">Atualizar</button>
       </form>
     </div>

@@ -233,7 +233,7 @@ Route::middleware(['auth'])->group(
                 )->name('propouse.type.update');
                 Route::get(
                     '/tipospropositos/deletar/{id}',
-                    ['uses' => 'Admin\PropouseTypeController@delete']
+                    ['uses' => 'Admin\PropouseTypeController@destroy']
                 )->name('propouse.type.delete');
 
                 Route::get(
@@ -258,7 +258,7 @@ Route::middleware(['auth'])->group(
                 )->name('activity.type.update');
                 Route::get(
                     '/tiposatividades/deletar/{id}',
-                    ['uses' => 'Admin\ActivityTypeController@delete']
+                    ['uses' => 'Admin\ActivityTypeController@destroy']
                 )->name('activity.type.delete');
             }
         );

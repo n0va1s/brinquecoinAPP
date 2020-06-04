@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\ActivityTypeRequest;
 use App\Model\ActivityType;
 use App\Model\PropouseType;
+
+use Auth;
 
 class ActivityTypeController extends Controller
 {
@@ -21,42 +23,45 @@ class ActivityTypeController extends Controller
     
     public function index()
     {
-        $registros = ActivityType::all();
-        return view('board.type.index', compact('registros'));
+        $data = ActivityType::all();
+        return view('configuration.tiposatividades.index', compact('data'));
     }
 
     public function create()
     {
-        $tiposPropositos = PropouseType::all();
-        return view('board.type.create', compact('tiposPropositos'));
+        $types = PropouseType::all();
+        return view('configuration.tiposatividades.adicionar', compact('types'));
     }
 
-    public function store(Request $req)
+    public function store(ActivityTypeRequest $req)
     {
-        $dados = $req->all();
-        ActivityType::create($dados);
+        $data = $req->validated();
+        $data['user_id'] = Auth::user()->id;
+        ActivityType::create($data);
         toastr('Cadastrado!', 'success');
-        return redirect()->route('board.type.index');
+        return redirect()->route('activity.type.index');
     }
 
     public function edit($id)
     {
-        $registro = ActivityType::find($id);
-        return view('board.type.edit', compact('registro'));
+        $data = ActivityType::find($id);
+        $types = PropouseType::all();
+        return view('configuration.tiposatividades.editar', compact('data', 'types'));
     }
 
-    public function update(Request $req, $id)
+    public function update(ActivityTypeRequest $req, $id)
     {
-        $dados = $req->all();
-        ActivityType::find($id)->update($dados);
+        $data = $req->validated();
+        $data['user_id'] = Auth::user()->id;
+        ActivityType::find($id)->update($data);
         toastr('Atualizado!', 'success');
-        return redirect()->route('board.type.index');
+        return redirect()->route('activity.type.index');
     }
 
     public function destroy($id)
     {
         ActivityType::find($id)->delete();
         toastr('Excluído!', 'success');
-        return redirect()->route('board.type.index');
+        return redirect()->route('activity.type.index');
     }
 }

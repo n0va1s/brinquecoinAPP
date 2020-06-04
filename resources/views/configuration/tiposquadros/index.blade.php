@@ -18,14 +18,14 @@
                 <tbody>
                     @foreach($registros as $registro)
                     <tr>
-                        <td><img height="60" width="60" src="{{ asset($registro->imagem) }}"
-                                alt="{{ $registro->descricao }}" /></td>
-                        <td>{{ $registro->descricao }}</td>
+                        <td><img height="60" width="60" src="{{ asset($registro->image) }}"
+                                alt="{{ $registro->name }}" /></td>
+                        <td>{{ $registro->name }}</td>
                         <td>
                             <a class="btn red darken-2"
-                                href="{{ route('admin.configuracao.tiposquadros.editar',$registro->id) }}">Editar</a>
+                                href="{{ route('board.type.edit',$registro->id) }}">Editar</a>
                             <a class="btn cyan darken-2"
-                                href="{{ route('admin.configuracao.tiposquadros.deletar',$registro->id) }}">Deletar</a>
+                                href="{{ route('board.type.delete',$registro->id) }}">Deletar</a>
                         </td>
                     </tr>
                     @endforeach
@@ -33,7 +33,7 @@
             </table>
         </div>
         <div class="row">
-            <a class="btn orange darken-2" href="{{ route('admin.configuracao.tiposquadros.adicionar') }}">Adicionar</a>
+            <a class="btn orange darken-2" href="{{ route('board.type.create') }}">Adicionar</a>
         </div>
     </div>
 </div>

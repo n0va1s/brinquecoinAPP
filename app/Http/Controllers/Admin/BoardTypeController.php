@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\BoardTypeRequest;
 use App\Model\BoardType;
+
+use Auth;
 
 class BoardTypeController extends Controller
 {
@@ -21,26 +23,25 @@ class BoardTypeController extends Controller
     public function index()
     {
         $registros = BoardType::all();
-        return view('board.type.index', compact('registros'));
+        return view('configuration.tiposquadros.index', compact('registros'));
     }
 
     public function create()
     {
-        return view('board.type.create');
+        return view('configuration.tiposquadros.adicionar');
     }
 
-    public function store(Request $req)
+    public function store(BoardTypeRequest $req)
     {
-        $dados = $req->all();
-
-        if ($req->hasFile('imagem')) {
-            $imagem = $req->file('imagem');
+        $dados = $req->validated();
+        if ($req->hasFile('image')) {
+            $imagem = $req->file('image');
             $num = rand(1111, 9999);
             $dir = "img/tiposquadros/";
             $ex = $imagem->guessClientExtension();
             $nomeImagem = "imagem_" . $num . "." . $ex;
             $imagem->move($dir, $nomeImagem);
-            $dados['imagem'] = $dir . "/" . $nomeImagem;
+            $dados['image'] = $dir . "/" . $nomeImagem;
         }
 
         BoardType::create($dados);
@@ -51,21 +52,20 @@ class BoardTypeController extends Controller
     public function edit($id)
     {
         $registro = BoardType::find($id);
-        return view('board.type.edit', compact('registro'));
+        return view('configuration.tiposquadros.editar', compact('registro'));
     }
 
-    public function update(Request $req, $id)
+    public function update(BoardTypeRequest $req, $id)
     {
-        $dados = $req->all();
-
-        if ($req->hasFile('imagem')) {
-            $imagem = $req->file('imagem');
+        $dados = $req->validated();
+        if ($req->hasFile('image')) {
+            $imagem = $req->file('image');
             $num = rand(1111, 9999);
             $dir = "img/tiposquadros/";
             $ex = $imagem->guessClientExtension();
             $nomeImagem = "imagem_" . $num . "." . $ex;
             $imagem->move($dir, $nomeImagem);
-            $dados['imagem'] = $dir . "/" . $nomeImagem;
+            $dados['image'] = $dir . "/" . $nomeImagem;
         }
 
         BoardType::find($id)->update($dados);

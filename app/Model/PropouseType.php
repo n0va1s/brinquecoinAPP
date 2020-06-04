@@ -19,8 +19,8 @@ class PropouseType extends Model
         'id', 'created_at', 'update_at', 'delete_at'
     ];
 
-    public function activities()
+    public function types()
     {
-        return $this->hasMany(Activity::class);
+        return $this->hasMany(ActivityType::class, 'id');
     }
 }
