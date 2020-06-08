@@ -13,17 +13,15 @@ class Reminder extends Notification
 {
     use Queueable;
     protected $title;
-    protected $date;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(string $title, string $date)
+    public function __construct(string $title)
     {
         $this->title = $title;
-        $this->date = $date;
     }
 
     /**
@@ -47,7 +45,7 @@ class Reminder extends Notification
     {
         return [
             'title' => $this->title,
-            'date' => $this->date,
+            'date' => now(),
         ];
     }
 }

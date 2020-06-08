@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Mail;
 
 use App\Http\Controllers\Controller;
 
-use App\Mail\NewBoardMailable;
+use App\Notifications\NewBoard;
 
 use App\Model\Board;
 use App\Model\Person;
@@ -84,13 +84,14 @@ class HabitController extends Controller
         }
 
         // Send board link
-        Mail::to(Auth::user()->email)->send(
-            new NewBoardMailable(
+        $req->user()->notify(
+            new NewBoard(
                 route('board.show', $data['code']),
                 'hábito',
-                $data['name']
+                Auth::user()->name
             )
         );
+
         toastr('Email enviado com os dados do seu quadro', 'info');
         return redirect()->route('board.habit.edit', $data['code']);
     }
@@ -160,7 +161,6 @@ class HabitController extends Controller
      */
     public function destroy($code)
     {
-        
         $deleted =  Board::where('code', '=', $code)->firstOrFail()->delete();
         if ($deleted === 0) {
             toastr('Quadro não encontrado. Favor verificar', 'error');

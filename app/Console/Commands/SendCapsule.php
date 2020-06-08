@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 use App\Model\Capsule;
-use App\Mail\OpenCapsuleMailable;
+use App\Notifications\OpenCapsule;
 
 class SendCapsule extends Command
 {
@@ -45,24 +45,20 @@ class SendCapsule extends Command
         $this->info('## BEGIN - '.now().' ##');
         $today = (now())->format('Y-m-d');
         $this->info('## DATE - '.$today.' ##');
-        $data = DB::table('capsules')
-        ->select(
-            'capsules.*'
-        )
-            ->where('remember_at', '<=', $today)
-            ->where('status', '=', 'N')
-            ->whereNull('deleted_at')
-            ->get();
+        $data = Capsule::all()
+            ->where('remember_at', '<=', now())
+            ->where('status', 'N');
         $this->info('## COUNT - '.$data->count().' ##');
         foreach ($data as $line) {
-            Mail::to($line->email)->send(
-                new OpenCapsuleMailable(
+            $line->user->notify(
+                new OpenCapsule(
                     $line->created_at,
                     $line->from,
                     $line->to,
                     $line->message
                 )
             );
+
             Capsule::where('id', $line->id)->update(
                 [
                     'status' => 'R',

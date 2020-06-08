@@ -49,4 +49,14 @@ class User extends Authenticatable implements MustVerifyEmail
         }
         return false;
     }
+
+    public function boards()
+    {
+        return $this->hasMany(Board::class);
+    }
+
+    public function capsules()
+    {
+        return $this->hasMany(Capsule::class, 'user_id');
+    }
 }

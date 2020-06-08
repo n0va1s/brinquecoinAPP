@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Mail;
 
 use App\Http\Controllers\Controller;
 
-use App\Mail\NewBoardMailable;
-
 use App\Model\ActivityType;
 use App\Model\Activity;
 use App\Model\Board;
@@ -316,10 +314,6 @@ class BoardController extends Controller
                 ]
             );
         }
-
-        /*
-        Mail::to('newuser@example.com')->send(new NewBoardMailable());
-        */
 
         $notification = array(
             'message' => 'Quadro duplicado!',

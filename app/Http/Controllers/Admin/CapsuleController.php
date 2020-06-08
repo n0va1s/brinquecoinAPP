@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 
 use App\Http\Controllers\Controller;
-use App\Mail\NewCapsuleMailable;
+use App\Notifications\NewCapsule;
 use App\Model\Capsule;
 
 use Auth;
@@ -53,12 +53,11 @@ class CapsuleController extends Controller
         $data['user_id'] = Auth::user()->id;
         $data['code'] = Str::uuid()->toString();
         
-        Mail::to(Auth::user()->email)->send(
-            new NewCapsuleMailable(Auth::user()->name)
-        );
+        $req->user()->notify(new NewCapsule(Auth::user()->name));
 
         Capsule::create($data);
         toastr('Cápsula lacrada!', 'success');
+        toastr('Mandamos um email pra vc saber que deu tudo certo :)', 'info');
         return redirect()->route('capsule.index');
     }
 

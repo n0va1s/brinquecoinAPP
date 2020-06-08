@@ -22,7 +22,7 @@ class SendReminder extends Command
      *
      * @var string
      */
-    protected $description = 'Send a daily reminder to user use the board with your sons';
+    protected $description = 'Send a daily reminder to responsible use the board with your sons';
 
     /**
      * Create a new command instance.
