@@ -47,10 +47,10 @@ class SendReminder extends Command
         $data = Board::all();
         $this->info('## COUNT - '.$data->count().' ##');
         foreach ($data as $board) {
-            $title = 'Hora do quadrinho de '.$board->type->name.' de '.$board->person->name;
             $board->user->notify(
-                new Reminder($title, (now())->format('Y-m-d'))
+                new Reminder($board)
             );
+            sleep(10);
         }
         $this->info('## REMINDER SENT ##');
         $this->info('## END - '.now().' ##');
