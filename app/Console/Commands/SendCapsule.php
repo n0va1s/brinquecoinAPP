@@ -49,8 +49,9 @@ class SendCapsule extends Command
         $data = DB::table('capsules')
             ->join('users', 'capsules.user_id', '=', 'users.id')
             ->select('capsules.*')
-            ->whereDate('capsules.remember_at', '<=', $today)
             ->where('status', 'N')
+            ->whereDate('capsules.remember_at', '<=', $today)
+            ->whereNull('capsules.deleted_at')
             ->get();
         $this->info('## COUNT - '.$data->count().' ##');
         foreach ($data as $line) {
@@ -66,7 +67,7 @@ class SendCapsule extends Command
             Capsule::where('id', $line->id)->update(
                 [
                     'status' => 'R',
-                    'deleted_at'=> now()
+                    'deleted_at'=> now(),
                 ]
             );
             sleep(rand(1, 10));
