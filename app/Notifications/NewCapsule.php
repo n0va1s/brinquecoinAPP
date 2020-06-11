@@ -43,7 +43,7 @@ class NewCapsule extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->from(getenv('MAIL_FROM_ADDRESS'), getenv('MAIL_FROM_NAME'))
+            ->from('contato@brinquecoin.com', 'Brinque Coin')
             ->subject('Sua cápsula do tempo foi criada')
             ->markdown(
                 'mail.newCapsule',

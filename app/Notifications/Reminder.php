@@ -44,7 +44,7 @@ class Reminder extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->from(getenv('MAIL_FROM_ADDRESS'), getenv('MAIL_FROM_NAME'))
+            ->from('contato@brinquecoin.com', 'Brinque Coin')
             ->subject(
                 'Hora do quadrinho de '.$this->board->type->name.
                 ' de '.$this->board->person->name

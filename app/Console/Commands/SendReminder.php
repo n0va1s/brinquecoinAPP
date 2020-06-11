@@ -50,7 +50,7 @@ class SendReminder extends Command
             $board->user->notify(
                 new Reminder($board)
             );
-            sleep(10);
+            sleep(rand(1, 10));
         }
         $this->info('## REMINDER SENT ##');
         $this->info('## END - '.now().' ##');

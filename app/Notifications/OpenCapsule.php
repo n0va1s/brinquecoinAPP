@@ -52,7 +52,7 @@ class OpenCapsule extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->from(getenv('MAIL_FROM_ADDRESS'), getenv('MAIL_FROM_NAME'))
+            ->from('contato@brinquecoin.com', 'Brinque Coin')
             ->subject('Chegou o dia de abrir sua cápsula do tempo')
             ->markdown(
                 'mail.openCapsule',
