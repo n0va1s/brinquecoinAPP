@@ -54,17 +54,17 @@ class SendCapsule extends Command
             ->whereNull('capsules.deleted_at')
             ->get();
         $this->info('## COUNT - '.$data->count().' ##');
-        foreach ($data as $line) {
-            $user = User::find($line->user_id);
-            $user->notify(
+        foreach ($data as $capsule) {
+            $capsule = Capsule::find($capsule->id);
+            $capsule->notify(
                 new OpenCapsule(
-                    $line->created_at,
-                    $line->from,
-                    $line->to,
-                    $line->message
+                    $capsule->created_at,
+                    $capsule->from,
+                    $capsule->to,
+                    $capsule->message
                 )
             );
-            Capsule::where('id', $line->id)->update(
+            Capsule::where('id', $capsule->id)->update(
                 [
                     'status' => 'R',
                     'deleted_at'=> now(),

@@ -10,10 +10,10 @@ use Illuminate\Notifications\Notification;
 class OpenCapsule extends Notification
 {
     use Queueable;
-    protected $dtCreatedAt;
-    protected $nmSender;
-    protected $nmRecipient;
-    protected $txMessage;
+    protected $createdAt;
+    protected $fromName;
+    protected $toName;
+    protected $message;
     
     /**
      * Create a new notification instance.
@@ -21,15 +21,15 @@ class OpenCapsule extends Notification
      * @return void
      */
     public function __construct(
-        String $dtCreatedAt,
-        String $nmSender,
-        String $nmRecipient,
-        String $txMessage
+        String $createdAt,
+        String $fromName,
+        String $toName,
+        String $description
     ) {
-        $this->dtCreatedAt = $dtCreatedAt;
-        $this->nmSender = $nmSender;
-        $this->nmRecipient = $nmRecipient;
-        $this->txMessage = $txMessage;
+        $this->createdAt = $createdAt;
+        $this->fromName = $fromName;
+        $this->toName = $toName;
+        $this->description = $description;
     }
 
     /**
@@ -57,11 +57,11 @@ class OpenCapsule extends Notification
             ->markdown(
                 'mail.openCapsule',
                 [
-                    'dtCreatedAt' => $this->dtCreatedAt,
-                    'nmSender' => $this->nmSender,
-                    'nmRecipient' => $this->nmRecipient,
-                    'txMessage' => $this->txMessage,
-                    'imLogo' => 'https://app.brinquecoin.com/img/brinquecoin.png',
+                    'createdAt'     => $this->createdAt,
+                    'fromName'      => $this->fromName,
+                    'toName'        => $this->toName,
+                    'description'   => $this->description,
+                    'image'         => 'https://app.brinquecoin.com/img/brinquecoin.png',
                 ]
             );
     }

@@ -1,11 +1,11 @@
 @component('mail::message')
-<img width="100em" height="100em" src="{{ $imLogo }}">
+<img width="100em" height="100em" src="{{ $image }}">
 <br />
-Olá {{ $nmRecipient }},<br />
-Em {{ date('d/m/Y', strtotime($dtCreatedAt)) }}, {{ $nmSender }} criou essa cápsula do tempo para vc abrir hoje. <br />
+Olá {{ $toName }},<br />
+Em {{ date('d/m/Y', strtotime($createdAt)) }}, {{ $fromName }} criou essa cápsula do tempo para vc abrir hoje. <br />
 
 Esta foi a menssagem:<br />
-{{ $txMessage }}<br />
+{{ $description }}<br />
 
 Que os sonhos e objetivos desta menssagem lhe tragam muitas alegrias!<br />
 <b>Time {{ config('app.name') }}</b>
