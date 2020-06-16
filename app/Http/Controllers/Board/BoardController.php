@@ -315,28 +315,19 @@ class BoardController extends Controller
             );
         }
 
-        $notification = array(
-            'message' => 'Quadro duplicado!',
-            'alert-type' => 'success'
-        );
-        return back()->with($notification);
+        toastr('Quadro duplicado!', 'success');
+        return back();
     }
 
     public function close($code)
     {
         if ($code) {
             Board::where('boards.code', $code)->delete();
-            $notification = array(
-                'message' => 'Quadro encerrado!',
-                'alert-type' => 'success'
-            );
+            toastr('Quadro encerrado!', 'success');
         } else {
-            $notification = array(
-                'message' => 'Código do quadro não identificado!',
-                'alert-type' => 'error'
-            );
+            toastr('Código do quadro não identificado!', 'error');
         }
-        return back()->with($notification);
+        return back();
     }
 
     /**
@@ -348,8 +339,10 @@ class BoardController extends Controller
     public function storeActivity(Request $req)
     {
         $data = $req->validate(
-            ['activity_type_id' => 'required',
-            'value' => 'required']
+            [
+                'activity_type_id' => 'required',
+                'value' => 'required',
+            ]
         );
         //Generate activity unique id
         $data['code'] = Str::uuid()->toString();
@@ -361,11 +354,8 @@ class BoardController extends Controller
         )->firstOrFail()->id;
 
         Activity::create($data);
-        $notification = array(
-            'message' => 'Atividade criada!',
-            'alert-type' => 'success'
-        );
-        return back()->with($notification);
+        toastr('Atividade incluída no quadro!', 'success');
+        return back();
     }
 
     /**
@@ -377,11 +367,8 @@ class BoardController extends Controller
     public function destroyActivity($id)
     {
         Activity::find($id)->delete();
-        $notification = array(
-            'message' => 'Atividade excluída!',
-            'alert-type' => 'success'
-        );
-        return back()->with($notification);
+        toastr('Atividade removida do quadro!', 'success');
+        return back();
     }
 
     /**
@@ -393,17 +380,15 @@ class BoardController extends Controller
     public function storeActivityType(Request $req)
     {
         $data = $req->validate(
-            ['propouse_type_id' => 'required',
-            'name' => 'required']
+            [
+                'propouse_type_id' => 'required',
+                'name' => 'required',
+            ]
         );
         $data['user_id'] = Auth::user()->id;
-
         ActivityType::create($data);
-        $notification = array(
-            'message' => 'Atividade criada!',
-            'alert-type' => 'success'
-        );
-        return back()->with($notification);
+        toastr('Atividade personalizada criada!', 'success');
+        return back();
     }
 
     /**
@@ -415,11 +400,8 @@ class BoardController extends Controller
     public function destroyActivityType($id)
     {
         $activity_type = ActivityType::find($id)->delete();
-        $notification = array(
-            'message' => 'Atividade excluída!',
-            'alert-type' => 'success'
-        );
-        return back()->with($notification);
+        toastr('Atividade personalizada excluída!', 'success');
+        return back();
     }
 
     /**

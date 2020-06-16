@@ -43,7 +43,7 @@ if ('serviceWorker' in navigator) {
     $(document).ready(function(){
     $('.sidenav').sidenav();
     $(".dropdown-trigger").dropdown(
-        { hover: true, constrainWidth: false }
+        { constrainWidth: false }
     );
     $('select').formSelect();
     $('.modal').modal();
