@@ -26,11 +26,11 @@ class HomeController extends Controller
     {
         $result['board'] = DB::table('boards')->count();
         $result['parent'] = DB::table('users')->count();
-        $result['age'] = DB::table('people')
-            ->select(DB::raw('age as value, count(*) as qtd'))
-            ->groupBy('age')
-            ->orderBy('qtd', 'desc')
-            ->first();
+        $result['age'] = DB::table('boards')
+            ->join('people', 'people.board_id', '=', 'boards.id')
+            ->join('board_types', 'board_types.id', '=', 'boards.board_type_id')
+            ->whereIn('board_types.type', ['T','M'])
+            ->avg('age');
         $result['type'] = DB::table('boards')
             ->join(
                 'board_types',
@@ -49,7 +49,7 @@ class HomeController extends Controller
         if (!$result['age']) {
             $result['age'] = 0;
         } else {
-            $result['age'] = $result['age']->value;
+            $result['age'] = round($result['age']);
         }
         if (!$result['type']) {
             $result['type'] = "A definir";

@@ -77,7 +77,7 @@ class TaskController extends Controller
         );
         
         toastr('Email enviado com os dados do seu quadro', 'info');
-        return redirect()->route('board.task.edit', $data['code']);
+        return redirect()->route('board.index');
     }
 
     /**
@@ -219,7 +219,7 @@ class TaskController extends Controller
         $board->save();
 
         toastr('Quadro atualizado!', 'success');
-        return back();
+        return redirect()->route('board.index');
     }
 
     /**

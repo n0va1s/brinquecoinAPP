@@ -78,7 +78,7 @@ class AllowanceController extends Controller
         );
         
         toastr('Email enviado com os dados do seu quadro', 'info');
-        return redirect()->route('board.allowance.edit', $data['code']);
+        return redirect()->route('board.index');
     }
 
     /**
@@ -214,7 +214,7 @@ class AllowanceController extends Controller
         $person->age = $data['age'];
         $board->person()->save($person);
         toastr('Quadro atualizado!', 'success');
-        return back();
+        return redirect()->route('board.index');
     }
 
     /**
