@@ -32,6 +32,7 @@ if ('serviceWorker' in navigator) {
 </script>
 
 <script src="/js/board.js"></script>
+<script src=" {{ asset('/js/app.js') }}"></script>
 
 <!-- PWA -->
 <script src="/js/install.js"></script>
