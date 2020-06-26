@@ -39,22 +39,6 @@ Route::get('logout', 'Auth\LoginController@logout');
 
 Route::middleware(['auth'])->group(
     function () {
-        Route::prefix('perfil')->group(
-            function () {
-                Route::get(
-                    '/editar',
-                    ['uses' => 'Admin\ProfileController@edit']
-                )->name('profile.edit');
-                Route::put(
-                    '/atualizar',
-                    ['uses' => 'Admin\ProfileController@update']
-                )->name('profile.update');
-                Route::get(
-                    '/deletar',
-                    ['uses' => 'Admin\ProfileController@destroy']
-                )->name('profile.destroy');
-            }
-        );
         Route::prefix('quadros')->group(
             function () {
                 Route::get(
@@ -260,6 +244,11 @@ Route::middleware(['auth'])->group(
                     '/tiposatividades/deletar/{id}',
                     ['uses' => 'Admin\ActivityTypeController@destroy']
                 )->name('activity.type.delete');
+
+                Route::get(
+                    '/tokens/fix',
+                    ['uses' => 'Api\ApiTokenController@fix']
+                )->name('api.token.fix');
             }
         );
     }

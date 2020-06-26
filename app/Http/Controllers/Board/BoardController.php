@@ -403,49 +403,4 @@ class BoardController extends Controller
         toastr('Atividade personalizada excluída!', 'success');
         return back();
     }
-
-    /**
-     * Store a mark of activity realization on board.
-     *
-     * @param  \Illuminate\Http\Request $req
-     * @return \Illuminate\Http\Response
-     */
-    public function markActivity(Request $req)
-    {
-        $code   = $req->input('board');
-        $id     = $req->input('activity');
-        $day    = $req->input('day');
-        $value  = $req->input('value');
-
-        $board = Board::where(
-            'code',
-            '=',
-            $code
-        )->firstOrFail();
-
-        if ($board) {
-            $boardId = Activity::find($id)->board_id;
-            if ($board->id === $boardId) {
-                Mark::updateOrCreate(
-                    ['activity_id'=>$id],
-                    [$day => $value]
-                );
-                $notification = [
-                    'success'=>'Data stored',
-                    'data'=>"activity: $id - day: $day - value: $value"
-                ];
-            } else {
-                $notification = [
-                    'error'=>'This activity dont belongs to this board',
-                    'activity'=>$id
-                ];
-            }
-        } else {
-            $notification = [
-                'error'=>'Board not found',
-                'board'=>$code
-            ];
-        }
-        return response()->json($notification);
-    }
 }

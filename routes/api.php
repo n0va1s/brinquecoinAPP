@@ -12,15 +12,14 @@ use Illuminate\Http\Response;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-use App\Model\Mark;
-
 Route::get(
     '/',
-    ['user' => 'Site\HomeController@api']
+    ['uses' => 'Site\HomeController@api']
 )->name('api.inicio');
 
-Route::post(
-    '/atividades/marcar/',
-    ['uses' => 'Board\BoardController@markActivity']
-)->name('api.activity.mark');
+Route::middleware('auth:api')
+    ->post(
+        '/atividades/marcar',
+        ['uses' => 'Api\MarkActivityController@mark']
+    )
+    ->name('api.activity.mark');

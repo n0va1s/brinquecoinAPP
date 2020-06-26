@@ -35,7 +35,8 @@ function postActivity(opts) {
     fetch('https://app.brinquecoin.com/api/atividades/marcar', {
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'X-XSRF-TOKEN': getCookie('XSRF-TOKEN')
         },
         method: 'post',
         body: JSON.stringify(opts)
@@ -46,4 +47,15 @@ function postActivity(opts) {
     }).catch(function (error) {
         console.log(error);
     });
+}
+
+/**
+ * Its very importante pick the cookie to 
+ * authenticate on API request
+ * @param {*} name 
+ */
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
 }
