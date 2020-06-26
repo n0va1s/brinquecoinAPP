@@ -31,12 +31,13 @@ $(document).ready(function () {
 });
 
 function postActivity(opts) {
-    ///console.log('Sending post: ' + JSON.stringify(opts));
+    //console.log('Sending post: ' + JSON.stringify(opts));
+    //console.log(getCookie('XSRF-TOKEN'));
+
     fetch('https://app.brinquecoin.com/api/atividades/marcar', {
         headers: {
-            'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'X-XSRF-TOKEN': getCookie('XSRF-TOKEN')
+            'Cookie': getCookie('XSRF-TOKEN')
         },
         method: 'post',
         body: JSON.stringify(opts)
