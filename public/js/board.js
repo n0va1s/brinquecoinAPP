@@ -16,11 +16,11 @@ $(document).ready(function () {
         value = n.toString();
         this.src = '/img/boards/' + emoji;
 
-        //Send post
         id = this.dataset.id;
         day = this.dataset.day;
         code = document.getElementById('code').value;
 
+        //Send post
         axios.post('/api/atividades/marcar', {
                 board: code,
                 activity: id,
