@@ -37,8 +37,7 @@ This rewrite to GET method
 */
 Route::get('logout', 'Auth\LoginController@logout');
 
-Route::middleware(['auth'])->group(
-    function () {
+Route::middleware(['auth'])->group(    function () {
         Route::prefix('quadros')->group(
             function () {
                 Route::get(
