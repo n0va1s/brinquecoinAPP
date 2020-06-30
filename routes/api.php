@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,14 +13,26 @@ use Illuminate\Http\Response;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get(
-    '/',
-    ['uses' => 'Site\HomeController@api']
-)->name('api.inicio');
+Route::middleware(['api'])->group(
+    function () {
+        Route::get(
+            '/status',
+            ['uses' => 'Api\StatusController@index']
+        );
 
-Route::middleware('auth:api')
-    ->post(
-        '/atividades/marcar',
-        ['uses' => 'Api\MarkActivityController@mark']
-    )
-    ->name('api.activity.mark');
+        Route::post(
+            '/atividades/marcar',
+            ['uses' => 'Api\MarkActivityController@mark']
+        );
+
+        Route::get(
+            '/tokens',
+            ['uses' => 'Api\ApiTokenController@update']
+        );
+
+        Route::get(
+            '/user/{token}',
+            ['uses' => 'Api\ApiTokenController@user']
+        );
+    }
+);

@@ -62,14 +62,4 @@ class HomeController extends Controller
 
         return view('home', compact('result'));
     }
-
-    public function api()
-    {
-        return response()->json(
-            [
-                'message' => 'Brinque Coin APIs',
-                'status' => 'Connected'
-            ]
-        );
-    }
 }
