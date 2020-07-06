@@ -12,19 +12,10 @@ use App\Http\Controllers\Controller;
 use App\Model\Board;
 use App\Model\Activity;
 use App\Model\Mark;
+use App\Model\User;
 
 class MarkActivityController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware(['auth','verified']);
-    }
-    
     /**
      * Store a mark of activity realization on board.
      *
@@ -33,17 +24,21 @@ class MarkActivityController extends Controller
      */
     public function mark(Request $req)
     {
+        $token = $req->header('api-token');
+        if (empty($token)) {
+            abort(403, 'Usuário não autenticado');
+        }
+        $user = User::where('api_token', $token)->get();
+        if (empty($user)) {
+            abort(404, 'Usuário não encontrado');
+        }
+        
         $code   = $req->input('board');
         $id     = $req->input('activity');
         $day    = $req->input('day');
         $value  = $req->input('value');
         
-        $board = Board::where(
-            'code',
-            '=',
-            $code
-        )->firstOrFail();
-
+        $board = Board::where('code', $code)->first();
         if ($board) {
             $boardId = Activity::find($id)->board_id;
             if ($board->id === $boardId) {

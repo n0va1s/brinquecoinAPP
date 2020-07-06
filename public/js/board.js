@@ -15,29 +15,19 @@ $(document).ready(function () {
         }
         value = n.toString();
         this.src = '/img/boards/' + emoji;
-        //token = sessionStorage.getItem("AUTH_TOKEN");
-
-        postData = JSON.stringify({
-            board: document.getElementById('code').value,
-            activity: this.dataset.id,
-            day: this.dataset.day,
-            value: value
-        })
-
-        config = {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Authorization': 'Bearer ' + $('meta[name="csrf-token"]').attr('content')
-            },
-            withCredentials: true
-        }
+        token = $('meta[name="api-token"]').attr('content')
 
         //Send post
-        axios.post('/api/atividades/marcar', {
-            postData,
-            config
+        axios.post('http://localhost:8000/api/atividades/marcar', {
+            data: {
+                board: document.getElementById('code').value,
+                activity: this.dataset.id,
+                day: this.dataset.day,
+                value: value
+            },
+            headers: {
+                'api-token': token,
+            }
         }).then(function (response) {
             return response.json();
         }).then(function (data) {

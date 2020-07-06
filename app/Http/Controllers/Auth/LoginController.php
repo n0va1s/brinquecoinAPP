@@ -72,6 +72,6 @@ class LoginController extends Controller
             toastr('Erro ao recuperar as credenciais da API', 'error');
             return redirect('/login');
         }
-        session([$cookie => $token]);
+        $request->session()->put($cookie, $token);
     }
 }
