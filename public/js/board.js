@@ -15,7 +15,7 @@ $(document).ready(function () {
         }
         value = n.toString();
         this.src = '/img/boards/' + emoji;
-        token = $('meta[name="api-token"]').attr('content')
+        token = $('meta[name="api_token"]').attr('content')
 
         //Send post
         axios.post('http://localhost:8000/api/atividades/marcar', {
@@ -26,7 +26,8 @@ $(document).ready(function () {
                 value: value
             },
             headers: {
-                'api-token': token,
+                'api_token': token,
+                'Content-Type': 'application/json'
             }
         }).then(function (response) {
             return response.json();

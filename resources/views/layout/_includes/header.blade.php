@@ -23,7 +23,7 @@
     <link rel="apple-touch-icon" href="/img/icons/app-icon-152-152.png">
     <meta name="theme-color" content="#ff5252" />
     @if(!Auth::guest())
-    <meta name="api-token" content="{{ Auth::user()->api_token }}">
+    <meta name="api_token" content="{{ Auth::user()->api_token }}">
     @endif
 
     <!--Let browser know website is optimized for mobile-->

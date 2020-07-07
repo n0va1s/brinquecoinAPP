@@ -3,16 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 use App\Http\Controllers\Controller;
 
 use App\Model\Board;
 use App\Model\Activity;
 use App\Model\Mark;
-use App\Model\User;
 
 class MarkActivityController extends Controller
 {
@@ -20,48 +17,34 @@ class MarkActivityController extends Controller
      * Store a mark of activity realization on board.
      *
      * @param  \Illuminate\Http\Request $req
-     * @return \Illuminate\Http\Response
      */
     public function mark(Request $req)
     {
-        $token = $req->header('api-token');
-        if (empty($token)) {
-            abort(403, 'Usuário não autenticado');
+        $data = Validator::make(
+            $req->all(),
+            [
+            'board'     => ['required', 'string'],
+            'activity'  => ['required', 'string'],
+            'day'       => ['required', 'string'],
+            'value'     => ['required', 'string'],
+            ]
+        );
+        if (!isset($data)) {
+            abort(503, 'Data not foud');
         }
-        $user = User::where('api_token', $token)->get();
-        if (empty($user)) {
-            abort(404, 'Usuário não encontrado');
-        }
-        
-        $code   = $req->input('board');
-        $id     = $req->input('activity');
-        $day    = $req->input('day');
-        $value  = $req->input('value');
-        
-        $board = Board::where('code', $code)->first();
+        $board = Board::where('code', $data->board)->first();
         if ($board) {
-            $boardId = Activity::find($id)->board_id;
+            $boardId = Activity::find($data->id)->board_id;
             if ($board->id === $boardId) {
-                Mark::updateOrCreate(
-                    ['activity_id'=>$id],
-                    [$day => $value]
+                return Mark::updateOrCreate(
+                    ['activity_id'=>$data->id],
+                    [$data->day => $data->value]
                 );
-                $notification = [
-                    'success'=>'Data stored',
-                    'data'=>"activity: $id - day: $day - value: $value"
-                ];
             } else {
-                $notification = [
-                    'error'=>'This activity dont belongs to this board',
-                    'activity'=>$id
-                ];
+                abort(404, 'This activity dont belongs to this board');
             }
         } else {
-            $notification = [
-                'error'=>'Board not found',
-                'board'=>$code
-            ];
+            abort(404, 'Board not found');
         }
-        return response()->json($notification);
     }
 }

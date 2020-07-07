@@ -12,14 +12,10 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
 Route::get(
     '/status',
-    ['uses' => 'Api\StatusController@index']
-);
-
-Route::post(
-    '/atividades/marcar',
-    ['uses' => 'Api\MarkActivityController@mark']
+    ['uses' => 'Api\ApiTokenController@index']
 );
 
 Route::get(
@@ -32,9 +28,7 @@ Route::get(
     ['uses' => 'Api\ApiTokenController@user']
 );
 
-Route::middleware('auth:api')->get(
-    '/test',
-    function (Request $request) {
-        return $request->user();
-    }
+Route::post(
+    '/atividades/marcar',
+    ['uses' => 'Api\MarkActivityController@mark']
 );

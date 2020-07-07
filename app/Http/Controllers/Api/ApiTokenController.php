@@ -11,6 +11,16 @@ use App\Model\User;
 
 class ApiTokenController extends Controller
 {
+    public function index()
+    {
+        return response()->json(['message' => 'Brinque Coin APIs']);
+    }
+
+    /**
+     * Generate and update token for all users
+     *
+     * @return array
+     */
     public function update()
     {
         foreach (User::all() as $user) {
@@ -25,17 +35,20 @@ class ApiTokenController extends Controller
         return response()->json(['message' => 'Tokens atualizados']);
     }
 
+    /**
+     * Return a user by token
+     *
+     * @param  Illuminate\Http\Request  $request
+     * @return user
+     */
     public function user(Request $request)
     {
-        $token = $request->header('api-token');
-        dd($token);
-        if (empty($token)) {
-            abort(403, 'Não autenticado');
-        }
+        $token = $request->header('api_token');
         $user = User::where('api_token', $token)->get();
         if (empty($user)) {
             abort(404, 'Não encontrado');
         }
+
         return response()->json(['user' => $user]);
     }
 }

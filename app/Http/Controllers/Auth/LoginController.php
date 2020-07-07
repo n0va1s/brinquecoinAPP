@@ -67,11 +67,5 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         $token = $this->getToken($user);
-        $cookie = getenv('SESSION_COOKIE_NAME');
-        if (empty($token) || empty($cookie)) {
-            toastr('Erro ao recuperar as credenciais da API', 'error');
-            return redirect('/login');
-        }
-        $request->session()->put($cookie, $token);
     }
 }
