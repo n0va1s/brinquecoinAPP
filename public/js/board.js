@@ -15,22 +15,15 @@ $(document).ready(function () {
         }
         value = n.toString();
         this.src = '/img/boards/' + emoji;
-        token = $('meta[name="api_token"]').attr('content')
-
         //Send post
         axios.post('http://localhost:8000/api/atividades/marcar', {
-            data: {
-                board: document.getElementById('code').value,
-                activity: this.dataset.id,
-                day: this.dataset.day,
-                value: value
-            },
-            headers: {
-                'api_token': token,
-                'Content-Type': 'application/json'
-            }
+            board: document.getElementById('code').value,
+            activity: this.dataset.id,
+            day: this.dataset.day,
+            value: value,
+            withcredentials: true
         }).then(function (response) {
-            return response.json();
+            console.log(JSON.stringify(response.data));
         }).then(function (data) {
             console.log(data);
         }).catch(function (error) {

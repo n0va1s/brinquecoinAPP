@@ -16,12 +16,13 @@ class MarkActivityController extends Controller
     /**
      * Store a mark of activity realization on board.
      *
-     * @param  \Illuminate\Http\Request $req
+     * @param  \Illuminate\Http\Request $request
      */
-    public function mark(Request $req)
+    public function mark(Request $request)
     {
-        $data = Validator::make(
-            $req->all(),
+        $data = $request->all();
+        $validated = Validator::make(
+            $data,
             [
             'board'     => ['required', 'string'],
             'activity'  => ['required', 'string'],
@@ -29,17 +30,17 @@ class MarkActivityController extends Controller
             'value'     => ['required', 'string'],
             ]
         );
-        if (!isset($data)) {
-            abort(503, 'Data not foud');
+        if ($validated->fails()) {
+            return $validated->errors();
         }
-        $board = Board::where('code', $data->board)->first();
+        $board = Board::where('code', $data['board'])->first();
         if ($board) {
-            $boardId = Activity::find($data->id)->board_id;
+            $boardId = Activity::find($data['activity'])->board_id;
             if ($board->id === $boardId) {
-                return Mark::updateOrCreate(
-                    ['activity_id'=>$data->id],
-                    [$data->day => $data->value]
-                );
+            return Mark::updateOrCreate(
+                ['activity_id'=>$data['activity']],
+                [$data['day'] => $data['value']]
+            );
             } else {
                 abort(404, 'This activity dont belongs to this board');
             }
