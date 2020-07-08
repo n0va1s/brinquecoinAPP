@@ -16,7 +16,7 @@ $(document).ready(function () {
         value = n.toString();
         this.src = '/img/boards/' + emoji;
         //Send post
-        axios.post('http://localhost:8000/api/atividades/marcar', {
+        axios.post('https://app.brinquecoin.com/api/atividades/marcar', {
             board: document.getElementById('code').value,
             activity: this.dataset.id,
             day: this.dataset.day,
@@ -24,8 +24,6 @@ $(document).ready(function () {
             withcredentials: true
         }).then(function (response) {
             console.log(JSON.stringify(response.data));
-        }).then(function (data) {
-            console.log(data);
         }).catch(function (error) {
             console.log(error);
         });
