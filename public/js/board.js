@@ -1,7 +1,7 @@
 $(document).ready(function () {
+    // Click on emoji
     $('img.emoji').click(function (event) {
         event.preventDefault();
-
         //Change emojis
         img = this.src.split('/')[5];
         emojis = ['0.png', '1.png', '2.png'];
@@ -13,8 +13,8 @@ $(document).ready(function () {
             emoji = emojis[0];
             n = 0;
         }
-        value = n.toString();
         this.src = '/img/boards/' + emoji;
+        value = n.toString();
         //Send post
         axios.post('https://app.brinquecoin.com/api/atividades/marcar', {
             board: document.getElementById('code').value,
