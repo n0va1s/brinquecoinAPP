@@ -46,16 +46,16 @@ class Reminder extends Notification
         return (new MailMessage)
             ->from('contato@brinquecoin.com', 'Brinque Coin')
             ->subject(
-                'Hora do quadrinho de '.$this->board->type->name.
-                ' de '.$this->board->person->name
+                'Como foi quadrinho de '.$this->board->type->name.
+                ' de '.$this->board->person->name. ' essa semana'
             )
             ->markdown(
                 'mail.reminder',
                 [
                     'name'  => $this->board->user->name,
                     'type'  => $this->board->type->name,
-                    'link'   => getenv('APP_URL').'/quadros/exibir/'.$this->board->code,
-                    'image' => 'https://app.brinquecoin.com/img/brinquecoin.png',
+                    'link'   => env('APP_URL', 'https://app.brinquecoin.com').'/quadros/exibir/'.$this->board->code,
+                    'image' => env('APP_URL', 'https://app.brinquecoin.com').'/img/brinquecoin.png',
                 ]
             );
     }

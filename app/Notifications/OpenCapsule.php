@@ -61,7 +61,7 @@ class OpenCapsule extends Notification
                     'fromName'      => $this->fromName,
                     'toName'        => $this->toName,
                     'description'   => $this->description,
-                    'image'         => 'https://app.brinquecoin.com/img/brinquecoin.png',
+                    'image'         => env('APP_URL', 'https://app.brinquecoin.com').'/img/brinquecoin.png',
                 ]
             );
     }

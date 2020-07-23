@@ -48,9 +48,9 @@ class NewCapsule extends Notification
             ->markdown(
                 'mail.newCapsule',
                 [
-                    'name' => $this->name,
-                    'url' => 'https://brinquecoin.com.br',
-                    'image' => 'https://app.brinquecoin.com/img/brinquecoin.png',
+                    'name'  => $this->name,
+                    'url'   => 'https://brinquecoin.com.br',
+                    'image' => env('APP_URL', 'https://app.brinquecoin.com').'/img/brinquecoin.png',
                 ]
             );
     }

@@ -52,10 +52,10 @@ class NewBoard extends Notification
             ->markdown(
                 'mail.newBoard',
                 [
-                    'name' => $this->person,
-                    'type' => $this->type,
-                    'link' => $this->link,
-                    'image' => 'https://app.brinquecoin.com/img/brinquecoin.png',
+                    'name'  => $this->person,
+                    'type'  => $this->type,
+                    'link'  => $this->link,
+                    'image' => env('APP_URL', 'https://app.brinquecoin.com').'/img/brinquecoin.png',
                 ]
             );
     }

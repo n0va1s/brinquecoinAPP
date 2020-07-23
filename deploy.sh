@@ -30,21 +30,12 @@ php artisan route:cache
 
 echo " Clear and cache config "
 php artisan config:clear
-php artisan config:cache
+# Como uso env() em alguns Command não posso fazer o cache da configuração
+# php artisan config:cache
 
 echo " Clear and cache views "
 php artisan view:clear
 php artisan view:cache
-
-# echo " Install node modules "
-# npm install
-
-# echo " Build assets using Laravel Mix "
-# npm run production
-# npm ci
-
-# echo " Generate SW "
-# npm run generateSW
 
 echo " Turn off maintenance mode "
 php artisan up
