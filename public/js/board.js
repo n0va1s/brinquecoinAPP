@@ -5,7 +5,7 @@ $(document).ready(function () {
         //Change emojis
         const img = this.src.split('/')[5];
         const emojis = ['0.png', '1.png', '2.png'];
-        const n = emojis.indexOf(img);
+        let n = emojis.indexOf(img);
         if ((n + 1) <= (emojis.length - 1)) {
             emoji = emojis[n + 1];
             n++;
