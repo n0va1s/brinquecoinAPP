@@ -5,25 +5,27 @@ window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     // Stash the event so it can be triggered later.
     deferredPrompt = e;
-});
 
-var btnAdd = document.getElementById('optInstall');
-// Installation must be done by a user gesture! Here, the button click
-btnAdd.addEventListener('click', (e) => {
-    // Show the prompt
-    deferredPrompt.prompt();
-    // Wait for the user to respond to the prompt
-    deferredPrompt.userChoice
-        .then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted') {
-                console.log('User accepted the A2HS prompt');
-            } else {
-                console.log('User dismissed the A2HS prompt');
-            }
-            deferredPrompt = null;
-        });
-    // hide our user interface that shows our A2HS button
-    btnAdd.style.display = 'none';
+    var btnAdd = document.getElementById('optInstall');
+    // Installation must be done by a user gesture! Here, the button click
+    btnAdd.addEventListener('click', (e) => {
+        // Show the prompt
+        deferredPrompt.prompt();
+        // Wait for the user to respond to the prompt
+        deferredPrompt.userChoice
+            .then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('Usuário instalou');
+                    // hide our user interface that shows our A2HS button
+                    btnAdd.style.display = 'none';
+                } else {
+                    console.log('Usuário cancelou a instalação');
+                    // show our user interface that shows our A2HS button
+                    btnAdd.style.display = 'show';
+                }
+                deferredPrompt = null;
+            });
+    });
 });
 
 window.addEventListener('appinstalled', (e) => {

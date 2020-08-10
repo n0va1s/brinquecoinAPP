@@ -37,7 +37,6 @@
                     <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul class="left hide-on-med-and-down">
                         <li><a href="{{route('site.home')}}">Início</a></li>
-                        <li><a id="optInstall">Instalar</a></li>
                         @if(Auth::guest())
                         <li><a href="{{route('login')}}">Login</a></li>
                         @else
@@ -51,14 +50,9 @@
                         @endif                        
                     </ul>
                     @if(!Auth::guest())
-                    <ul id="configuracoes" class="dropdown-content">
-                        <li>
-                            <a href="{{ route('logout') }}">Sair</a>
-                        </li>
-                    </ul>
                     <ul class="right hide-on-med-and-down">
                         <li>
-                            <a class="dropdown-trigger" href="{{route('board.index')}}" data-target="configuracoes">Olá,
+                            <a href="{{route('board.index')}}">Olá,
                                     {{ Auth::user()->name }}
                             </a>
                         </li>
@@ -71,6 +65,16 @@
                                 </i>
                             </a>
                         </li>
+                        <li>
+                            <a id="optInstall">
+                                <i title="Acesse mais fácil" class="material-icons">get_app</i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('logout') }}">
+                                <i title="Acesse mais fácil" class="material-icons">exit_to_app</i>
+                            </a>
+                        </li>
                     </ul>
                     @endif
                 </div>
@@ -78,14 +82,19 @@
         </div>
         <ul class="sidenav" id="mobile">
             <li><a href="{{route('site.home')}}">Início</a></li>
-            <li><a id="optInstall">Instalar</a></li>
             @if(Auth::guest())
             <li><a href="{{route('login')}}">Login</a></li>
             @else
             <li><a href="{{route('board.index')}}">Quadrinhos</a></li>
             <li><a href="{{route('capsule.index')}}">Cápsula do tempo</a></li>
-            <li><a href="{{route('notification.list')}}">
+            <li>
+                <a href="{{route('notification.list')}}">
                     <i title="Mensagens pra vc" class="material-icons">notifications</i>
+                </a>
+            </li>
+            <li>
+                <a id="optInstall">
+                    <i title="Acesse mais fácil" class="material-icons">get_app</i>
                 </a>
             </li>
             @if(Auth::user()->isRole('Admin'))
@@ -93,7 +102,11 @@
             <li><a href="{{route('activity.type.index')}}">Atividade</a></li>
             <li><a href="{{route('propouse.type.index')}}">Propósito</a></li>
             @endif
-            <li><a href="{{ route('logout') }}">Sair</a></li>
+            <li>
+                <a href="{{ route('logout') }}">
+                    <i title="Acesse mais fácil" class="material-icons">exit_to_app</i>
+                </a>
+            </li>
             @endif
         </ul>
     </header>

@@ -1,19 +1,15 @@
 $(document).ready(function () {
     // Click on emoji
     $('img.emoji').click(function (event) {
-        event.preventDefault();
+        event.preventDefault()
         //Change emojis
-        const img = this.src.split('/')[5];
-        const emojis = ['0.png', '1.png', '2.png'];
-        let n = emojis.indexOf(img);
-        if ((n + 1) <= (emojis.length - 1)) {
-            emoji = emojis[n + 1];
-            n++;
-        } else {
-            emoji = emojis[0];
-            n = 0;
+        const img = this.src.split('/')[5]
+        const emojis = ['0.png', '1.png', '2.png']
+        const emoji = (img, emojis) => {
+            return emojis.indexOf(img) + 1 < emojis.length ? emojis.indexOf(img) + 1 : 0
         }
-        this.src = '/img/boards/' + emoji;
+        const n = emoji(img, emojis)
+        this.src = '/img/boards/' + emojis[n];
         //Send post
         axios.post('https://app.brinquecoin.com/api/atividades/marcar', {
             board: document.getElementById('code').value,
