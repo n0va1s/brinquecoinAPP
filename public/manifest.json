@@ -1,8 +1,7 @@
 {
     "name": "Brinque Coin",
     "short_name": "Brinque Coin",
-    "icons": [
-        {
+    "icons": [{
             "src": "/img/icons/app-icon-48-48.png",
             "type": "image/png",
             "sizes": "48x48"
@@ -47,5 +46,9 @@
     "description": "Um aplicativo para ajudar pais e mães com a arte de educar filhos e filhas. São quadros de tarefas, mesada e hábito para transformá-los",
     "dir": "ltr",
     "lang": "pt-BR",
-    "prefer_related_applications": false
+    "prefer_related_applications": false,
+    "related_applications": [{
+        "platform": "webapp",
+        "url": "https://app.brinquecoin.com/manifest.json"
+    }]
 }
