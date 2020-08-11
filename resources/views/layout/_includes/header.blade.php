@@ -35,6 +35,9 @@
                     <a href="#!" class="brand-logo center"><img class="responsive-img" style="width: 80px;"
                             src="{{asset('img/brinquecoin.png')}}" alt="logo do Brinque Coin" /></a>
                     <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                    <a href="#" class="right" id="optInstall">
+                        <i title="Acesse mais fácil" class="material-icons">get_app</i>
+                    </a>
                     <ul class="left hide-on-med-and-down">
                         <li><a href="{{route('site.home')}}">Início</a></li>
                         @if(Auth::guest())
@@ -52,11 +55,6 @@
                     @if(!Auth::guest())
                     <ul class="right hide-on-med-and-down">
                         <li>
-                            <a href="{{route('board.index')}}">Olá,
-                                    {{ Auth::user()->name }}
-                            </a>
-                        </li>
-                        <li>
                             <a href="{{route('notification.list')}}">
                                 <i title="Mensagens pra vc" class="material-icons">notifications
                                 <span class="badge blue">
@@ -65,14 +63,10 @@
                                 </i>
                             </a>
                         </li>
-                        <li>
-                            <a id="optInstall">
-                                <i title="Acesse mais fácil" class="material-icons">get_app</i>
-                            </a>
-                        </li>
+                        <li><span class="right">Olá, {{ Auth::user()->name }}</span></li>
                         <li>
                             <a href="{{ route('logout') }}">
-                                <i title="Acesse mais fácil" class="material-icons">exit_to_app</i>
+                                <i title="Sair" class="material-icons">exit_to_app</i>
                             </a>
                         </li>
                     </ul>
@@ -92,11 +86,6 @@
                     <i title="Mensagens pra vc" class="material-icons">notifications</i>
                 </a>
             </li>
-            <li>
-                <a id="optInstall">
-                    <i title="Acesse mais fácil" class="material-icons">get_app</i>
-                </a>
-            </li>
             @if(Auth::user()->isRole('Admin'))
             <li><a href="{{route('board.type.index')}}">Quadro</a></li>
             <li><a href="{{route('activity.type.index')}}">Atividade</a></li>
@@ -104,11 +93,11 @@
             @endif
             <li>
                 <a href="{{ route('logout') }}">
-                    <i title="Acesse mais fácil" class="material-icons">exit_to_app</i>
+                    <i title="Sair" class="material-icons">exit_to_app</i>
                 </a>
             </li>
             @endif
-        </ul>
+            </ul>
     </header>
     <main>
         <style>
