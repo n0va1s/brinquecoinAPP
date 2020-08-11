@@ -1,11 +1,12 @@
 let deferredPrompt;
+const btnAdd;
 
 window.addEventListener('beforeinstallprompt', (e) => {
     // Prevent Chrome 67 and earlier from automatically showing the prompt
     e.preventDefault();
     // Stash the event so it can be triggered later.
     deferredPrompt = e;
-    const btnAdd = document.getElementById('optInstall');
+    btnAdd = document.getElementById('optInstall');
     if (btnAdd) {
         // Installation must be done by a user gesture! Here, the button click
         btnAdd.addEventListener('click', (e) => {
@@ -31,4 +32,6 @@ window.addEventListener('beforeinstallprompt', (e) => {
 
 window.addEventListener('appinstalled', (e) => {
     console.log('Brinque Coin instalado');
+    btnAdd = document.getElementById('optInstall');
+    btnAdd.style.visibility = 'hidden';
 });
