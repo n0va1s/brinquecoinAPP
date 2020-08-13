@@ -17,11 +17,11 @@ window.addEventListener('beforeinstallprompt', (e) => {
                     if (choiceResult.outcome === 'accepted') {
                         console.log('USER: confirmed');
                         // hide our user interface that shows our A2HS button
-                        btnAdd.style.visibility = 'hidden';
+                        btnAdd.style.display = 'none';
                     } else {
                         console.log('USER: cancelled');
                         // show our user interface that shows our A2HS button
-                        btnAdd.style.visibility = 'visible';
+                        btnAdd.style.display = 'block';
                     }
                     deferredPrompt = null;
                 });
@@ -31,7 +31,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
 
 window.addEventListener('appinstalled', (e) => {
     if (btnAdd) {
-        btnAdd.style.visibility = 'hidden';
+        btnAdd.style.display = 'none';
     }
     console.log('INSTALL: success');
 });
@@ -49,7 +49,7 @@ window.addEventListener('DOMContentLoaded', () => {
         pwa = true;
     }
     if (btnAdd && pwa) {
-        btnAdd.style.visibility = 'hidden';
+        btnAdd.style.display = 'none';
     }
     // Log launch display mode to analytics
     console.log('DISPLAY_MODE_LAUNCH:', displayMode);
