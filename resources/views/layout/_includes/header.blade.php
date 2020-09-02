@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <title>@yield('titulo', 'Brinque Coin - as moedas do sucesso')</title>
+    <title>@yield('titulo', 'Brinque Coin: Ajudando Famílias por Meio de Quadros de Incentivo')</title>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -16,12 +16,26 @@
 
     <!-- Manifest -->
     <link rel="manifest" href="/manifest.json">
+    <meta charset=”UTF-8″>
+    <meta http-equiv=”content-language” content=”{{ str_replace('_', '-', app()->getLocale()) }}” />
+    <meta name=”robots” content=”nofollow” />
+    <meta name="description" content="Acesse agora mesmo os quadros de incentivo (quadro de tarefas, quadro de mesada, quadro de hábito) , a cápsula do tempo e transforme a sua família para melhor">
+    <meta name="keywords" content="Quadros de Incentivo, Quadro de Tarefas, Quadro de Mesada, Super Nanny, Supernanny, Super Nanny Brasil,  Supernanny Brasil, Criar Filhos, Papai Pop, Como Educar seus Filhos" />
+    <meta name="author" content="João Paulo Novais" />
+    <meta name="creator" content="Isabela Patrocínio" />
+    <meta name="theme-color" content="#ff5252" />
+    <meta name=”application-name” content=”Brinque Coin”>
+    
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Brinque Coin">
-    <meta name="description" content="Um aplicativo para ajudar na criação dos filhos">
+    <meta name="apple-mobile-web-app-title" content="Brinque Coin: Ajudando Famílias por Meio de Quadros de Incentivo">
     <link rel="apple-touch-icon" href="/img/icons/app-icon-152-152.png">
-    <meta name="theme-color" content="#ff5252" />
+
+    <meta property=”og:locale” content=”{{ str_replace('_', '-', app()->getLocale()) }}” />
+    <meta property=”og:type” content=”website” />
+    <meta property=”og:title” content=”Brinque Coin: Ajudando Famílias por Meio de Quadros de Incentivo” />
+    <meta property=”og:description” content=”Acesse agora mesmo os quadros de incentivo (quadro de tarefas, quadro de mesada, quadro de hábito) , a cápsula do tempo e transforme a sua família para melhor”>
+    <meta property=”og:site_name” content=”Brinque Coin”>
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
