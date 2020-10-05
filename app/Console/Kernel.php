@@ -24,6 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        /*
         $schedule->command('board:reminder')
             // ->dailyAt('21:00')
             ->fridays()
@@ -41,6 +42,7 @@ class Kernel extends ConsoleKernel
             ->sendOutputTo(storage_path('logs/authClearResets.log'))
             ->emailOutputTo('contato@brinquecoin.com')
             ->withoutOverlapping(10);
+        */
     }
 
     /**
