@@ -24,10 +24,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        /*
         $schedule->command('board:reminder')
             // ->dailyAt('21:00')
-            ->fridays()
+            // ->fridays()
+            ->weekly()
             ->timezone('America/Sao_Paulo')
             ->sendOutputTo(storage_path('logs/boardReminder.log'))
             ->emailOutputTo('contato@brinquecoin.com');
@@ -38,11 +38,11 @@ class Kernel extends ConsoleKernel
             ->emailOutputTo('contato@brinquecoin.com');
 
         $schedule->command('auth:clear-resets')
-            ->daily()
+            // ->daily()
+            ->weekly()
             ->sendOutputTo(storage_path('logs/authClearResets.log'))
             ->emailOutputTo('contato@brinquecoin.com')
             ->withoutOverlapping(10);
-        */
     }
 
     /**
