@@ -7,6 +7,8 @@ use App\Http\Requests\ActivityTypeRequest;
 use App\Model\ActivityType;
 use App\Model\PropouseType;
 
+use Illuminate\Support\Facades\Log;
+
 use Auth;
 
 class ActivityTypeController extends Controller
@@ -29,6 +31,7 @@ class ActivityTypeController extends Controller
 
     public function create()
     {
+        Log::info('##BRINQUECOIN## [NOVO TIPO DE ATIVIDADE]');
         $types = PropouseType::all();
         return view('configuration.tiposatividades.adicionar', compact('types'));
     }
@@ -60,6 +63,7 @@ class ActivityTypeController extends Controller
 
     public function destroy($id)
     {
+        Log::info('##BRINQUECOIN## [EXCLUSAO DE TIPO DE ATIVIDADE]');
         ActivityType::find($id)->delete();
         toastr('Excluído!', 'success');
         return redirect()->route('activity.type.index');

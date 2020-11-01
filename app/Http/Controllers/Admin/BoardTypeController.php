@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\BoardTypeRequest;
 use App\Model\BoardType;
 
+use Illuminate\Support\Facades\Log;
+
 use Auth;
 
 class BoardTypeController extends Controller
@@ -33,6 +35,7 @@ class BoardTypeController extends Controller
 
     public function store(BoardTypeRequest $req)
     {
+        Log::info('##BRINQUECOIN## [NOVO TIPO DE QUADRO]');
         $dados = $req->validated();
         if ($req->hasFile('image')) {
             $imagem = $req->file('image');
@@ -75,6 +78,7 @@ class BoardTypeController extends Controller
 
     public function destroy($id)
     {
+        Log::info('##BRINQUECOIN## [EXCLUSAO DE TIPO DE QUADRO]');
         BoardType::find($id)->delete();
         toastr('Excluído!', 'success');
         return redirect()->route('board.type.index');

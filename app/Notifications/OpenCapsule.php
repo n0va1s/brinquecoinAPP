@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Log;
 
 class OpenCapsule extends Notification
 {
@@ -51,6 +52,8 @@ class OpenCapsule extends Notification
      */
     public function toMail($notifiable)
     {
+        Log::info('##BRINQUECOIN## [CAPSULA ENVIADA]');
+
         return (new MailMessage)
             ->from('contato@brinquecoin.com', 'Brinque Coin')
             ->subject('Chegou o dia de abrir sua cápsula do tempo')

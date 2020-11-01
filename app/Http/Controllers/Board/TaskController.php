@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 use App\Http\Controllers\Controller;
 
@@ -46,6 +47,7 @@ class TaskController extends Controller
      */
     public function store(Request $req)
     {
+        Log::info('##BRINQUECOIN## [QUADRO DE TAREFA CRIADO]');
         $data = $req->validate(
             [
                 'board_type_id' => 'required',

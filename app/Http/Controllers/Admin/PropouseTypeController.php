@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PropouseTypeRequest;
 use App\Model\PropouseType;
 
+use Illuminate\Support\Facades\Log;
+
 use Auth;
 
 class PropouseTypeController extends Controller
@@ -33,6 +35,7 @@ class PropouseTypeController extends Controller
 
     public function store(PropouseTypeRequest $req)
     {
+        Log::info('##BRINQUECOIN## [NOVO TIPO DE PROPOSITO]');
         $data = $req->validated();
         $data['user_id'] = Auth::user()->id;
         PropouseType::create($data);
@@ -57,6 +60,7 @@ class PropouseTypeController extends Controller
 
     public function destroy($id)
     {
+        Log::info('##BRINQUECOIN## [EXCLUSAO DE TIPO DE PROPOSITO]');
         PropouseType::find($id)->delete();
         toastr('Excluído!', 'success');
         return back();

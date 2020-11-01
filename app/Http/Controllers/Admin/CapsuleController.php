@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 use App\Http\Controllers\Controller;
 use App\Notifications\NewCapsule;
@@ -37,6 +38,7 @@ class CapsuleController extends Controller
 
     public function store(Request $req)
     {
+        Log::info('##BRINQUECOIN## [CAPSULA CRIADA]');
         $data = $req->validate(
             [
             'from' => 'required|max:200',
@@ -63,6 +65,7 @@ class CapsuleController extends Controller
 
     public function destroy($code)
     {
+        Log::info('##BRINQUECOIN## [CAPSULA CANCELADA]');
         Capsule::where('code', '=', $code)->delete();
         toastr('Cápsula cancelada!', 'success');
         return redirect()->route('capsule.index');

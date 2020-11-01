@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Log;
 
 use App\Model\Board;
 
@@ -43,6 +44,8 @@ class Reminder extends Notification
      */
     public function toMail($notifiable)
     {
+        Log::info('##BRINQUECOIN## [LEMBRETES ENVIADOS]');
+
         return (new MailMessage)
             ->from('contato@brinquecoin.com', 'Brinque Coin')
             ->subject(

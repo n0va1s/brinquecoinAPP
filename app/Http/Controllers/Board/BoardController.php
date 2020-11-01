@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 use App\Http\Controllers\Controller;
 
@@ -59,6 +60,8 @@ class BoardController extends Controller
      */
     public function show($code)
     {
+        Log::info('##BRINQUECOIN## [QUADRO SENDO USADO]');
+
         $board = DB::table('boards')
             ->join(
                 'people',
@@ -259,6 +262,8 @@ class BoardController extends Controller
 
     public function copy($code)
     {
+        Log::info('##BRINQUECOIN## [QUADRO DUPLICADO]');
+
         $board = DB::table('boards')
             ->join(
                 'people',
@@ -321,6 +326,7 @@ class BoardController extends Controller
 
     public function close($code)
     {
+        Log::info('##BRINQUECOIN## [QUADRO ENCERRADO]');
         if ($code) {
             Board::where('boards.code', $code)->delete();
             toastr('Quadro encerrado!', 'success');
