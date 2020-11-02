@@ -55,14 +55,14 @@
                     <ul class="left hide-on-med-and-down">
                         <li><a href="{{route('site.home')}}">Início</a></li>
                         @if(Auth::guest())
-                        <li><a href="{{route('login')}}">Login</a></li>
+                        <li><a href="{{route('login')}}">Entrar (Login)</a></li>
                         @else
-                        <li><a href="{{route('board.index')}}">Quadrinhos</a></li>
-                        <li><a href="{{route('capsule.index')}}">Cápsula do tempo</a></li>
+                        <li><a href="{{route('board.index')}}">Meus Quadrinhos</a></li>
+                        <li><a href="{{route('capsule.index')}}">Minhas Cápsula do Tempo</a></li>
                             @if(Auth::user()->isRole('Admin'))
-                            <li><a href="{{route('board.type.index')}}">Quadro</a></li>
-                            <li><a href="{{route('activity.type.index')}}">Atividade</a></li>
-                            <li><a href="{{route('propouse.type.index')}}">Propósito</a></li>
+                            <li><a href="{{route('board.type.index')}}">Tipo de Quadro</a></li>
+                            <li><a href="{{route('activity.type.index')}}">Tipo de Atividade</a></li>
+                            <li><a href="{{route('propouse.type.index')}}">Tipo de Propósito</a></li>
                             @endif
                         @endif                        
                     </ul>
@@ -87,9 +87,9 @@
                         </li>
                         <!-- Dropdown Structure -->
                         <ul id='opcoes' class='dropdown-content'>
-                            <li><a href="{{ route('user.confirm') }}">Cancelar</a></li>
+                            <li><a href="{{ route('user.confirm') }}">Cancelar seu Cadastro</a></li>
                             <li class="divider" tabindex="-1"></li>
-                            <li><a href="{{ route('logout') }}">Sair</a></li>
+                            <li><a href="{{ route('logout') }}">Sair (Logout)</a></li>
                         </ul>
                     </ul>
                     @endif
@@ -99,25 +99,20 @@
         <ul class="sidenav" id="mobile">
             <li><a href="{{route('site.home')}}">Início</a></li>
             @if(Auth::guest())
-            <li><a href="{{route('login')}}">Login</a></li>
+            <li><a href="{{route('login')}}">Entrar (Login)</a></li>
             @else
-            <li><a href="{{route('board.index')}}">Quadrinhos</a></li>
-            <li><a href="{{route('capsule.index')}}">Cápsula do tempo</a></li>
-            <li>
-                <a href="{{route('notification.list')}}">
-                    <i title="Mensagens pra vc" class="material-icons">notifications</i>
-                </a>
-            </li>
+            <li><a href="{{route('board.index')}}">Meus Quadrinhos</a></li>
+            <li><a href="{{route('capsule.index')}}">Minhas Cápsulas do Tempo</a></li>
+            
             @if(Auth::user()->isRole('Admin'))
-            <li><a href="{{route('board.type.index')}}">Quadro</a></li>
-            <li><a href="{{route('activity.type.index')}}">Atividade</a></li>
-            <li><a href="{{route('propouse.type.index')}}">Propósito</a></li>
+            <li><a href="{{route('board.type.index')}}">Tipo de Quadro</a></li>
+            <li><a href="{{route('activity.type.index')}}">Tipo de Atividade</a></li>
+            <li><a href="{{route('propouse.type.index')}}">Tipo de Propósito</a></li>
             @endif
-            <li>
-                <a href="{{ route('logout') }}">
-                    <i title="Sair" class="material-icons">exit_to_app</i>
-                </a>
-            </li>
+            <li class="divider" tabindex="-1"></li>
+            <li><a href="{{route('notification.list')}}">Mensagens pra Vc</a></li>
+            <li><a href="{{ route('user.confirm') }}">Cancelar seu Cadastro</a></li>
+            <li><a href="{{ route('logout') }}">Sair (Logout)</a></li>
             @endif
             </ul>
     </header>
