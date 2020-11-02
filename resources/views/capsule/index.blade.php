@@ -16,10 +16,16 @@
     </div>
     <div class="row">
         @forelse ($registros as $registro)
+        @php
+            $numberOfImage = rand(1,10);
+            $image = "img/moments/$numberOfImage.svg"
+        @endphp
         <div class="col s12 m4">
             <div class="card">
                 <div class="card-image">
-                    <img src="{{ asset('img/capsula.jpg') }}" alt="Imagem ilustrativa da capsula do tempo">
+                    <img src="{{ asset($image) }}" 
+                        alt="Imagem ilustrativa da capsula do tempo"
+                        height="150rem">
                 </div>
                 <div class="card-content">
                     <p>De: {{$registro->from}}</p>
@@ -38,7 +44,7 @@
         </div>
         @empty
         <div class="col s12 center">
-            <img src="{{ asset('img/capsula.jpg') }}" alt="Imagem ilustrativa da capsula do tempo">
+            <img src="{{ asset('img/moments/1.svg') }}" alt="Imagem ilustrativa da capsula do tempo">
             <h5>Nenhuma cápsula por aqui...</h5>
         </div>
         @endforelse

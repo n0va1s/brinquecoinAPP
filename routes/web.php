@@ -39,6 +39,19 @@ Route::get('logout', 'Auth\LoginController@logout');
 
 Route::middleware(['auth'])->group(
     function () {
+        Route::prefix('user')->group(
+            function () {
+                Route::get(
+                    '/confirm',
+                    ['uses' => 'Auth\CancelController@index']
+                )->name('user.confirm');
+                Route::get(
+                    '/cancel',
+                    ['uses' => 'Auth\CancelController@cancel']
+                )->name('user.cancel');
+            }
+        );
+
         Route::prefix('quadros')->group(
             function () {
                 Route::get(

@@ -77,12 +77,20 @@
                                 </i>
                             </a>
                         </li>
-                        <li><span class="right">Olá, {{ Auth::user()->name }}</span></li>
+                        <!-- Dropdown Trigger -->
                         <li>
-                            <a href="{{ route('logout') }}">
-                                <i title="Sair" class="material-icons">exit_to_app</i>
-                            </a>
+                            <span class="right">
+                                <a class='dropdown-trigger' href='#' data-target='opcoes'>
+                                    Olá, {{ Auth::user()->name }}
+                                </a>
+                            </span>                            
                         </li>
+                        <!-- Dropdown Structure -->
+                        <ul id='opcoes' class='dropdown-content'>
+                            <li><a href="{{ route('user.confirm') }}">Cancelar</a></li>
+                            <li class="divider" tabindex="-1"></li>
+                            <li><a href="{{ route('logout') }}">Sair</a></li>
+                        </ul>
                     </ul>
                     @endif
                 </div>
