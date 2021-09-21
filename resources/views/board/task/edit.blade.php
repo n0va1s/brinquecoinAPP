@@ -18,7 +18,7 @@
             </div>
             <div class="row">
                 <form action="{{route('board.task.update',$board->code)}}" method="post">
-                    {{ csrf_field() }}
+                    @csrf
                     <input type="hidden" name="_method" value="put">
                     @include('board._includes._formPerson')
                     <div class="input-field col s12 m12">
@@ -41,7 +41,7 @@
             </div>
             <div class="row">
                 <form action="{{route('board.activity.save')}}" method="post">
-                    {{ csrf_field() }}
+                    @csrf
                     @include('board._includes._formActivity')
                     <input type="hidden" name="code" value={{ $board->code }}>
                     <div class="row">
@@ -58,7 +58,7 @@
                     <h5>Cadastre novas atividades para o quadro</h5>
                 </div>
                 <form action="{{route('board.activity.type.save')}}" method="post">
-                    {{ csrf_field() }}
+                    @csrf
                     @include('board._includes._formNewActivity')
                     <input type="hidden" name="code" value={{ $board->code }}>
                     <div class="row">

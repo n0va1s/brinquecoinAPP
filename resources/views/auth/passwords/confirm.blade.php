@@ -8,7 +8,7 @@
         <div class="col l4 offset-l4">
             <h3>{{ __('Confirme a Senha') }}</h3>
             <form method="POST" action="{{ route('password.confirm') }}">
-                {{ csrf_field() }}
+                @csrf
                 <div class='row'>
                     <div class='input-field col s12'>
                         <input type='password' name='password' id='password' required autocomplete="current-password" />

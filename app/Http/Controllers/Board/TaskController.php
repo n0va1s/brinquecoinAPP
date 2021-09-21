@@ -16,36 +16,18 @@ use App\Model\Board;
 use App\Model\Person;
 
 use Auth;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\View\View;
 
 class TaskController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware(['auth','verified']);
-    }
-    
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create() : View
     {
         return view('board.task.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $req)
+    public function store(Request $req) : RedirectResponse
     {
         Log::info('##BRINQUECOIN## [QUADRO DE TAREFA CRIADO]');
         $data = $req->validate(
@@ -82,13 +64,7 @@ class TaskController extends Controller
         return redirect()->route('board.index');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  string  $code
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($code)
+    public function edit(int $code) : View
     {
         if (!isset($code)) {
             toastr('O código do quadro é obrigatório. Favor verificar', 'error');
@@ -188,14 +164,7 @@ class TaskController extends Controller
         );
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string  $code
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $req, $code)
+    public function update(Request $req, string $code) : RedirectResponse
     {
         $data = $req->validate(
             [
@@ -224,13 +193,10 @@ class TaskController extends Controller
         return redirect()->route('board.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  string  $code
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($code)
+    /*
+    * @return void
+    */
+    public function destroy(string $code) : RedirectResponse
     {
         $deleted = Board::where('code', '=', $code)->firstOrFail()->delete();
         if ($deleted === 0) {

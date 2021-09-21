@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Log;
-
-use App\Http\Controllers\Controller;
+use App\Http\Requests\CapsuleRequest;
 use App\Notifications\NewCapsule;
 use App\Model\Capsule;
 
-use Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
-class CapsuleController extends Controller
+class CapsuleController extends CrudController
 {
     /**
      * Create a new controller instance.
@@ -23,51 +22,30 @@ class CapsuleController extends Controller
     public function __construct()
     {
         $this->middleware(['auth','verified']);
-    }
-    
-    public function index()
-    {
-        $registros = Capsule::Paginate(3);
-        return view('capsule.index', compact('registros'));
-    }
-
-    public function create()
-    {
-        return view('capsule.create');
+        $this->className = Capsule::class;
+        $this->viewName = 'capsule.';
+        $this->routeIndex = 'capsule.index';
+        $this->validatorName = CapsuleRequest::class;
+        $this->listGrid = DB::table('capsules')
+            ->select(
+                'capsules.*'
+            )->get();
+        $this->paginateGrid = 3;
     }
 
     public function store(Request $req)
     {
-        Log::info('##BRINQUECOIN## [CAPSULA CRIADA]');
-        $data = $req->validate(
-            [
-            'from' => 'required|max:200',
-            'to' => 'required|max:200',
-            'email' => 'required|email',
-            'remember_at' => 'required|date',
-            'message' => 'required',
-            ]
-        );
-        if (!$data) {
-            return back()->withInput();
-        }
-
+        $data = $req->except('_token');
+        $this->validate($req, (new CapsuleRequest)->rules());
         $data['user_id'] = Auth::user()->id;
         $data['code'] = Str::uuid()->toString();
-        
+            
         $req->user()->notify(new NewCapsule(Auth::user()->name));
-
+        
         Capsule::create($data);
         toastr('Cápsula lacrada!', 'success');
         toastr('Mandamos um email pra vc saber que deu tudo certo :)', 'info');
-        return redirect()->route('capsule.index');
-    }
-
-    public function destroy($code)
-    {
-        Log::info('##BRINQUECOIN## [CAPSULA CANCELADA]');
-        Capsule::where('code', '=', $code)->delete();
-        toastr('Cápsula cancelada!', 'success');
+        Log::info('##BRINQUECOIN## [CAPSULA CRIADA]');
         return redirect()->route('capsule.index');
     }
 }

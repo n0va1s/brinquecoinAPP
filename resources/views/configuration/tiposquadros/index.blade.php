@@ -6,6 +6,9 @@
 <div class="container">
     <h3 class="center">Tipos de Quadros</h3>
     <div class="container">
+        <div class="row right">
+            <a class="btn orange darken-2" href="{{ route('board.type.create') }}">Adicionar</a>
+        </div>
         <div class="row">
             <table>
                 <thead>
@@ -16,24 +19,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($registros as $registro)
+                    @foreach($data as $line)
                     <tr>
-                        <td><img height="60" width="60" src="{{ asset($registro->image) }}"
-                                alt="{{ $registro->name }}" /></td>
-                        <td>{{ $registro->name }}</td>
+                        <td><img height="60" width="60" src="{{ asset($line->image) }}"
+                                alt="{{ $line->name }}" /></td>
+                        <td>{{ $line->name }}</td>
                         <td>
-                            <a class="btn red darken-2"
-                                href="{{ route('board.type.edit',$registro->id) }}">Editar</a>
                             <a class="btn cyan darken-2"
-                                href="{{ route('board.type.delete',$registro->id) }}">Deletar</a>
+                                href="{{ route('board.type.edit',$line->id) }}">Editar</a>
+                            <a class="btn red darken-2"
+                                href="{{ route('board.type.delete',$line->id) }}">Deletar</a>
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
-        </div>
-        <div class="row">
-            <a class="btn orange darken-2" href="{{ route('board.type.create') }}">Adicionar</a>
         </div>
     </div>
 </div>

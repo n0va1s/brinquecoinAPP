@@ -16,7 +16,7 @@
             </div>
             <div class="row">
                 <form action="{{route('board.task.save')}}" method="post">
-                    {{ csrf_field() }}
+                    @csrf
                     @include('board._includes._formPerson')
                     <div class="input-field col s12 m12">
                         <label>Recompensa</label>

@@ -7,7 +7,7 @@
     <div class="container">
       <form class="" action="{{route('board.type.store')}}" method="post"
         enctype="multipart/form-data">
-        {{ csrf_field() }}
+        @csrf
         @include('configuration.tiposquadros._form')
         <button class="btn orange darken-2">Salvar</button>
       </form>

@@ -17,35 +17,16 @@ use App\Model\Person;
 use App\Model\Activity;
 
 use Auth;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class HabitController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware(['auth','verified']);
-    }
-    
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('board.habit.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $req)
     {
         Log::info('##BRINQUECOIN## [QUADRO DE HABITO CRIADO]');
@@ -72,7 +53,10 @@ class HabitController extends Controller
 
         // 3 weeks to develop a habit
         $activityHabit = DB::table('propouse_types')
-            ->join('activity_types', 'activity_types.propouse_type_id', '=', 'propouse_types.id')
+            ->join(
+                'activity_types', 
+                'activity_types.propouse_type_id', '=', 'propouse_types.id'
+            )
             ->select('activity_types.id')
             ->where('propouse_types.propouse', '=', 'H')
             ->get();
@@ -98,13 +82,7 @@ class HabitController extends Controller
         return redirect()->route('board.index');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  string  $code
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($code)
+    public function edit(string $code) : View
     {
         if (!isset($code)) {
             toastr('O código do quadro é obrigatório. Favor verificar', 'error');
@@ -120,14 +98,10 @@ class HabitController extends Controller
         return view('board.habit.edit', compact('board'));
     }
 
-    /**
-         * Update the specified resource in storage.
-         *
-         * @param  \Illuminate\Http\Request  $request
-         * @param  string  $code
-         * @return \Illuminate\Http\Response
-         */
-    public function update(Request $req, $code)
+    /*
+    * Return  RedirectResponse
+    */
+    public function update(Request $req, string $code)
     {
         $data = $req->validate(
             [
@@ -155,13 +129,7 @@ class HabitController extends Controller
         return redirect()->route('board.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  string  $code
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($code)
+    public function destroy(string $code)
     {
         $deleted =  Board::where('code', '=', $code)->firstOrFail()->delete();
         if ($deleted === 0) {

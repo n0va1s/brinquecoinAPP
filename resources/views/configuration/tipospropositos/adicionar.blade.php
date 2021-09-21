@@ -5,9 +5,9 @@
   <h3 class="center">Tipos de Propósitos</h3>
   <div class="row">
     <div class="container">
-      <form class="" action="{{route('propouse.type.save')}}" method="post"
+      <form class="" action="{{route('propouse.type.store')}}" method="post"
         enctype="multipart/form-data">
-        {{ csrf_field() }}
+        @csrf
         @include('configuration.tipospropositos._form')
         <button class="btn orange darken-2">Salvar</button>
       </form>

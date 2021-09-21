@@ -9,7 +9,7 @@
             <h3>{{ __('Nova senha') }}</h3>
 
             <form method="POST" action="{{ route('password.email') }}">
-                {{ csrf_field() }}
+                @csrf
                 <div class='row'>
                     <div class='input-field col s12'>
                         <input type='email' name='email' id='email' value="{{ old('email') }}" required

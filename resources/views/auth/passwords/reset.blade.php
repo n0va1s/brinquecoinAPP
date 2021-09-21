@@ -15,7 +15,7 @@
             @endif
 
             <form method="POST" action="{{ route('password.update') }}">
-                {{ csrf_field() }}
+                @csrf
                 <input type="hidden" name="token" value="{{ $token }}">
                 <div class='row'>
                     <div class='input-field col s12'>

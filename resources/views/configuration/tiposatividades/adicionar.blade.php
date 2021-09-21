@@ -7,7 +7,7 @@
     <div class="container">
       <form class="" action="{{route('activity.type.store')}}" method="post"
         enctype="multipart/form-data">
-        {{ csrf_field() }}
+        @csrf
         @include('configuration.tiposatividades._form')
         <button class="btn orange darken-2">Salvar</button>
       </form>

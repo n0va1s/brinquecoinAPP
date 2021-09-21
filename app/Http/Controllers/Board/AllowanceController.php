@@ -18,6 +18,8 @@ use App\Model\BoardType;
 use App\Model\PropouseType;
 
 use Auth;
+use Illuminate\Support\Facades\View as FacadesView;
+use Illuminate\View\View;
 
 class AllowanceController extends Controller
 {
@@ -32,9 +34,9 @@ class AllowanceController extends Controller
     }
     
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Show view to create a resource
+     * 
+     * @return View
      */
     public function create()
     {
@@ -44,8 +46,9 @@ class AllowanceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $req 
+     * 
+     * @return \Illuminate\Http\RedirectResponse 
      */
     public function store(Request $req)
     {
@@ -84,12 +87,13 @@ class AllowanceController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Find data and show page to user edit
      *
-     * @param  string  $code
-     * @return \Illuminate\Http\Response
+     * @param string $code
+     * 
+     * @return View
      */
-    public function edit($code)
+    public function edit(string $code)
     {
         if (!isset($code)) {
             toastr('O código do quadro é obrigatório. Favor verificar', 'error');
@@ -189,14 +193,7 @@ class AllowanceController extends Controller
         );
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string  $code
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $req, $code)
+    public function update(Request $req, string $code)
     {
         $data = $req->validate(
             [
@@ -219,12 +216,6 @@ class AllowanceController extends Controller
         return redirect()->route('board.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  string  $code
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($code)
     {
         $deleted = Board::where('code', '=', $code)->firstOrFail()->delete();

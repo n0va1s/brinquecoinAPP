@@ -16,7 +16,7 @@
             </div>
             <div class="row">
                 <form action="{{route('board.allowance.save')}}" method="post">
-                    {{ csrf_field() }}
+                    @csrf
                     @include('board._includes._formPerson')
                     <!-- Tipo de Quadro -->
                     <input type="hidden" name="board_type_id" value="3">

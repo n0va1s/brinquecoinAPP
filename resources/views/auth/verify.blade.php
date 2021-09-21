@@ -18,7 +18,7 @@
 
             {{ __('Se vc não recebeu o email:') }}
             <form class="input-field inline" method="POST" action="{{ route('verification.resend') }}">
-                {{ csrf_field() }}
+                @csrf
                 <button type="submit"
                     class="col s12 btn btn-large deep-orange">{{ __('Clique aqui para reenviar') }}</button>
             </form>

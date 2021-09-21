@@ -1,0 +1,9 @@
+APP_NAME=Laravel
+APP_ENV=local
+APP_KEY=base64:F+LjP3+rp0Nm024Xorm2BffdjtSzp3VzDE2iG0e6GeA=
+APP_DEBUG=true
+APP_URL=http://localhost
+
+LOG_CHANNEL=stack
+
+DB_CONNECTION=sqlite

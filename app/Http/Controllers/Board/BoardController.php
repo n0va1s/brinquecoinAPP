@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Board;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 
 use App\Http\Controllers\Controller;
@@ -14,27 +13,13 @@ use App\Model\ActivityType;
 use App\Model\Activity;
 use App\Model\Board;
 use App\Model\Person;
-use App\Model\Mark;
 
 use Auth;
+use Illuminate\Support\Facades\View as FacadesView;
+use Illuminate\View\View;
 
 class BoardController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware(['auth','verified']);
-    }
-    
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $boards = DB::table('boards')
@@ -52,12 +37,6 @@ class BoardController extends Controller
         return view('board.index', compact('boards'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  string  $code
-     * @return \Illuminate\Http\Response
-     */
     public function show($code)
     {
         Log::info('##BRINQUECOIN## [QUADRO SENDO USADO]');
@@ -136,14 +115,6 @@ class BoardController extends Controller
         return view('board.show', compact('boardVO'));
     }
 
-    /**
-     * Mount a value object to prepare data to view
-     *
-     * @param  string $code
-     * @param  object $board
-     * @param  list   $activities
-     * @return array  $board
-     */
     protected function getVO($code, $board, $activities)
     {
         $boardVO = array();
@@ -324,7 +295,7 @@ class BoardController extends Controller
         return back();
     }
 
-    public function close($code)
+    public function close(string $code)
     {
         Log::info('##BRINQUECOIN## [QUADRO ENCERRADO]');
         if ($code) {
@@ -336,12 +307,6 @@ class BoardController extends Controller
         return back();
     }
 
-    /**
-     * Store a newly created activity in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function storeActivity(Request $req)
     {
         $data = $req->validate(
@@ -364,25 +329,13 @@ class BoardController extends Controller
         return back();
     }
 
-    /**
-     * Remove the specified activity from storage.
-     *
-     * @param  string  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroyActivity($id)
+    public function destroyActivity(int $id)
     {
         Activity::find($id)->delete();
         toastr('Atividade removida do quadro!', 'success');
         return back();
     }
 
-    /**
-     * Store a newly created activity type in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function storeActivityType(Request $req)
     {
         $data = $req->validate(
@@ -397,12 +350,6 @@ class BoardController extends Controller
         return back();
     }
 
-    /**
-     * Remove the specified activity type from storage.
-     *
-     * @param  string  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroyActivityType($id)
     {
         $activity_type = ActivityType::find($id)->delete();

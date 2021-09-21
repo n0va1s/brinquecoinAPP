@@ -11,30 +11,13 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', ['uses' => 'Site\HomeController@index'])->name('site.home');
 Route::get('/send', ['uses' => 'Site\HomeController@send'])->name('site.mail');
 
-/*
-get('login', 'Auth\LoginController@showLoginForm')->name('login');
-post('login', 'Auth\LoginController@login');
-post('logout', 'Auth\LoginController@logout')->name('logout');
-get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-post('register', 'Auth\RegisterController@register');
-get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
-post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
-get('password/confirm', 'Auth\ConfirmPasswordController@showConfirmForm')->name('password.confirm');
-post('password/confirm', 'Auth\ConfirmPasswordController@confirm');
-get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
-get('email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
-post('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
-*/
 Auth::routes(['verify' => true]);
-/*
-By default logout its a POST method
-This rewrite to GET method
-*/
 Route::get('logout', 'Auth\LoginController@logout');
 
 Route::middleware(['auth'])->group(

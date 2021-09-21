@@ -5,12 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PropouseTypeRequest;
 use App\Model\PropouseType;
+use Illuminate\Support\Facades\DB;
 
-use Illuminate\Support\Facades\Log;
-
-use Auth;
-
-class PropouseTypeController extends Controller
+class PropouseTypeController extends CrudController
 {
     /**
      * Create a new controller instance.
@@ -20,49 +17,13 @@ class PropouseTypeController extends Controller
     public function __construct()
     {
         $this->middleware(['auth','verified']);
-    }
-    
-    public function index()
-    {
-        $registros = PropouseType::all();
-        return view('configuration.tipospropositos.index', compact('registros'));
-    }
-
-    public function create()
-    {
-        return view('configuration.tipospropositos.adicionar');
-    }
-
-    public function store(PropouseTypeRequest $req)
-    {
-        Log::info('##BRINQUECOIN## [NOVO TIPO DE PROPOSITO]');
-        $data = $req->validated();
-        $data['user_id'] = Auth::user()->id;
-        PropouseType::create($data);
-        toastr('Cadastrado!', 'success');
-        return back();
-    }
-
-    public function edit($id)
-    {
-        $registro = PropouseType::find($id);
-        return view('configuration.tipospropositos.editar', compact('registro'));
-    }
-
-    public function update(PropouseTypeRequest $req, $id)
-    {
-        $data = $req->validated();
-        $data['user_id'] = Auth::user()->id;
-        PropouseType::find($id)->update($data);
-        toastr('Atualizado!', 'success');
-        return back();
-    }
-
-    public function destroy($id)
-    {
-        Log::info('##BRINQUECOIN## [EXCLUSAO DE TIPO DE PROPOSITO]');
-        PropouseType::find($id)->delete();
-        toastr('Excluído!', 'success');
-        return back();
+        $this->className = PropouseType::class;
+        $this->viewName = 'configuration.tipospropositos';
+        $this->routeIndex = 'propouse.type.index';
+        $this->validatorName = PropouseTypeRequest::class;
+        $this->listGrid = DB::table('propouse_types')
+            ->select(
+                'propouse_types.*'
+            )->get();
     }
 }

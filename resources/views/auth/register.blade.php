@@ -8,7 +8,7 @@
         <div class="col l4 offset-l4">
             <h3>{{ __('Cadastre-se') }}</h3>
             <form method="POST" action="{{ route('register') }}">
-                {{ csrf_field() }}
+                @csrf
                 <div class='row'>
                     <div class='input-field col s12'>
                         <input class='validate' type='text' name='name' id='name' value="{{ old('name') }}" required

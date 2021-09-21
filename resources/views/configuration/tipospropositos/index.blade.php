@@ -6,6 +6,10 @@
 <div class="container">
     <h3 class="center">Tipos de Propósitos</h3>
     <div class="container">
+    <div class="row right">
+            <a class="btn orange darken-2"
+                href="{{ route('propouse.type.create') }}">Adicionar</a>
+        </div>
         <div class="row">
             <table>
                 <thead>
@@ -15,24 +19,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($registros as $registro)
+                    @foreach($data as $line)
                     <tr>
-                        <td>{{ $registro->propouse }}</td>
-                        <td>{{ $registro->name }}</td>
+                        <td>{{ $line->propouse }}</td>
+                        <td>{{ $line->name }}</td>
                         <td>
-                            <a class="btn red darken-2"
-                                href="{{ route('propouse.type.edit',$registro->id) }}">Editar</a>
                             <a class="btn cyan darken-2"
-                                href="{{ route('propouse.type.delete',$registro->id) }}">Deletar</a>
+                                href="{{ route('propouse.type.edit',$line->id) }}">Editar</a>
+                            <a class="btn red darken-2"
+                                href="{{ route('propouse.type.delete',$line->id) }}">Deletar</a>
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
-        </div>
-        <div class="row">
-            <a class="btn orange darken-2"
-                href="{{ route('propouse.type.create') }}">Adicionar</a>
         </div>
     </div>
 </div>

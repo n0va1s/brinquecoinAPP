@@ -10,7 +10,7 @@
             </div>
             <div class="row">
                 <form action="{{route('board.habit.update',$board->code)}}" method="post">
-                    {{ csrf_field() }}
+                    @csrf
                     <input type="hidden" name="_method" value="put">
                     @include('board._includes._formPerson')
                     <div class="input-field col s12 m12">

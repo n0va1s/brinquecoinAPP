@@ -44,6 +44,11 @@
 <body>
     <header class="header">
         <div class=" navbar-fixed">
+            <ul id="admin" class="dropdown-content">
+                <li><a href="{{route('board.type.index')}}">Tipo de Quadro</a></li>
+                <li><a href="{{route('activity.type.index')}}">Tipo de Atividade</a></li>
+                <li><a href="{{route('propouse.type.index')}}">Tipo de Propósito</a></li>
+            </ul>
             <nav>
                 <div class="nav-wrapper red accent-2">
                     <a href="#!" class="brand-logo center"><img class="responsive-img" style="width: 80px;"
@@ -54,19 +59,22 @@
                     </a>
                     <ul class="left hide-on-med-and-down">
                         <li><a href="{{route('site.home')}}">Início</a></li>
-                        @if(Auth::guest())
+                        @guest
                         <li><a href="{{route('login')}}">Entrar (Login)</a></li>
-                        @else
+                        @endguest
+                        @auth
                         <li><a href="{{route('board.index')}}">Meus Quadrinhos</a></li>
                         <li><a href="{{route('capsule.index')}}">Minhas Cápsula do Tempo</a></li>
                             @if(Auth::user()->isRole('Admin'))
-                            <li><a href="{{route('board.type.index')}}">Tipo de Quadro</a></li>
-                            <li><a href="{{route('activity.type.index')}}">Tipo de Atividade</a></li>
-                            <li><a href="{{route('propouse.type.index')}}">Tipo de Propósito</a></li>
+                            <li>
+                                <a class="dropdown-trigger" href="#!" data-target="admin">Configuração
+                                    <i class="material-icons right">arrow_drop_down</i>
+                                </a>
+                            </li>
                             @endif
-                        @endif                        
+                        @endauth                        
                     </ul>
-                    @if(!Auth::guest())
+                    @auth
                     <ul class="right hide-on-med-and-down">
                         <li>
                             <a href="{{route('notification.list')}}">
@@ -92,15 +100,16 @@
                             <li><a href="{{ route('logout') }}">Sair (Logout)</a></li>
                         </ul>
                     </ul>
-                    @endif
+                    @endauth
                 </div>
             </nav>
         </div>
         <ul class="sidenav" id="mobile">
             <li><a href="{{route('site.home')}}">Início</a></li>
-            @if(Auth::guest())
+            @guest
             <li><a href="{{route('login')}}">Entrar (Login)</a></li>
-            @else
+            @endguest
+            @auth
             <li><a href="{{route('board.index')}}">Meus Quadrinhos</a></li>
             <li><a href="{{route('capsule.index')}}">Minhas Cápsulas do Tempo</a></li>
             
@@ -113,7 +122,7 @@
             <li><a href="{{route('notification.list')}}">Mensagens pra Vc</a></li>
             <li><a href="{{ route('user.confirm') }}">Cancelar seu Cadastro</a></li>
             <li><a href="{{ route('logout') }}">Sair (Logout)</a></li>
-            @endif
+            @endauth
             </ul>
     </header>
     <main>

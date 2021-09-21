@@ -33,7 +33,7 @@
     </div>
     @if (count($boards) === 0)
     <div class="row center">
-        <img width="50%" src="{{ asset('img/quadro.png') }}" alt="Um quadro de tarefas de exemplo">
+        <img width="50%" src="{{ asset('img/ilustrations/undraw_a_moment_to_relax_bbpa.svg') }}" alt="Um quadro de tarefas de exemplo">
         <h5>Nenhum quadro por aqui...</h5>
     </div>
     @endif
