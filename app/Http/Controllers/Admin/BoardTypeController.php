@@ -23,6 +23,8 @@ class BoardTypeController extends CrudController
         $this->listGrid = DB::table('board_types')
             ->select(
                 'board_types.*'
-            )->get();
+            )
+            ->whereNull('board_types.deleted_at')
+            ->get();
     }
 }

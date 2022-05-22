@@ -12,7 +12,7 @@ class ActivityType extends Model
     protected $table = 'activity_types';
 
     protected $fillable = [
-        'propouse_type_id', 'name', 'user_id',
+        'propouse_type_id', 'name', 'user_id', 'code'
     ];
 
     protected $guarded = [

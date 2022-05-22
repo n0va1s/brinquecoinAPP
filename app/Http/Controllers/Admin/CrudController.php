@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 abstract class CrudController extends Controller
 {
@@ -37,17 +38,18 @@ abstract class CrudController extends Controller
     {
         $data = $req->except('_token');
         $this->validate($req, (new $this->validatorName)->rules());
-        $data['user_id'] = Auth::user()->id;
+        //$data['user_id'] = Auth::user()->id;
+        $data['code'] = Str::uuid()->toString();
         $this->className::create($data);
         toastr('Cadastrado!', 'success');
         return redirect()->route($this->routeIndex);
     }
 
-    public function edit(int $id)
+    public function edit(string $code)
     {
-        $data = $this->className::find($id);
+        $data = $this->className::where('code', $code)->first();
         if (is_null($data)) {
-            toastr('Não foi possível excluir esse registro', 'error');
+            toastr('Não foi possível encontrar esse registro', 'error');
             return back();
         }
         if (isset($this->types)) {
@@ -57,21 +59,21 @@ abstract class CrudController extends Controller
         return view($this->viewName.'.editar', compact('data'));        
     }
 
-    public function update(Request $req, $id)
+    public function update(Request $req, string $code)
     {
         $data = $req->except('_token');
         $this->validate($req, (new $this->validatorName)->rules());
-        $data['user_id'] = Auth::user()->id;
-        //$this->className::find($id)->update($data);
-        $this->className::fill($data);
+        //$data['user_id'] = Auth::user()->id;
+        $this->className::where('code', $code)->first()->update($data);
+        //$this->className::fill($data);
         toastr('Atualizado!', 'success');
         return redirect()->route($this->routeIndex);
     }
 
-    public function destroy(int $id)
+    public function destroy(string $code)
     {
         Log::info('##BRINQUECOIN## [DELETE]'.$this->className);
-        $qtd = $this->className::destroy($id);
+        $qtd = $this->className::where('code', $code)->first()->delete();
         if ($qtd === 0) {
             toastr('Não foi possível excluir esse registro', 'error');
             return back();

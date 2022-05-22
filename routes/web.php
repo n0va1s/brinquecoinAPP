@@ -179,15 +179,15 @@ Route::middleware(['auth'])->group(
                     ['uses' => 'Admin\BoardTypeController@store']
                 )->name('board.type.store');
                 Route::get(
-                    '/tiposquadros/editar/{id}',
+                    '/tiposquadros/editar/{code}',
                     ['uses' => 'Admin\BoardTypeController@edit']
                 )->name('board.type.edit');
                 Route::put(
-                    '/tiposquadros/atualizar/{id}',
+                    '/tiposquadros/atualizar/{code}',
                     ['uses' => 'Admin\BoardTypeController@update']
                 )->name('board.type.update');
                 Route::get(
-                    '/tiposquadros/deletar/{id}',
+                    '/tiposquadros/deletar/{code}',
                     ['uses' => 'Admin\BoardTypeController@destroy']
                 )->name('board.type.delete');
 
@@ -204,15 +204,15 @@ Route::middleware(['auth'])->group(
                     ['uses' => 'Admin\PropouseTypeController@store']
                 )->name('propouse.type.store');
                 Route::get(
-                    '/tipospropositos/editar/{id}',
+                    '/tipospropositos/editar/{code}',
                     ['uses' => 'Admin\PropouseTypeController@edit']
                 )->name('propouse.type.edit');
                 Route::put(
-                    '/tipospropositos/atualizar/{id}',
+                    '/tipospropositos/atualizar/{code}',
                     ['uses' => 'Admin\PropouseTypeController@update']
                 )->name('propouse.type.update');
                 Route::get(
-                    '/tipospropositos/deletar/{id}',
+                    '/tipospropositos/deletar/{code}',
                     ['uses' => 'Admin\PropouseTypeController@destroy']
                 )->name('propouse.type.delete');
 
@@ -229,15 +229,15 @@ Route::middleware(['auth'])->group(
                     ['uses' => 'Admin\ActivityTypeController@store']
                 )->name('activity.type.store');
                 Route::get(
-                    '/tiposatividades/editar/{id}',
+                    '/tiposatividades/editar/{code}',
                     ['uses' => 'Admin\ActivityTypeController@edit']
                 )->name('activity.type.edit');
                 Route::put(
-                    '/tiposatividades/atualizar/{id}',
+                    '/tiposatividades/atualizar/{code}',
                     ['uses' => 'Admin\ActivityTypeController@update']
                 )->name('activity.type.update');
                 Route::get(
-                    '/tiposatividades/deletar/{id}',
+                    '/tiposatividades/deletar/{code}',
                     ['uses' => 'Admin\ActivityTypeController@destroy']
                 )->name('activity.type.delete');
 
@@ -245,6 +245,22 @@ Route::middleware(['auth'])->group(
                     '/tokens/fix',
                     ['uses' => 'Api\ApiTokenController@fix']
                 )->name('api.token.fix');
+            }
+        );
+        Route::prefix('bootstrap')->group(
+            function () {
+                Route::get(
+                    '/activity',
+                    ['uses' => 'Admin\BootstrapController@activity']
+                )->name('bootstrap.activity');
+                Route::get(
+                    '/board',
+                    ['uses' => 'Admin\BootstrapController@board']
+                )->name('bootstrap.board');
+                Route::get(
+                    '/propouse',
+                    ['uses' => 'Admin\BootstrapController@propouse']
+                )->name('bootstrap.propouse');
             }
         );
     }

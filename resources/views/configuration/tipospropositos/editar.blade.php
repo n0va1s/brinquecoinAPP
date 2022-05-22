@@ -5,7 +5,7 @@
   <h3 class="center">Tipos de Propósitos</h3>
   <div class="row">
     <div class="container">
-      <form class="" action="{{route('propouse.type.update',$data->id)}}" method="post">
+      <form class="" action="{{route('propouse.type.update',$data->code)}}" method="post">
         @csrf
         <input type="hidden" name="_method" value="put">
         @include('configuration.tipospropositos._form')

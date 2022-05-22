@@ -5,7 +5,7 @@ module.exports = {
         "offline.html"
     ],
     "swDest": "public/sw.js",
-    "swSrc": "public/sw-base.js",
+    //"swSrc": "public/sw-base.js",
     "globIgnores": [
         '../workbox-cli-config.js']
 };

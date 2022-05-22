@@ -25,9 +25,9 @@
                         <td>{{ $line->activity_type }}</td>
                         <td>
                             <a class="btn cyan darken-2"
-                                href="{{ route('activity.type.edit',$line->id) }}">Editar</a>
+                                href="{{ route('activity.type.edit',$line->code) }}">Editar</a>
                             <a class="btn red darken-2"
-                                href="{{ route('activity.type.delete',$line->id) }}">Deletar</a>
+                                href="{{ route('activity.type.delete',$line->code) }}">Deletar</a>
                         </td>
                     </tr>
                     @endforeach

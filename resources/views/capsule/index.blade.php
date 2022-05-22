@@ -22,7 +22,7 @@
             <div class="card">
                 <div class="card-image">
                     <img src="{{ asset($image) }}" 
-                        alt="Imagem ilustrativa da capsula do tempo"
+                        alt="Imagem ilustrativa da capsula do tempo. Apresenta um pessoa segurando relógio grande"
                         height="150rem">
                 </div>
                 <div class="card-content">
@@ -42,7 +42,7 @@
         </div>
         @empty
         <div class="col s12 center">
-            <img height="300em" 
+            <img height="150rem" 
             src="{{ asset('img/ilustrations/undraw_season_change_f99v.svg') }}" 
             alt="Imagem ilustrativa da capsula do tempo">
             <h5>Nenhuma cápsula por aqui...</h5>

@@ -13,7 +13,7 @@
   <label>Descrição</label>
 </div>
 
-<div class="input-field col s12 m112">
+<div class="input-field col s12 m12">
     <input type="file" name="image" value="{{isset($data->image) ? $data->image : ''}}">
     <label>Imagem</label>
 </div>

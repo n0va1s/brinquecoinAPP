@@ -12,7 +12,7 @@ class PropouseType extends Model
     protected $table = 'propouse_types';
 
     protected $fillable = [
-        'propouse', 'name'
+        'propouse', 'name', 'code'
     ];
 
     protected $guarded = [

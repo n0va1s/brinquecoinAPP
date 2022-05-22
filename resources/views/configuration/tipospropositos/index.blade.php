@@ -25,9 +25,9 @@
                         <td>{{ $line->name }}</td>
                         <td>
                             <a class="btn cyan darken-2"
-                                href="{{ route('propouse.type.edit',$line->id) }}">Editar</a>
+                                href="{{ route('propouse.type.edit',$line->code) }}">Editar</a>
                             <a class="btn red darken-2"
-                                href="{{ route('propouse.type.delete',$line->id) }}">Deletar</a>
+                                href="{{ route('propouse.type.delete',$line->code) }}">Deletar</a>
                         </td>
                     </tr>
                     @endforeach

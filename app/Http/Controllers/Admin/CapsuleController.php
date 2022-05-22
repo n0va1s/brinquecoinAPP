@@ -23,13 +23,15 @@ class CapsuleController extends CrudController
     {
         $this->middleware(['auth','verified']);
         $this->className = Capsule::class;
-        $this->viewName = 'capsule.';
+        $this->viewName = 'capsule';
         $this->routeIndex = 'capsule.index';
         $this->validatorName = CapsuleRequest::class;
         $this->listGrid = DB::table('capsules')
             ->select(
                 'capsules.*'
-            )->get();
+            )
+            ->whereNull('capsules.deleted_at')
+            ->get();
         $this->paginateGrid = 3;
     }
 

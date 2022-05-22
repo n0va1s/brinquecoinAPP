@@ -13,22 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get(
-    '/status',
-    ['uses' => 'Api\ApiTokenController@index']
-);
-
-Route::get(
-    '/tokens',
-    ['uses' => 'Api\ApiTokenController@update']
-);
-
-Route::get(
-    '/user',
-    ['uses' => 'Api\ApiTokenController@user']
-);
-
 Route::post(
     '/atividades/marcar',
     ['uses' => 'Api\MarkActivityController@mark']
-);
+)->middleware('auth.basic.once');;

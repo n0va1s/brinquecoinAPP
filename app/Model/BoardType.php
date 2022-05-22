@@ -12,7 +12,7 @@ class BoardType extends Model
     protected $table = 'board_types';
     
     protected $fillable = [
-        'type', 'name', 'image', 'user_id'
+        'type', 'name', 'image', 'user_id', 'code'
     ];
 
     protected $guarded = [

@@ -1,6 +1,8 @@
-$(document).ready(function () {
+import './config';
+
+$(function () {
     // Click on emoji
-    $('img.emoji').click(function (event) {
+    $('img.emoji').on('click', function (event) {
         event.preventDefault()
         //Change emojis
         const img = this.src.split('/')[5]
@@ -11,7 +13,7 @@ $(document).ready(function () {
         const n = emoji(img, emojis)
         this.src = '/img/boards/' + emojis[n];
         //Send post
-        axios.post('https://app.brinquecoin.com/api/atividades/marcar', {
+        axios.post(config.site.url, {
             board: document.getElementById('code').value,
             activity: this.dataset.id,
             day: this.dataset.day,

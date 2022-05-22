@@ -1,4 +1,9 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/img/brinquecoin.png": "/img/brinquecoin.png",
+    "/img/capsula.jpg": "/img/capsula.jpg",
+    "/img/carta.png": "/img/carta.png",
+    "/img/offline.jpg": "/img/offline.jpg",
+    "/img/quadro.png": "/img/quadro.png"
 }

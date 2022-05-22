@@ -24,6 +24,8 @@ class PropouseTypeController extends CrudController
         $this->listGrid = DB::table('propouse_types')
             ->select(
                 'propouse_types.*'
-            )->get();
+            )
+            ->whereNull('propouse_types.deleted_at')
+            ->get();
     }
 }
