@@ -2095,7 +2095,7 @@ $(function () {
     var n = emoji(img, emojis);
     this.src = '/img/boards/' + emojis[n]; //Send post
 
-    axios.post(config.site.url, {
+    axios.post(_config__WEBPACK_IMPORTED_MODULE_0__["default"].url, {
       board: document.getElementById('code').value,
       activity: this.dataset.id,
       day: this.dataset.day,
@@ -2153,13 +2153,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-var config = {
-  site: {
-    url: 'https://app.brinquecoin.com/api/atividades/marcar',
-    name: 'Brinque Coin'
-  }
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (config);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  url: 'https://app.brinquecoin.com/api/atividades/marcar'
+});
 
 /***/ }),
 

@@ -1,4 +1,4 @@
-import './config';
+import config from './config';
 
 $(function () {
     // Click on emoji
@@ -13,7 +13,7 @@ $(function () {
         const n = emoji(img, emojis)
         this.src = '/img/boards/' + emojis[n];
         //Send post
-        axios.post(config.site.url, {
+        axios.post(config.url, {
             board: document.getElementById('code').value,
             activity: this.dataset.id,
             day: this.dataset.day,
