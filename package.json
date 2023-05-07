@@ -34,9 +34,5 @@
     "author": {
         "name": "João Paulo Novais",
         "email": "jp.trabalho@gmail.com"
-    },
-    "license": "GPL V3",
-    "dependencies": {
-        "workbox-cli": "^6.5.3"
     }
 }
